@@ -1,5 +1,5 @@
 {
-  "name": "news-ssr",
+  "name": "d-fds-ships-ssr",
   "version": 2,
   "regions": ["bru1"],
   "builds": [{ "src": "next.config.js", "use": "@now/next" }],

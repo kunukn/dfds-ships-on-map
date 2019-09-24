@@ -1,91 +1,92 @@
-import React from 'react'
-import Link from 'next/link'
-import Head from 'next/head'
-import Nav from '../components/nav'
+import React from "react";
+import Link from "next/link";
+import Head from "next/head";
+import fetch from "isomorphic-unfetch";
 
-const Home = () => (
-  <div>
-    <Head>
-      <title>Home</title>
-    </Head>
+const Index = ({ ships = {} }) => {
+  React.useEffect(() => {
+    window.ships = ships;
 
-    <Nav />
+    let latitude = 55.676098;
+    let longitude = 12.568337;
+    let zoomLevel = 4;
 
-    <div className='hero'>
-      <h1 className='title'>Welcome to Next.js!</h1>
-      <p className='description'>
-        To get started, edit <code>pages/index.js</code> and save to reload.
-      </p>
+    const map = L.map("mapid").setView([latitude, longitude], zoomLevel);
 
-      <div className='row'>
-        <Link href='https://github.com/zeit/next.js#setup'>
-          <a className='card'>
-            <h3>Getting Started &rarr;</h3>
-            <p>Learn more about Next.js on GitHub and in their examples.</p>
-          </a>
-        </Link>
-        <Link href='https://github.com/zeit/next.js/tree/master/examples'>
-          <a className='card'>
-            <h3>Examples &rarr;</h3>
-            <p>Find other example boilerplates on the Next.js GitHub.</p>
-          </a>
-        </Link>
-        <Link href='https://github.com/zeit/next.js'>
-          <a className='card'>
-            <h3>Create Next App &rarr;</h3>
-            <p>Was this tool helpful? Let us know how we can improve it!</p>
-          </a>
-        </Link>
+    L.tileLayer(
+      `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
+      {
+        maxZoom: 18,
+        attribution: `
+          Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors,
+            <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,
+            Imagery © <a href="https://www.mapbox.com/">Mapbox</a>
+          `,
+
+        id: "mapbox.streets"
+      }
+    ).addTo(map);
+
+    ships &&
+      ships.length &&
+      ships.forEach(ship => {
+        L.marker([ship.position.lat, ship.position.lng]).addTo(map).bindPopup(ship.name);
+      });
+  }, []);
+
+  return (
+    <>
+      <Head>
+        <title>DFDS Ships</title>
+        <meta
+          name="viewport"
+          content="user-scalable=no, width=device-width, initial-scale=1"
+          key="viewport"
+        />
+      </Head>
+      <div className="page">
+        <div id="mapid"></div>
       </div>
-    </div>
+      <style jsx>{`
+        .page {
+          position: relative;
+          min-height: 100vh;
+        }
 
-    <style jsx>{`
-      .hero {
-        width: 100%;
-        color: #333;
-      }
-      .title {
-        margin: 0;
-        width: 100%;
-        padding-top: 80px;
-        line-height: 1.15;
-        font-size: 48px;
-      }
-      .title,
-      .description {
-        text-align: center;
-      }
-      .row {
-        max-width: 880px;
-        margin: 80px auto 40px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-      }
-      .card {
-        padding: 18px 18px 24px;
-        width: 220px;
-        text-align: left;
-        text-decoration: none;
-        color: #434343;
-        border: 1px solid #9b9b9b;
-      }
-      .card:hover {
-        border-color: #067df7;
-      }
-      .card h3 {
-        margin: 0;
-        color: #067df7;
-        font-size: 18px;
-      }
-      .card p {
-        margin: 0;
-        padding: 12px 0 0;
-        font-size: 13px;
-        color: #333;
-      }
-    `}</style>
-  </div>
-)
+        #mapid {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      `}</style>
+    </>
+  );
+};
+Index.getInitialProps = async ({ req, query }) => {
+  return await getData();
+};
 
-export default Home
+async function getData() {
+  try {
+    let url = `https://api.hellman.oxygen.dfds.cloud/dev/vessel/api/v1/Ships`;
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      }
+    });
+
+    let ships = await response.json();
+
+    return Promise.resolve({ ships });
+  } catch (ex) {
+    console.error(ex.toString());
+    return Promise.resolve({});
+  }
+}
+
+export default Index;

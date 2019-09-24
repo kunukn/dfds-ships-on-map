@@ -10,18 +10,14 @@ let GlobalStyles = () => (
       font-family: DFDS, Verdana, sans-serif;
       margin: 0;
       color: #4d4e4c;
-      background-color: #eef0f1;
+      background-color: white;
     }
     @media (min-width: 700px) {
       body {
-        padding: 20px 0;
       }
     }
     #__next {
       margin: 0 auto;
-      max-width: 700px;
-      background-color: white;
-      padding: 20px;
     }
 
     a {
