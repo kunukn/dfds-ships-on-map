@@ -8,18 +8,16 @@ import MainFooter from '~/components/main-footer';
 
 let intervalKey = null;
 
-const Map = ({ shipsProp = [] }) => {
+const Map = ({ shipsProp = [], currentDate = new Date() }) => {
   let [shipsState, setShipsState] = React.useState(shipsProp);
-  let [lastUpdated, setLastUpdated] = React.useState(new Date(Date.now()));
+  let [lastUpdated, setLastUpdated] = React.useState(currentDate);
   let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
-
-  console.log(storageValue);
 
   false &&
     React.useEffect(() => {
       // Cant fetch from client
       intervalKey = setInterval(async () => {
-        let ships = await getShipsFromApi();
+        let ships = getShipsFromApi();
         if (ships && ships.length) {
           setShipsState(ships);
           setLastUpdated(new Date(Date.now()));
@@ -55,10 +53,9 @@ const Map = ({ shipsProp = [] }) => {
     & replace the '#' character with '%23'. `encodeURI()` won't do this which is
     why `replace()` must be used on the string afterwards.
     */
-    var url = encodeURI('data:image/svg+xml,' + svgShip).replace('#', '%23');
-    console.log(url);
+    let url = encodeURI('data:image/svg+xml,' + svgShip).replace('#', '%23');
 
-    var shipIcon = new CustomIcon({ iconUrl: url });
+    let shipIcon = new CustomIcon({ iconUrl: url });
 
     let latitude = 55.676098;
     let longitude = 12.568337;
@@ -124,8 +121,11 @@ const Map = ({ shipsProp = [] }) => {
   );
 };
 Map.getInitialProps = async ({ req, query }) => {
-  return {};
-  return await getShipsFromApi();
+  let shipsProp = await getShipsFromApi();
+  console.log('shipsProp',shipsProp)
+  //return {};
+  //return { shipsProp: getShipsFromApi(), currentDate: new Date(Date.now()) };
+  return { shipsProp };
 };
 
 export default Map;
