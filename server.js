@@ -1,8 +1,30 @@
 const express = require('express');
 const next = require('next');
 const https = require('https');
+
 const fs = require('fs');
 const argv = require('minimist')(process.argv.slice(2));
+
+// https://www.npmjs.com/package/ssl-root-cas
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0" // REALLY Bad Ideas
+
+// https://www.npmjs.com/package/ssl-root-cas
+//require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
+
+var rootCas = require('ssl-root-cas/latest').create();
+ // default for all https requests
+// (whether using https directly, request, or another module)
+require('https').globalAgent.options.ca = rootCas;
+
+var rootCas = require('ssl-root-cas/latest').create();
+ rootCas
+  .addFile(__dirname + '/certificates/localhost+2.pem')
+  .addFile(__dirname + '/certificates/localhost+2-key.pem')
+  ;
+ 
+// will work with all https requests will all libraries (i.e. request.js)
+require('https').globalAgent.options.ca = rootCas;
+
 
 const nextEnv = process.env.NODE_ENV !== 'production';
 const app = next({ dev: nextEnv });

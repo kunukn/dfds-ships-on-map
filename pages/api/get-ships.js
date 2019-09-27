@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-unfetch';
 import { apiBaseUrl } from '~/constants/urls';
 
-export default function getShips(req, res)  {
+export default async function getShips(req, res)  {
   async function getShipsFromApi() {
     try {
       let url = `https://api.hellman.oxygen.dfds.cloud/dev/vessel/api/v1/Ships`;
@@ -15,7 +15,9 @@ export default function getShips(req, res)  {
         },
       });
   
-      return await response.json();
+      let json = await response.json();
+      
+      return json;
     } catch (ex) {
       console.error('get-ships',ex.toString());
       return null;
@@ -23,5 +25,7 @@ export default function getShips(req, res)  {
   }
 
 
-  return res.json(getShipsFromApi());
+  let ships = await getShipsFromApi();
+  //console.log(ships)
+  return res.json(ships);
 };

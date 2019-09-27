@@ -12,13 +12,14 @@ export default async function getShipsFromApi() {
   try {
     let url = `https://api.hellman.oxygen.dfds.cloud/dev/vessel/api/v1/Ships`;
     url = `${apiBaseUrl}/mock-ships`;
-    url = `${apiBaseUrl}/get-ships`;
+    //url = `${apiBaseUrl}/get-ships`;
 
     const response = await fetch(url, options);
+    let json =  await response.json();
 
-    console.log(response);
+    //console.log(json);
 
-    return await response.json();
+    return json;
   } catch (ex) {
     console.error(ex.toString());
     return null;
