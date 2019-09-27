@@ -1,7 +1,7 @@
 const MainFooter = ({ lastUpdated }) => (
   <>
     <footer className="main-footer">
-      Last updated: {`${lastUpdated.toLocaleDateString()} ${lastUpdated.toLocaleTimeString()}`}
+      
     </footer>
     <style jsx>{`
       .main-footer {
@@ -14,7 +14,7 @@ const MainFooter = ({ lastUpdated }) => (
         color: white;
         background: rgba(#4d4e4c, 0.5);
         text-align: left;
-        padding: 0 10px;
+        padding: 6x;
         z-index: 1;
       }
     `}</style>
