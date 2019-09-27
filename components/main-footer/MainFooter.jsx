@@ -15,6 +15,7 @@ const MainFooter = ({ lastUpdated }) => (
         background: rgba(#4d4e4c, 0.5);
         text-align: left;
         padding: 0 10px;
+        z-index: 1;
       }
     `}</style>
   </>
