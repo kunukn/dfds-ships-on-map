@@ -1,5 +1,6 @@
 {
   "name": "freight-on-map",
+  "alias": "freight-on-map.com",
   "version": 2,
   "regions": ["bru1"],
   "builds": [{ "src": "next.config.js", "use": "@now/next" }],
