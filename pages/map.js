@@ -13,11 +13,11 @@ const Map = ({ shipsProp = [], currentDate = new Date() }) => {
   let [lastUpdated, setLastUpdated] = React.useState(currentDate);
   let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
 
-  false &&
+  1 &&
     React.useEffect(() => {
       // Cant fetch from client
       intervalKey = setInterval(async () => {
-        let ships = getShipsFromApi();
+        let ships = await getShipsFromApi();
         if (ships && ships.length) {
           setShipsState(ships);
           setLastUpdated(new Date(Date.now()));
@@ -122,7 +122,7 @@ const Map = ({ shipsProp = [], currentDate = new Date() }) => {
 };
 Map.getInitialProps = async ({ req, query }) => {
   let shipsProp = await getShipsFromApi();
-  console.log('shipsProp',shipsProp)
+  //console.log('shipsProp',shipsProp)
   //return {};
   //return { shipsProp: getShipsFromApi(), currentDate: new Date(Date.now()) };
   return { shipsProp };
