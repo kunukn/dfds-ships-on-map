@@ -1,0 +1,9 @@
+{
+  "short_name": "Freight on map",
+  "name": "Freight on map",
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "display": "fullscreen",
+  "scope": "/",
+  "theme_color": "#ffffff"
+}
