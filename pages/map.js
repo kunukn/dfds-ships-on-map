@@ -22,7 +22,7 @@ const Map = ({ shipsProp = [], currentDate = new Date() }) => {
           setShipsState(ships);
           setLastUpdated(new Date(Date.now()));
         }
-      }, 1000 * 5 * 60);
+      }, 1000 * 60 * 2);
 
       return () => {
         clearInterval(intervalKey);
