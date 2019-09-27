@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useLocalStorage } from 'react-use';
-import getShipsFromApi from '~/api/getShipsFromApi';
+import getShipsFromApi from '~/api-layer/getShipsFromApi';
 import MainHeader from '~/components/main-header';
 import MainFooter from '~/components/main-footer';
 
