@@ -6,6 +6,7 @@ export default async function getShips(req, res) {
     try {
       let url = `https://api.hellman.oxygen.dfds.cloud/dev/vessel/api/v1/Ships`;
       //url = `${apiBaseUrl}/mock-ships`;
+      // http://api.dfds.cloud/prod/voyage
 
       const response = await fetch(url, {
         method: 'GET',
