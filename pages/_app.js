@@ -1,9 +1,12 @@
 import React from 'react'
 import App from 'next/app'
+import { Store } from 'laco'
 
-import GlobalStyles from '../components/GlobalStyles'
+import GlobalStyles from '~/components/GlobalStyles'
 
-if (process.browser) { }
+if (process.browser) { 
+ // let map = L.map('mapid')
+}
 
 class MyApp extends App {
 
