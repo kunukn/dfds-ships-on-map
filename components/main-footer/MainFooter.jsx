@@ -2,7 +2,7 @@ const MainFooter = ({ lastUpdated }) => (
   <>
     <footer className="main-footer">
       <div className="last-updated">
-        Updated: {`${lastUpdated.toUTCString()}}`}
+        Updated: {`${lastUpdated.toUTCString()}`}
       </div>
     </footer>
     <style jsx>{`

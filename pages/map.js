@@ -16,51 +16,101 @@ let createSvgShip = ({
   mark = 'white',
   ship = 'black',
 } = {}) => `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32">
-<path fill="${mark}" d="M6.074 12.889c0-5.963 4.852-10.815 10.815-10.815s10.815 4.851 10.815 10.815c0 2.312-1.438 5.798-3.886 9.497-.427-.263-1.012-.546-1.567-.546-1.038 0-1.143 1.024-2.19 1.024s-2.086-1.023-3.129-1.023l-.021-.002c-1.043 0-2.099 1.024-3.147 1.024s-1.084-1.024-2.122-1.024c-.567 0-1.156.295-1.576.563-2.546-3.771-3.992-7.194-3.992-9.514zM16.889 0C9.782 0 4 5.782 4 12.889c0 4.318 3.74 9.903 5.348 12.103.524.718 5.188 7.008 7.541 7.008 3.293 0 12.889-12.284 12.889-19.111C29.778 5.782 23.996 0 16.889 0z"></path>
+s<path fill="${mark}" d="M6.074 12.889c0-5.963 4.852-10.815 10.815-10.815s10.815 4.851 10.815 10.815c0 2.312-1.438 5.798-3.886 9.497-.427-.263-1.012-.546-1.567-.546-1.038 0-1.143 1.024-2.19 1.024s-2.086-1.023-3.129-1.023l-.021-.002c-1.043 0-2.099 1.024-3.147 1.024s-1.084-1.024-2.122-1.024c-.567 0-1.156.295-1.576.563-2.546-3.771-3.992-7.194-3.992-9.514zM16.889 0C9.782 0 4 5.782 4 12.889c0 4.318 3.74 9.903 5.348 12.103.524.718 5.188 7.008 7.541 7.008 3.293 0 12.889-12.284 12.889-19.111C29.778 5.782 23.996 0 16.889 0z"></path>
 <path fill="${ship}" d="M17.486 11.565c2.31.275 5.998 2.627 5.998 4.445l-1.49 4.796c-.687.22-.898.965-1.794.965-.989 0-2.062-.909-3.047-1.015l.333-9.191zm-6.988 4.445c0-1.818 3.689-4.17 5.998-4.445l.333 9.191c-.985.107-2.058 1.016-3.047 1.016-.896 0-1.106-.745-1.794-.966l-1.49-4.796zm1.929-6.014h9.066l-.025-.053c-.441-.936-.764-.917-3.138-.917h-2.741c-2.374 0-2.696-.019-3.138.917l-.025.053zm5.891-2.497h5.969l-.53 1.709h-1.291l.93 5.524c-.695-.948-1.887-2.263-3.134-2.981 1.5-.064 1.791-.293 1.515-1.089h-9.632c-.267.768-.005 1.008 1.363 1.082-1.415.806-2.594 2.318-3.115 3.425l1.091-5.961h-1.291l-.53-1.709h5.969l.904-3.454h.879l.905 3.454z"></path>
 </svg>`;
 
 // Only works client-side.
-let updateMarkerPosition = shipsState => {
-  if (typeof window === 'object' && map) {
-    if (!shipsState || !shipsState.length) {
-      // TODO: remove all markers
-    } else if (Array.isArray(shipsState)) {
-      const shipsDataObject = arrayToObject(shipsState, 'imo');
-
-      let shipMarkersOnMap = [];
-      map.eachLayer(layer => {
-        if (layer.isShipMarker) {
-          shipMarkersOnMap.push(layer);
-        }
-      });
+let updateMarkerPosition = shipsData => {
+  if (typeof window === 'object' && map && Array.isArray(shipsData)) {
+    if (!shipsData.length) {
+      // remove all markers from map?
+    } else {
+      const shipsDataObject = arrayToObject(shipsData, 'imo');
 
       map.eachLayer(layer => {
         let ship = shipsDataObject[layer.shipImo];
         if (layer.isShipMarker && ship) {
-          //console.log(ship, layer);
-          let latlng = L.latLng(ship.position.lat, ship.position.lng);
-          layer.setLatLng(latlng);
+          // update position
+          layer.setLatLng(L.latLng(ship.position.lat, ship.position.lng));
         } else if (layer.isShipMarker) {
-          // TODO: remove marker from map.
-          console.log(
-            `Not found imo: ${layer.shipImo} from new ships data.
-            TODO: delete from map.`
-          );
-          console.log(layer);
+          // remove marker not existing in data from map.
+          map.removeLayer(layer);
         }
 
-        // TODO: all new ship from data which are not already in map. Add new marker.
+        let shipMarkersOnMap = [];
+        map.eachLayer(layer => {
+          if (layer.isShipMarker) {
+            shipMarkersOnMap.push(layer);
+          }
+        });
         const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
+
+        shipsData.forEach(ship => {
+          let shipOnMap = shipsOnMapObject[ship.imo];
+          if (!shipOnMap) {
+            // TODO: all new ship from data which are not already in map. Add new marker.
+          }
+        });
       });
     }
   }
 };
 
-const Map = ({ shipsProp = [], currentDate = new Date() }) => {
+let addShipsToMap = shipsData => {
+  shipsData &&
+    shipsData.length &&
+    shipsData.forEach(ship => {
+      let svgShip;
+      if (ship.imo === 8917613) {
+        svgShip = createSvgShip({
+          mark: '#1b5786',
+          addClassName: 'svg-ship-icon--highlight',
+        });
+      } else {
+        svgShip = createSvgShip();
+      }
+
+      let url = encodeURI('data:image/svg+xml,' + svgShip).replace('#', '%23');
+
+      let CustomIcon = L.Icon.extend({
+        options: {
+          iconSize: [32, 32],
+          //shadowSize: [32, 32],
+          iconAnchor: [16, 32],
+          //shadowAnchor: [4, 40],
+          popupAnchor: [1, -32],
+        },
+      });
+
+      let shipIcon = new CustomIcon({ iconUrl: url });
+
+      //L.marker([ship.position.lat, ship.position.lng]).addTo(map).bindPopup(ship.name);
+      let marker = L.marker([ship.position.lat, ship.position.lng], {
+        icon: shipIcon,
+        title: ship.name,
+        alt: ship.name,
+      });
+      marker.shipImo = ship.imo;
+      marker.isShipMarker = true;
+      marker
+        .addTo(map)
+        .bindPopup(
+          `<div class="leaflet-popup-content-detail"><pre>${JSON.stringify(
+            ship,
+            null,
+            2
+          )}</pre></div>`
+        );
+    });
+};
+
+const Map = ({ shipsProp = [], currentDate = 0 }) => {
   let [shipsState, setShipsState] = useState(shipsProp);
-  let [lastUpdated, setLastUpdated] = useState(currentDate);
+  let [lastUpdated, setLastUpdated] = useState(new Date(currentDate));
   let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
+
+  console.log('lastUpdated', typeof lastUpdated.toUTCString);
 
   // real-time update
   useEffect(() => {
@@ -79,16 +129,6 @@ const Map = ({ shipsProp = [], currentDate = new Date() }) => {
   useEffect(() => {
     setStorageValue({ ships: shipsState, date: Date.now() });
     window.ships = shipsState;
-
-    let CustomIcon = L.Icon.extend({
-      options: {
-        iconSize: [32, 32],
-        //shadowSize: [32, 32],
-        iconAnchor: [16, 32],
-        //shadowAnchor: [4, 40],
-        popupAnchor: [1, -32],
-      },
-    });
 
     /*
     For data URI SVG support in Firefox & IE it's necessary to URI encode the string
@@ -110,40 +150,7 @@ const Map = ({ shipsProp = [], currentDate = new Date() }) => {
       }
     ).addTo(map);
 
-    shipsState &&
-      shipsState.length &&
-      shipsState.forEach(ship => {
-        let svgShip;
-        if (ship.imo === 8917613) {
-          svgShip = createSvgShip({ mark: '#1b5786' });
-        } else {
-          svgShip = createSvgShip();
-        }
-
-        let url = encodeURI('data:image/svg+xml,' + svgShip).replace(
-          '#',
-          '%23'
-        );
-        let shipIcon = new CustomIcon({ iconUrl: url });
-
-        //L.marker([ship.position.lat, ship.position.lng]).addTo(map).bindPopup(ship.name);
-        let marker = L.marker([ship.position.lat, ship.position.lng], {
-          icon: shipIcon,
-          title: ship.name,
-          alt: ship.name,
-        });
-        marker.shipImo = ship.imo;
-        marker.isShipMarker = true;
-        marker
-          .addTo(map)
-          .bindPopup(
-            `<div class="leaflet-popup-content-detail"><pre>${JSON.stringify(
-              ship,
-              null,
-              2
-            )}</pre></div>`
-          );
-      });
+    addShipsToMap(shipsState);
   }, []);
 
   let firstRun = useRef(true);
@@ -198,10 +205,7 @@ const Map = ({ shipsProp = [], currentDate = new Date() }) => {
 };
 Map.getInitialProps = async ({ req, query }) => {
   let shipsProp = await getShipsFromApi();
-  //console.log('shipsProp',shipsProp)
-  //return {};
-  //return { shipsProp: getShipsFromApi(), currentDate: new Date(Date.now()) };
-  return { shipsProp };
+  return { shipsProp, currentDate: Date.now() };
 };
 
 export default Map;

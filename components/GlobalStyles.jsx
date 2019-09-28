@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 let GlobalStyles = () => (
   <style jsx global>{`
@@ -11,6 +11,8 @@ let GlobalStyles = () => (
       margin: 0;
       color: #4d4e4c;
       background-color: white;
+      min-height: 100vh;
+      overflow: hidden;
     }
     @media (min-width: 700px) {
       body {
@@ -32,6 +34,11 @@ let GlobalStyles = () => (
 
     p {
       line-height: 1.5;
+    }
+
+    .svg-ship-icon {
+      &--highlight {
+      }
     }
   `}</style>
 );
