@@ -20,24 +20,42 @@ let createSvgShip = ({
 <path fill="${ship}" d="M17.486 11.565c2.31.275 5.998 2.627 5.998 4.445l-1.49 4.796c-.687.22-.898.965-1.794.965-.989 0-2.062-.909-3.047-1.015l.333-9.191zm-6.988 4.445c0-1.818 3.689-4.17 5.998-4.445l.333 9.191c-.985.107-2.058 1.016-3.047 1.016-.896 0-1.106-.745-1.794-.966l-1.49-4.796zm1.929-6.014h9.066l-.025-.053c-.441-.936-.764-.917-3.138-.917h-2.741c-2.374 0-2.696-.019-3.138.917l-.025.053zm5.891-2.497h5.969l-.53 1.709h-1.291l.93 5.524c-.695-.948-1.887-2.263-3.134-2.981 1.5-.064 1.791-.293 1.515-1.089h-9.632c-.267.768-.005 1.008 1.363 1.082-1.415.806-2.594 2.318-3.115 3.425l1.091-5.961h-1.291l-.53-1.709h5.969l.904-3.454h.879l.905 3.454z"></path>
 </svg>`;
 
-function updateMarkerPosition(shipsState) {
-  if (map) {
+// Only works client-side.
+let updateMarkerPosition = shipsState => {
+  if (typeof window === 'object' && map) {
     if (!shipsState || !shipsState.length) {
       // TODO: remove all markers
     } else if (Array.isArray(shipsState)) {
-      const shipsStateObject = arrayToObject(shipsState, 'imo');
-      console.log(shipsStateObject[9293076]);
+      const shipsDataObject = arrayToObject(shipsState, 'imo');
 
-      map.eachLayer(function(layer) {
-        console.log(layer.shipImo);
-
-        if (layer.shipImo === 9293076) {
-          console.log('FOUND');
+      let shipMarkersOnMap = [];
+      map.eachLayer(layer => {
+        if (layer.isShipMarker) {
+          shipMarkersOnMap.push(layer);
         }
+      });
+
+      map.eachLayer(layer => {
+        let ship = shipsDataObject[layer.shipImo];
+        if (layer.isShipMarker && ship) {
+          //console.log(ship, layer);
+          let latlng = L.latLng(ship.position.lat, ship.position.lng);
+          layer.setLatLng(latlng);
+        } else if (layer.isShipMarker) {
+          // TODO: remove marker from map.
+          console.log(
+            `Not found imo: ${layer.shipImo} from new ships data.
+            TODO: delete from map.`
+          );
+          console.log(layer);
+        }
+
+        // TODO: all new ship from data which are not already in map. Add new marker.
+        const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
       });
     }
   }
-}
+};
 
 const Map = ({ shipsProp = [], currentDate = new Date() }) => {
   let [shipsState, setShipsState] = useState(shipsProp);
@@ -115,6 +133,7 @@ const Map = ({ shipsProp = [], currentDate = new Date() }) => {
           alt: ship.name,
         });
         marker.shipImo = ship.imo;
+        marker.isShipMarker = true;
         marker
           .addTo(map)
           .bindPopup(
@@ -132,7 +151,7 @@ const Map = ({ shipsProp = [], currentDate = new Date() }) => {
   useEffect(() => {
     if (firstRun.current) {
       firstRun.current = false;
-      return;
+      //return;
     }
 
     updateMarkerPosition(shipsState);
@@ -187,7 +206,7 @@ Map.getInitialProps = async ({ req, query }) => {
 
 export default Map;
 
-const arrayToObject = (array, key) =>
+const arrayToObject = (array, key = 'id') =>
   array.reduce((obj, item) => {
     obj[item[key]] = item;
     return obj;

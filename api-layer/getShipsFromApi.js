@@ -10,10 +10,12 @@ const options = {
 
 export default async function getShipsFromApi() {
   try {
-    let url;
-    url = `https://api.hellman.oxygen.dfds.cloud/dev/vessel/api/v1/Ships`;
-    url = `${apiBaseUrl}/mock-ships`;
-    // url = `${apiBaseUrl}/get-ships`;
+    //`https://api.hellman.oxygen.dfds.cloud/dev/vessel/api/v1/Ships`;
+    let url = `${apiBaseUrl}/get-ships`;
+
+    if (process.env.NODE_ENV === 'development') {
+      url = `${apiBaseUrl}/mock-ships`;
+    }
 
     const response = await fetch(url, options);
     let json = await response.json();
