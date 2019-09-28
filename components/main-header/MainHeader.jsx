@@ -1,11 +1,13 @@
 import { useStore } from 'laco-react';
+import { Subscribe } from 'laco-react';
 
 import store from '~/store.js';
 
-const fullscreenWasToggled = () => store.set(state => ({ isFullscreen: !state.isFullscreen }))
+const fullscreenWasToggled = () =>
+  store.set(state => ({ isFullscreen: !state.isFullscreen }));
 
 const MainHeader = ({ lastUpdated }) => {
-  const {isFullscreen} = useStore(store);
+  const { isFullscreen } = useStore(store);
 
   let firstRun = React.useRef(true);
   React.useEffect(() => {
@@ -31,15 +33,24 @@ const MainHeader = ({ lastUpdated }) => {
 
   return (
     <>
-      <header className="main-header">
-        <div className="logo">DFDS Ships</div>
-        <button
-          className="toggle-full-screen"
-          onClick={fullscreenWasToggled}
-        >
-          Fullscreen {isFullscreen ? 'off' : 'on'}
-        </button>
-      </header>
+      <Subscribe to={[store]}>
+        {storeState => (
+          <header className="main-header">
+            <div className="logo">DFDS Ships</div>
+            <div>
+              {storeState.isFullscreenSupported && (
+                <button
+                  className="toggle-full-screen"
+                  onClick={fullscreenWasToggled}
+                >
+                  Fullscreen {storeState.isFullscreen ? 'off' : 'on'}
+                </button>
+              )}
+            </div>
+          </header>
+        )}
+      </Subscribe>
+
       <style jsx>{`
         .main-header {
           height: 40px;

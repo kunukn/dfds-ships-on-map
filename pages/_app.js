@@ -8,8 +8,6 @@ import GlobalStyles from '~/components/GlobalStyles';
 
 if (process.browser) {
   try {
-    // let map = L.map('mapid');
-    // mapRef.set(map);
   } catch (ex) {
     console.error(ex.toString());
   }
@@ -43,13 +41,18 @@ const GlobalEffect = () => {
   };
 
   React.useEffect(() => {
-    ['', 'webkit', 'moz', 'ms'].forEach(prefix =>
-      document.addEventListener(
-        prefix + 'fullscreenchange',
-        onFullscreenchange,
-        false
-      )
-    );
+    if (document.body.requestFullscreen) {
+      ['', 'webkit', 'moz', 'ms'].forEach(prefix =>
+        document.addEventListener(
+          prefix + 'fullscreenchange',
+          onFullscreenchange,
+          false
+        )
+      );
+    }
+    store.set(state => ({
+      isFullscreenSupported: !!document.body.requestFullscreen,
+    }));
   }, []);
 
   return null;

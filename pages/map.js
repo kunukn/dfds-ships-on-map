@@ -20,11 +20,8 @@ import {
 
 let intervalKey = null;
 const twoMinutes = 1000 * 60 * 2;
-let map = null;
 
 const Map = ({ shipsProp = [], currentDate = 0 }) => {
-  //const {map} = useStore(store);
-
   let [shipsState, setShipsState] = useState(shipsProp);
   let [lastUpdated, setLastUpdated] = useState(new Date(currentDate));
   let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
@@ -51,8 +48,8 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
     let longitude = 12.568337;
     let zoomLevel = 5;
 
-    //let map = mapRef.get();
-    map = L.map('mapid').setView([latitude, longitude], zoomLevel);
+    mapRef.init();
+    let map = mapRef.get();
     map.setView([latitude, longitude], zoomLevel);
 
     L.tileLayer(
