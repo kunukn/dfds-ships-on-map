@@ -1,8 +1,7 @@
 const MainHeader = ({ lastUpdated }) => (
   <>
     <header className="main-header">
-    <div className="logo">DFDS Ships</div>
-    <div className="last-updated">Updated: {`${lastUpdated.toLocaleDateString()} ${lastUpdated.toLocaleTimeString()}`}</div>
+      <div className="logo">DFDS Ships</div>
     </header>
     <style jsx>{`
       .main-header {
@@ -10,7 +9,7 @@ const MainHeader = ({ lastUpdated }) => (
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
+        __width: 100%;
         font-size: 14px;
         line-height: 1.25;
         color: white;
@@ -22,11 +21,11 @@ const MainHeader = ({ lastUpdated }) => (
         align-items: center;
         flex-wrap: wrap;
       }
-      .logo{
+      .logo {
         font-size: 20px;
       }
-      .last-updated{
-        font-size: 16px;
+      .last-updated {
+        font-size: 14px;
       }
     `}</style>
   </>
