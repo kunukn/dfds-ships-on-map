@@ -15,6 +15,7 @@ let GlobalStyles = () => (
     }
     #__next {
       position: relative;
+      overflow: hidden;
     }
     #mapid {
       z-index: 0;

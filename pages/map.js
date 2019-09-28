@@ -87,6 +87,7 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
         <div id="mapid"></div>
         <MainHeader lastUpdated={lastUpdated} />
         <MainFooter lastUpdated={lastUpdated} />
+        <SideMenu />
       </>
 
       <style jsx>{`
@@ -141,4 +142,59 @@ let updateMarkerPosition = shipsData => {
       });
     }
   }
+};
+
+const SideMenu = () => {
+  let [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <>
+      <div className="side-menu">
+        <button className="menu-text" onClick={() => setIsOpen(s => !s)}>
+          <b>m</b>
+          <b>e</b>
+          <b>n</b>
+          <b>u</b>
+        </button>
+      </div>
+
+      <style jsx>{`
+        .side-menu {
+          width: 200px;
+          height: calc(100vh - 100px);
+          background: #eee;
+          position: absolute;
+          top: 40px;
+          right: 0;
+          opacity: 0.7;
+          transition: transform 300ms;
+          transform: translateX(100%);
+        }
+        .menu-text {
+          border-radius: 2px;
+          font-size: 16px;
+          position: absolute;
+          left: -2em;
+          top: 14px;
+          background: white;
+          width: 2em;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .menu-text :global(b) {
+          line-height: 1;
+          display: block;
+          font-weight: normal;
+          _text-transform: uppercase;
+        }
+      `}</style>
+      <style jsx>{`
+        .side-menu {
+          transform: ${isOpen ? 'translateX(0)' : 'translateX(100%)'};
+        }
+      `}</style>
+    </>
+  );
 };
