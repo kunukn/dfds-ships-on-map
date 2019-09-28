@@ -9,6 +9,7 @@ import MainHeader from '~/components/main-header';
 import MainFooter from '~/components/main-footer';
 import arrayToObject from '~/utils/arrayToObject';
 import { addShipMarkerToMap, createShipMarker, addShipsToMap } from '~/utils/mapUtil';
+import store from '~/store.js';
 
 let intervalKey = null;
 const twoMinutes = 1000 * 60 * 2;
@@ -73,12 +74,6 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
   useEffect(() => {
     setStorageValue({ ships: shipsState, date: Date.now() });
     window.ships = shipsState;
-
-    /*
-    For data URI SVG support in Firefox & IE it's necessary to URI encode the string
-    & replace the '#' character with '%23'. `encodeURI()` won't do this which is
-    why `replace()` must be used on the string afterwards.
-    */
 
     let latitude = 55.676098;
     let longitude = 12.568337;

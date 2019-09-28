@@ -4,6 +4,8 @@ import { Store } from 'laco'
 
 import GlobalStyles from '~/components/GlobalStyles'
 
+// https://www.npmjs.com/package/laco-react
+
 if (process.browser) { 
  // let map = L.map('mapid')
 }
