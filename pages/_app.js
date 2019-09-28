@@ -1,14 +1,18 @@
 import React from 'react';
 import App from 'next/app';
+import { useStore } from 'laco-react';
 
-import GlobalStyles from '~/components/GlobalStyles';
+import mapRef from '~/mapRef.js';
 import store from '~/store.js';
-// https://www.npmjs.com/package/laco-react
+import GlobalStyles from '~/components/GlobalStyles';
 
 if (process.browser) {
-  // let map = L.map('mapid')
   try {
-  } catch (ex) {}
+    // let map = L.map('mapid');
+    // mapRef.set(map);
+  } catch (ex) {
+    console.error(ex.toString());
+  }
 }
 
 class MyApp extends App {

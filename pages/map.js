@@ -3,7 +3,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useStore } from 'laco-react';
 import { useLocalStorage } from 'react-use';
+
+import mapRef from '~/mapRef.js';
+import store from '~/store.js';
 import getShipsFromApi from '~/api-layer/getShipsFromApi';
 import MainHeader from '~/components/main-header';
 import MainFooter from '~/components/main-footer';
@@ -13,50 +17,14 @@ import {
   createShipMarker,
   addShipsToMap,
 } from '~/utils/mapUtil';
-import store from '~/store.js';
 
 let intervalKey = null;
 const twoMinutes = 1000 * 60 * 2;
 let map = null;
 
-// Only works client-side.
-let updateMarkerPosition = shipsData => {
-  if (typeof window === 'object' && map && Array.isArray(shipsData)) {
-    if (!shipsData.length) {
-      // remove all markers from map?
-    } else {
-      const shipsDataObject = arrayToObject(shipsData, 'imo');
-
-      map.eachLayer(layer => {
-        let ship = shipsDataObject[layer.shipImo];
-        if (layer.isShipMarker && ship) {
-          // update position
-          layer.setLatLng(L.latLng(ship.position.lat, ship.position.lng));
-        } else if (layer.isShipMarker) {
-          // remove marker not existing in data from map.
-          map.removeLayer(layer);
-        }
-
-        let shipMarkersOnMap = [];
-        map.eachLayer(layer => {
-          if (layer.isShipMarker) {
-            shipMarkersOnMap.push(layer);
-          }
-        });
-        const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
-
-        shipsData.forEach(ship => {
-          let shipOnMap = shipsOnMapObject[ship.imo];
-          if (!shipOnMap) {
-            // TODO: all new ship from data which are not already in map. Add new marker.
-          }
-        });
-      });
-    }
-  }
-};
-
 const Map = ({ shipsProp = [], currentDate = 0 }) => {
+  //const {map} = useStore(store);
+
   let [shipsState, setShipsState] = useState(shipsProp);
   let [lastUpdated, setLastUpdated] = useState(new Date(currentDate));
   let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
@@ -83,7 +51,9 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
     let longitude = 12.568337;
     let zoomLevel = 5;
 
+    //let map = mapRef.get();
     map = L.map('mapid').setView([latitude, longitude], zoomLevel);
+    map.setView([latitude, longitude], zoomLevel);
 
     L.tileLayer(
       `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
@@ -138,3 +108,40 @@ Map.getInitialProps = async ({ req, query }) => {
 };
 
 export default Map;
+
+// Only works client-side.
+let updateMarkerPosition = shipsData => {
+  if (typeof window === 'object' && map && Array.isArray(shipsData)) {
+    if (!shipsData.length) {
+      // remove all markers from map because the API now says array is empty?
+    } else {
+      const shipsDataObject = arrayToObject(shipsData, 'imo');
+
+      map.eachLayer(layer => {
+        let ship = shipsDataObject[layer.shipImo];
+        if (layer.isShipMarker && ship) {
+          // update position
+          layer.setLatLng(L.latLng(ship.position.lat, ship.position.lng));
+        } else if (layer.isShipMarker) {
+          // remove marker not existing in data from map.
+          map.removeLayer(layer);
+        }
+
+        let shipMarkersOnMap = [];
+        map.eachLayer(layer => {
+          if (layer.isShipMarker) {
+            shipMarkersOnMap.push(layer);
+          }
+        });
+        const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
+
+        shipsData.forEach(ship => {
+          let shipOnMap = shipsOnMapObject[ship.imo];
+          if (!shipOnMap) {
+            // TODO: all new ship from data which are not already in map. Add new marker.
+          }
+        });
+      });
+    }
+  }
+};
