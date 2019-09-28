@@ -97,7 +97,7 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
   useEffect(() => {
     if (firstRun.current) {
       firstRun.current = false;
-      //return;
+      return;
     }
 
     updateMarkerPosition(shipsState);

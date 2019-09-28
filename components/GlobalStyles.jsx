@@ -12,14 +12,14 @@ let GlobalStyles = () => (
       color: #4d4e4c;
       background-color: white;
       min-height: 100vh;
-      overflow: hidden;
     }
     @media (min-width: 700px) {
       body {
       }
     }
     #__next {
-      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
     }
 
     a {
