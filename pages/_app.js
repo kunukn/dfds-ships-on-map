@@ -8,13 +8,6 @@ import store from '~/store.js';
 if (process.browser) {
   // let map = L.map('mapid')
   try {
-    // var el = document.getElementById('__next');
-    // use necessary prefixed versions
-    // el.webkitRequestFullscreen();
-    // el.mozRequestFullScreen();
-    // el.msRequestFullscreen();
-    // finally the standard version
-    // el.requestFullscreen();
   } catch (ex) {}
 }
 
@@ -41,7 +34,19 @@ class MyApp extends App {
 }
 
 const GlobalEffect = () => {
-  React.useEffect(() => {}, []);
+  let onFullscreenchange = e => {
+    store.set(state => ({ isFullscreen: !!document.fullscreenElement }));
+  };
+
+  React.useEffect(() => {
+    ['', 'webkit', 'moz', 'ms'].forEach(prefix =>
+      document.addEventListener(
+        prefix + 'fullscreenchange',
+        onFullscreenchange,
+        false
+      )
+    );
+  }, []);
 
   return null;
 };

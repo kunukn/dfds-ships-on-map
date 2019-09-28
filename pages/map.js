@@ -8,7 +8,11 @@ import getShipsFromApi from '~/api-layer/getShipsFromApi';
 import MainHeader from '~/components/main-header';
 import MainFooter from '~/components/main-footer';
 import arrayToObject from '~/utils/arrayToObject';
-import { addShipMarkerToMap, createShipMarker, addShipsToMap } from '~/utils/mapUtil';
+import {
+  addShipMarkerToMap,
+  createShipMarker,
+  addShipsToMap,
+} from '~/utils/mapUtil';
 import store from '~/store.js';
 
 let intervalKey = null;
@@ -109,30 +113,16 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
         <title>DFDS Ships</title>
         <meta
           name="viewport"
-          content="user-scalable=no, width=device-width, initial-scale=1"
-          key="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
       </Head>
-      <div className="page">
+      <>
         <div id="mapid"></div>
         <MainHeader lastUpdated={lastUpdated} />
         <MainFooter lastUpdated={lastUpdated} />
-      </div>
+      </>
 
       <style jsx>{`
-        .page {
-          position: relative;
-          min-height: 100vh;
-        }
-
-        #mapid {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-        }
-
         :global(.leaflet-control-zoom) {
           __outline: 1px solid red;
           __position: relative;

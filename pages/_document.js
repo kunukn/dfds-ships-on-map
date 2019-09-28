@@ -1,5 +1,5 @@
 // https://nextjs.org/docs/#custom-document
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -13,7 +13,6 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <meta name="viewport" content="width=device-width,initial-scale=1" />
           <meta name="description" content="" />
           <meta name="keywords" content="" />
           <meta name="robots" content="noindex, nofollow" />
@@ -37,7 +36,7 @@ export default class MyDocument extends Document {
           
             
           } catch(ex){console.warn(ex+'')}
-          `
+          `,
             }}
           />
           <NextScript />

@@ -6,19 +6,29 @@ let GlobalStyles = () => (
       box-sizing: border-box;
     }
 
+    html,
+    body,
+    #mapid,
+    #__next {
+      height: 100%;
+      width: 100vw;
+    }
+    #__next {
+      position: relative;
+    }
+    #mapid {
+      z-index: 0;
+    }
     body {
       font-family: DFDS, Verdana, sans-serif;
+      padding: 0;
       margin: 0;
       color: #4d4e4c;
       background-color: white;
-      min-height: 100vh;
     }
     @media (min-width: 700px) {
-      body {
-      }
     }
     #__next {
-      min-height: 100vh;
       position: relative;
     }
 
