@@ -86,11 +86,11 @@ const MainHeader = ({ lastUpdated }) => {
       `}</style>
       <style jsx>{`
         .logo {
-          opacity: ${isFullscreen ? 0.5 : ''};
+          opacity: ${isFullscreen ? 0.7 : ''};
         }
         .toggle-full-screen {
           background: rgba(#4d4e4c, 0.5);
-          opacity: ${isFullscreen ? 0.5 : ''};
+          opacity: ${isFullscreen ? 0.7 : ''};
         }
       `}</style>
     </>
