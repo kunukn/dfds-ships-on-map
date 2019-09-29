@@ -20,27 +20,20 @@ import {
 
 let intervalKey = null;
 const twoMinutes = 1000 * 60 * 2;
+const twoSeconds = 1000 * 2;
 
 const Map = ({ shipsProp = [], currentDate = 0 }) => {
   let [shipsState, setShipsState] = useState(shipsProp);
   let [lastUpdated, setLastUpdated] = useState(new Date(currentDate));
   let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
-
-  // real-time update
-  useEffect(() => {
-    intervalKey = setInterval(async () => {
-      let ships = await getShipsFromApi();
-      if (ships && ships.length) {
-        setShipsState(ships);
-        setLastUpdated(new Date(Date.now()));
-      }
-    }, twoMinutes);
-
-    return () => clearInterval(intervalKey);
-  }, []);
+  let map = useRef({}).current;
+  let isFirstRender = useRef(true);
 
   // DOM init draw
   useEffect(() => {
+    mapRef.init();
+    map = mapRef.get();
+
     setStorageValue({ ships: shipsState, date: Date.now() });
     window.ships = shipsState;
 
@@ -48,8 +41,6 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
     let longitude = 12.568337;
     let zoomLevel = 5;
 
-    mapRef.init();
-    let map = mapRef.get();
     map.setView([latitude, longitude], zoomLevel);
 
     L.tileLayer(
@@ -63,15 +54,26 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
     addShipsToMap({ ships: shipsState, map });
   }, []);
 
-  let firstRun = useRef(true);
+  // real-time update
+  useEffect(() => {
+    intervalKey = setInterval(async () => {
+      let ships = await getShipsFromApi();
+      if (ships && ships.length) {
+        setShipsState(ships);
+        setLastUpdated(new Date(Date.now()));
+      }
+    }, twoSeconds);
+
+    return () => clearInterval(intervalKey);
+  }, []);
 
   useEffect(() => {
-    if (firstRun.current) {
-      firstRun.current = false;
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
       return;
     }
 
-    updateMarkerPosition(shipsState);
+    updateMarkerPosition({ ships: shipsState, map: mapRef.get() });
   }, [shipsState]);
 
   return (
@@ -108,12 +110,12 @@ Map.getInitialProps = async ({ req, query }) => {
 export default Map;
 
 // Only works client-side.
-let updateMarkerPosition = shipsData => {
-  if (typeof window === 'object' && map && Array.isArray(shipsData)) {
-    if (!shipsData.length) {
+let updateMarkerPosition = ({ ships, map }) => {
+  if (typeof window === 'object' && map && Array.isArray(ships)) {
+    if (!ships.length) {
       // remove all markers from map because the API now says array is empty?
     } else {
-      const shipsDataObject = arrayToObject(shipsData, 'imo');
+      const shipsDataObject = arrayToObject(ships, 'imo');
 
       map.eachLayer(layer => {
         let ship = shipsDataObject[layer.shipImo];
@@ -133,7 +135,7 @@ let updateMarkerPosition = shipsData => {
         });
         const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
 
-        shipsData.forEach(ship => {
+        ships.forEach(ship => {
           let shipOnMap = shipsOnMapObject[ship.imo];
           if (!shipOnMap) {
             // TODO: all new ship from data which are not already in map. Add new marker.
