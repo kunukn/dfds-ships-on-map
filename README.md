@@ -23,3 +23,13 @@ cd /certificates                 # Browsing to the folder
 mkcert -install                  # Installing the certificates
 mkcert localhost 127.0.0.1 ::1   # Enables them on localhost
 ```
+
+## TODO
+
+- ~Ship icons~
+- ~Realtime updated positions~
+- Terminal locations
+- Shipping routes as dashed lines
+- Ship direction
+- Scheduled information from other API
+- Timeline, go back in history 
