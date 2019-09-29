@@ -62,7 +62,7 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
         setShipsState(ships);
         setLastUpdated(new Date(Date.now()));
       }
-    }, twoSeconds);
+    }, twoMinutes);
 
     return () => clearInterval(intervalKey);
   }, []);
@@ -152,6 +152,7 @@ const SideMenu = () => {
   return (
     <>
       <div className="side-menu">
+        <div className="side-menu-content">content</div>
         <button className="menu-text" onClick={() => setIsOpen(s => !s)}>
           <b>m</b>
           <b>e</b>
@@ -163,27 +164,39 @@ const SideMenu = () => {
       <style jsx>{`
         .side-menu {
           width: 200px;
-          height: calc(100vh - 100px);
-          background: #eee;
+          height: calc(50vh);
+          max-height: 100vh;
           position: absolute;
           top: 40px;
           right: 0;
-          opacity: 0.7;
           transition: transform 300ms;
           transform: translateX(100%);
         }
+        .side-menu-content {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.7;
+          background: #eee;
+          padding: 10px;
+        }
         .menu-text {
-          border-radius: 2px;
+          border-top-left-radius: 16px;
+          border-bottom-left-radius: 16px;
           font-size: 16px;
           position: absolute;
           left: -2em;
-          top: 14px;
           background: white;
           width: 2em;
+          height: 90px;
+          top: calc(50% - 45px);
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
+          opacity: .8;
         }
         .menu-text :global(b) {
           line-height: 1;
