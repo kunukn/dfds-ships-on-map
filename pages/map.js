@@ -23,12 +23,29 @@ const twoMinutes = 1000 * 60 * 2;
 const twoSeconds = 1000 * 2;
 
 const Map = ({ shipsProp = [], currentDate = 0 }) => {
-  let [tabs, setTabs] = useState({ tab1: false, tab2: false });
+  let [tabs, setTabs] = useState({ values: [true, false, false, false] });
   let [shipsState, setShipsState] = useState(shipsProp);
   let [lastUpdated, setLastUpdated] = useState(new Date(currentDate));
   let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
   let map = useRef({}).current;
   let isFirstRender = useRef(true);
+
+  let isOtherTabMenuOpen = index =>
+    tabs.values.some((tab, i) => {
+      if (index === i) return false;
+      return !!tab;
+    });
+
+  let onTabsToggle = index => {
+    setTabs(state => {
+      let current = state.values[index];
+      state.values = state.values.map(tab => false);
+      if (!current) {
+        state.values[index] = true;
+      }
+      return { ...state };
+    });
+  };
 
   // DOM init draw
   useEffect(() => {
@@ -90,8 +107,24 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
         <div id="mapid"></div>
         <MainHeader lastUpdated={lastUpdated} />
         <MainFooter lastUpdated={lastUpdated} />
-        <SideMenu1 />
-        <SideMenu2 />
+        <TabMenu
+          level={0}
+          isOpen={tabs.values[0]}
+          onToggle={() => onTabsToggle(0)}
+          isOtherOpen={isOtherTabMenuOpen(0)}
+        />
+        <TabMenu
+          level={1}
+          isOpen={tabs.values[1]}
+          onToggle={() => onTabsToggle(1)}
+          isOtherOpen={isOtherTabMenuOpen(1)}
+        />
+        <TabMenu
+          level={2}
+          isOpen={tabs.values[2]}
+          onToggle={() => onTabsToggle(2)}
+          isOtherOpen={isOtherTabMenuOpen(2)}
+        />
       </>
 
       <style jsx>{`
@@ -147,21 +180,30 @@ let updateMarkerPosition = ({ ships, map }) => {
     }
   }
 };
-const SideMenu1 = ({ isOpen, onToggle }) => {
+const TabMenu = ({ isOpen, onToggle, isOtherOpen, level }) => {
   return (
     <>
-      <div className="side-menu">
-        <div className="side-menu-content">content</div>
-        <button className="menu-text" onClick={onToggle}>
+      <div className="tab-menu">
+        <div className="tab-menu-content">
+          <div>content</div>
+          <button className="tab-menu-close-button" onClick={onToggle}>
+            close
+          </button>
+        </div>
+        <button
+          className="menu-text-toggle"
+          onClick={onToggle}
+          aria-label="tab1"
+        >
           <b>t</b>
           <b>a</b>
           <b>b</b>
-          <b>1</b>
+          <b>{level + 1}</b>
         </button>
       </div>
 
       <style jsx>{`
-        .side-menu {
+        .tab-menu {
           width: 200px;
           height: calc(100vh - 60px);
           max-height: 100vh;
@@ -171,108 +213,67 @@ const SideMenu1 = ({ isOpen, onToggle }) => {
           transition: transform 300ms;
           transform: translateX(100%);
         }
-        .side-menu-content {
+        .tab-menu-content {
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          opacity: 0.7;
-          background: #eee;
+          background: rgba(#eee, 0.7);
           padding: 10px;
         }
-        .menu-text {
+        .tab-menu-close-button {
+          position: absolute;
+          top: 4px;
+          right: 4px;
+          font-size: 16px;
+          padding: 4px 8px;
+          background: transparent;
+          background: rgba(#4d4e4c, 0.5);
+          color: white;
+          border: 1px solid white;
+          box-shadow: none;
+          min-height: 30px;
+          border-radius: 30px;
+          line-height: 1;
+          min-width: 4em;
+        }
+        .menu-text-toggle {
           border-top-left-radius: 16px;
           border-bottom-left-radius: 16px;
+          border-color: white;
+          box-shadow: none;
           font-size: 16px;
           position: absolute;
           left: -2em;
           background: white;
           width: 2em;
           height: 90px;
-          top: 0;
+          top: ${level * 90 + level * 10}px;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           opacity: 0.8;
+          transition: opacity 300ms;
+          z-index: 2;
+          user-select: none;
         }
-        .menu-text :global(b) {
+        .menu-text-toggle :global(b) {
           line-height: 1;
           display: block;
           font-weight: normal;
           text-transform: uppercase;
+          user-select: none;
         }
       `}</style>
       <style jsx>{`
-        .side-menu {
+        .tab-menu {
           transform: ${isOpen ? 'translateX(0)' : 'translateX(100%)'};
+          z-index: ${isOpen ? 1 : 0};
         }
-      `}</style>
-    </>
-  );
-};
-
-const SideMenu2 = ({ isOpen, onToggle }) => {
-  return (
-    <>
-      <div className="side-menu">
-        <div className="side-menu-content">content</div>
-        <button className="menu-text" onClick={onToggle}>
-          <b>t</b>
-          <b>a</b>
-          <b>b</b>
-          <b>2</b>
-        </button>
-      </div>
-
-      <style jsx>{`
-        .side-menu {
-          width: 200px;
-          height: calc(100vh - 60px);
-          max-height: 100vh;
-          position: absolute;
-          top: 40px;
-          right: 0;
-          transition: transform 300ms;
-          transform: translateX(100%);
-        }
-        .side-menu-content {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          opacity: 0.7;
-          background: #eee;
-          padding: 10px;
-        }
-        .menu-text {
-          border-top-left-radius: 16px;
-          border-bottom-left-radius: 16px;
-          font-size: 16px;
-          position: absolute;
-          left: -2em;
-          background: white;
-          width: 2em;
-          height: 90px;
-          top: 90px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          opacity: 0.8;
-        }
-        .menu-text :global(b) {
-          line-height: 1;
-          display: block;
-          font-weight: normal;
-          text-transform: uppercase;
-        }
-      `}</style>
-      <style jsx>{`
-        .side-menu {
-          transform: ${isOpen ? 'translateX(0)' : 'translateX(100%)'};
+        .menu-text-toggle {
+          opacity: ${isOtherOpen ? 0 : ''};
         }
       `}</style>
     </>

@@ -38,12 +38,12 @@ const MainHeader = ({ lastUpdated }) => {
           <header className="main-header">
             <div className="logo">DFDS Ships</div>
             <div>
-              {!isFullscreen && storeState.isFullscreenSupported && (
+              {storeState.isFullscreenSupported && (
                 <button
                   className="toggle-full-screen"
                   onClick={fullscreenWasToggled}
                 >
-                  Fullscreen {storeState.isFullscreen ? 'off' : 'on'}
+                  fullscreen {storeState.isFullscreen ? 'off' : 'on'}
                 </button>
               )}
             </div>
@@ -63,36 +63,34 @@ const MainHeader = ({ lastUpdated }) => {
           text-align: left;
           display: flex;
           justify-content: space-between;
-          align-items: center;
+          align-items: flex-start;
           flex-wrap: wrap;
         }
         .logo {
           font-size: 20px;
-          padding: 4px;
+          padding: 4px 8px;
+          background: rgba(#4d4e4c, 0.5);
         }
         .toggle-full-screen {
-          background: transparent;
           color: white;
           font-size: 16px;
           margin: 0;
           border: 1px solid currentColor;
           margin: 4px;
-          height: 24px;
-          border-radius: 24px;
+          padding: 4px;
+          min-height: 30px;
+          border-radius: 30px;
           line-height: 1;
           min-width: 8em;
-          box-shadow: rgba(white, 0.2) 0px 0px 8px 0px;
         }
       `}</style>
       <style jsx>{`
-        .main-header {
-          background: rgba(#4d4e4c, 0.5);
-          background: ${isFullscreen ? 'transparent' : ''};
-        }
         .logo {
+          opacity: ${isFullscreen ? 0.5 : ''};
+        }
+        .toggle-full-screen {
           background: rgba(#4d4e4c, 0.5);
-          background: ${isFullscreen ? '' : 'transparent'};
-          margin: ${isFullscreen ? '4px' : ''};
+          opacity: ${isFullscreen ? 0.5 : ''};
         }
       `}</style>
     </>
