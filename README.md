@@ -1,5 +1,20 @@
 # dfds-ships-on-map
 
+
+Prototype
+
+Exploring tech in following areas.
+
+* Lago store with NextJS
+* React with leaflet
+* Tab menu experiment
+* fullscreen API with React
+* map as fullscreen page
+
+
+
+Local https license setup.
+
 ```bash
 brew install mkcert              # Installs mkcert
 brew install nss                 # If you using Firefox
