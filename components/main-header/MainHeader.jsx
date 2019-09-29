@@ -38,7 +38,7 @@ const MainHeader = ({ lastUpdated }) => {
           <header className="main-header">
             <div className="logo">DFDS Ships</div>
             <div>
-              {storeState.isFullscreenSupported && (
+              {!isFullscreen && storeState.isFullscreenSupported && (
                 <button
                   className="toggle-full-screen"
                   onClick={fullscreenWasToggled}
@@ -60,9 +60,7 @@ const MainHeader = ({ lastUpdated }) => {
           width: 100%;
           font-size: 14px;
           color: white;
-          background: rgba(#4d4e4c, 0.5);
           text-align: left;
-          padding: 4px;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -70,6 +68,7 @@ const MainHeader = ({ lastUpdated }) => {
         }
         .logo {
           font-size: 20px;
+          padding: 4px;
         }
         .toggle-full-screen {
           background: transparent;
@@ -77,11 +76,23 @@ const MainHeader = ({ lastUpdated }) => {
           font-size: 16px;
           margin: 0;
           border: 1px solid currentColor;
+          margin: 4px;
           height: 24px;
           border-radius: 24px;
           line-height: 1;
           min-width: 8em;
           box-shadow: rgba(white, 0.2) 0px 0px 8px 0px;
+        }
+      `}</style>
+      <style jsx>{`
+        .main-header {
+          background: rgba(#4d4e4c, 0.5);
+          background: ${isFullscreen ? 'transparent' : ''};
+        }
+        .logo {
+          background: rgba(#4d4e4c, 0.5);
+          background: ${isFullscreen ? '' : 'transparent'};
+          margin: ${isFullscreen ? '4px' : ''};
         }
       `}</style>
     </>
