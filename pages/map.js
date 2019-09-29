@@ -23,7 +23,7 @@ const twoMinutes = 1000 * 60 * 2;
 const twoSeconds = 1000 * 2;
 
 const Map = ({ shipsProp = [], currentDate = 0 }) => {
-  let [tabs, setTabs] = useState({ values: [true, false, false, false] });
+  let [tabs, setTabs] = useState({ values: [false, false, false, false] });
   let [shipsState, setShipsState] = useState(shipsProp);
   let [lastUpdated, setLastUpdated] = useState(new Date(currentDate));
   let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
