@@ -45,7 +45,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
         .tab-menu {
           width: 200px;
           height: calc(100vh - 60px);
-          max-height: calc(100vh - 80px);
+          max-height: calc(100vh - 100px);
           position: absolute;
           top: 40px;
           right: 0;
