@@ -42,7 +42,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           left: 0;
           width: 100%;
           height: 100%;
-          background: rgba(#eee, 0.7);
+          background: rgba(#eee, 0.95);
           padding: 40px 10px 10px;
         }
         .tab-menu-close-button {
