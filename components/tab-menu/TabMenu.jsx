@@ -1,14 +1,14 @@
 import { useStore } from 'laco-react';
 import store from '~/store.js';
 
-const TabMenu = ({ isOpen, onToggle, isOtherOpen, level }) => {
+const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
   const { isFullscreen } = useStore(store);
 
   return (
     <>
       <div className="tab-menu">
         <div className="tab-menu-content">
-          <div>content</div>
+          <div className="tab-menu-content-children">{children}</div>
           <button className="tab-menu-close-button" onClick={onToggle}>
             close
           </button>
@@ -29,7 +29,7 @@ const TabMenu = ({ isOpen, onToggle, isOtherOpen, level }) => {
         .tab-menu {
           width: 200px;
           height: calc(100vh - 60px);
-          max-height: 100vh;
+          max-height: calc(100vh - 60px);
           position: absolute;
           top: 40px;
           right: 0;
@@ -43,7 +43,7 @@ const TabMenu = ({ isOpen, onToggle, isOtherOpen, level }) => {
           width: 100%;
           height: 100%;
           background: rgba(#eee, 0.7);
-          padding: 10px;
+          padding: 40px 10px 10px;
         }
         .tab-menu-close-button {
           position: absolute;

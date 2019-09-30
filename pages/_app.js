@@ -2,7 +2,6 @@ import React from 'react';
 import App from 'next/app';
 import { useStore } from 'laco-react';
 
-import mapRef from '~/mapRef.js';
 import store from '~/store.js';
 import GlobalStyles from '~/components/GlobalStyles';
 
