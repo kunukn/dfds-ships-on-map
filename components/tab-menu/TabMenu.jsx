@@ -58,8 +58,8 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           left: 0;
           width: 100%;
           height: 100%;
-          background: rgba(#eee, 0.95);
           padding: 40px 10px 10px;
+          background: rgba(#eee, 0.95);
           @supports (backdrop-filter: blur(10px)) {
             background-color: rgba(255, 255, 255, 0.7);
             backdrop-filter: saturate(180%) blur(12px);
@@ -80,25 +80,28 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           color: gray;
         }
         .menu-text-toggle {
-          border: 1px solid white;
+          border: none;
           border-top-left-radius: 16px;
           border-bottom-left-radius: 16px;
           box-shadow: none;
           font-size: 16px;
           position: absolute;
-          left: -2em;
-          background: rgba(white, 0.95);
-          width: 2em;
+          left: -1em;
+          width: 1em;
           height: 90px;
           top: ${level * 90 + level * 10}px;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          opacity: 0.8;
-          transition: opacity 300ms;
+          transition: opacity 300ms, background-color 300ms;
           z-index: 2;
           user-select: none;
+          background: rgba(#eee, 0.95);
+          @supports (backdrop-filter: blur(10px)) {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: saturate(180%) blur(12px);
+          }
         }
         .menu-text-toggle :global(b) {
           line-height: 1;

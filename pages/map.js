@@ -136,7 +136,7 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
         >
           {logs.map((log, index) => <div className="log-item" key={index}>{log}</div>)}
         </TabMenu>
-        <TabMenu
+        {/* <TabMenu
           level={1}
           isOpen={tabs.values[1]}
           onToggle={() => onTabsToggle(1)}
@@ -148,7 +148,7 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
           isOpen={tabs.values[2]}
           onToggle={() => onTabsToggle(2)}
           isOtherOpen={isOtherTabMenuOpen(2)}
-        />
+        /> */}
       </>
 
       <style jsx>{`

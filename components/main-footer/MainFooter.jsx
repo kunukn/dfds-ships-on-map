@@ -11,7 +11,6 @@ const MainFooter = ({ lastUpdated }) => (
         position: absolute;
         bottom: 0;
         left: 0;
-        width: 100%;
         font-size: 14px;
         line-height: 1.25;
         color: white;
