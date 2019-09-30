@@ -36,7 +36,7 @@ class MyApp extends App {
 
 const GlobalEffect = () => {
   let onFullscreenchange = e => {
-    console.log("onFullscreenchange");
+    console.log("onFullscreenchange ", e.toString());
     store.set(state => ({
       isFullscreen: !!(
         document.fullscreenElement || document.webkitFullscreenElement
@@ -46,7 +46,7 @@ const GlobalEffect = () => {
 
   React.useEffect(() => {
     let isFullscreenSupported = !!(
-      document.body.requestFullscreen || document.body.webkitRequestFullScreen
+      document.fullscreenEnabled //|| document.webkitFullscreenEnabled
     );
 
     let fullscreenRequestMethod;
@@ -54,19 +54,14 @@ const GlobalEffect = () => {
     if ("requestFullscreen" in document.body) {
       fullscreenRequestMethod = "requestFullscreen";
       fullscreenExitMethod = "exitFullscreen";
-    }
-    if ("webkitRequestFullscreen" in document.body) {
-      fullscreenRequestMethod = "webkitRequestFullScreen";
-      fullscreenExitMethod = "webkitExitFullScreen";
-    }
-
-    if (isFullscreenSupported) {
-      ["", "webkit"].forEach(prefix =>
-        document.addEventListener(
-          prefix + "fullscreenchange",
-          onFullscreenchange,
-          false
-        )
+      document.addEventListener("fullscreenchange", onFullscreenchange, false);
+    } else if ("webkitRequestFullscreen" in document.body) {
+      fullscreenRequestMethod = "webkitRequestFullscreen";
+      fullscreenExitMethod = "webkitExitFullscreen";
+      document.addEventListener(
+        "webkitfullscreenchange",
+        onFullscreenchange,
+        false
       );
     }
 
