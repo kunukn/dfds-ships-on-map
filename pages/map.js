@@ -156,7 +156,7 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
 
       <style jsx>{`
         .log-item {
-          outline: 1px solid;
+          background: white;
           margin-bottom: 8px;
           line-height: 1;
           padding: 4px;

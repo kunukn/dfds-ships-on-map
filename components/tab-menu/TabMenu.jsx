@@ -45,15 +45,18 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
         .tab-menu {
           width: 200px;
           height: calc(100vh - 60px);
-          max-height: calc(100vh - 60px);
+          max-height: calc(100vh - 80px);
           position: absolute;
           top: 40px;
           right: 0;
           transition: transform 300ms;
           transform: translateX(100%);
+          
         }
         .tab-menu-content {
+          overflow: auto;
           position: absolute;
+          max-height: inherit;
           top: 0;
           left: 0;
           width: 100%;
@@ -64,6 +67,9 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
             background-color: rgba(255, 255, 255, 0.7);
             backdrop-filter: saturate(180%) blur(12px);
           }
+        }
+        .tab-menu-content-children{
+          max-height: inherit;
         }
         .tab-menu-close-button {
           position: absolute;

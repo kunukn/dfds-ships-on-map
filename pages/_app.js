@@ -37,37 +37,19 @@ class MyApp extends App {
 const GlobalEffect = () => {
   let onFullscreenchange = e => {
     store.set(state => ({
-      isFullscreen: !!(
-        document.fullscreenElement || document.webkitFullscreenElement
-      )
+      isFullscreen: !!document.fullscreenElement
     }));
   };
 
   React.useEffect(() => {
-    let isFullscreenSupported = !!(
-      document.fullscreenEnabled //|| document.webkitFullscreenEnabled
-    );
+    let isFullscreenSupported = !!document.fullscreenEnabled;
 
-    let fullscreenRequestMethod;
-    let fullscreenExitMethod;
-    if ("requestFullscreen" in document.body) {
-      fullscreenRequestMethod = "requestFullscreen";
-      fullscreenExitMethod = "exitFullscreen";
+    if (isFullscreenSupported && "requestFullscreen" in document.body) {
       document.addEventListener("fullscreenchange", onFullscreenchange, false);
-    } else if ("webkitRequestFullscreen" in document.body) {
-      fullscreenRequestMethod = "webkitRequestFullscreen";
-      fullscreenExitMethod = "webkitExitFullscreen";
-      document.addEventListener(
-        "webkitfullscreenchange",
-        onFullscreenchange,
-        false
-      );
     }
 
     store.set(state => ({
-      isFullscreenSupported,
-      fullscreenRequestMethod,
-      fullscreenExitMethod
+      isFullscreenSupported
     }));
   }, []);
 
