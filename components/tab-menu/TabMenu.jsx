@@ -1,8 +1,21 @@
-import { useStore } from 'laco-react';
-import store from '~/store.js';
+import { useStore } from "laco-react";
+import store from "~/store.js";
 
 const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
   const { isFullscreen } = useStore(store);
+
+  let getFallbackTitle = () => (
+    <>
+      {"tab".split("").map(c => (
+        <b>{c}</b>
+      ))}
+      <b>{level + 1}</b>
+    </>
+  );
+
+  let titleToRender = title
+    ? title.split("").map(c => <b>{c}</b>)
+    : getFallbackTitle();
 
   return (
     <>
@@ -18,10 +31,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           onClick={onToggle}
           aria-label="tab1"
         >
-          <b>t</b>
-          <b>a</b>
-          <b>b</b>
-          <b>{level + 1}</b>
+          {titleToRender}
         </button>
       </div>
 
@@ -44,6 +54,10 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           height: 100%;
           background: rgba(#eee, 0.95);
           padding: 40px 10px 10px;
+          @supports (backdrop-filter: blur(10px)) {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: saturate(180%) blur(12px);
+          }
         }
         .tab-menu-close-button {
           position: absolute;
@@ -92,12 +106,12 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
       `}</style>
       <style jsx>{`
         .tab-menu {
-          transform: ${isOpen ? 'translateX(0)' : 'translateX(100%)'};
+          transform: ${isOpen ? "translateX(0)" : "translateX(100%)"};
           z-index: ${isOpen ? 1 : 0};
         }
         .menu-text-toggle {
-          opacity: ${isFullscreen ? 0.6 : ''};
-          opacity: ${isOtherOpen ? 0 : ''};
+          opacity: ${isFullscreen ? 0.6 : ""};
+          opacity: ${isOtherOpen ? 0 : ""};
         }
       `}</style>
     </>

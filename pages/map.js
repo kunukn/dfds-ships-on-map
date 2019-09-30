@@ -132,6 +132,7 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
           onToggle={() => onTabsToggle(0)}
           isOtherOpen={isOtherTabMenuOpen(0)}
           isFullscreen={isFullscreen}
+          title="logs"
         >
           {logs.map((log, index) => <div className="log-item" key={index}>{log}</div>)}
         </TabMenu>
