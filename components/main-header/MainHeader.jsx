@@ -7,12 +7,7 @@ const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
 
 const MainHeader = ({ lastUpdated }) => {
-  const {
-    isFullscreen,
-    isFullscreenSupported,
-    fullscreenRequestMethod,
-    fullscreenExitMethod
-  } = useStore(store);
+  const { isFullscreen } = useStore(store);
 
   let isFirstRender = React.useRef(true);
   React.useEffect(() => {
@@ -21,20 +16,14 @@ const MainHeader = ({ lastUpdated }) => {
       return;
     }
 
-    if (
-      isFullscreen &&
-      !(document.fullscreenElement || document.webkitFullscreenElement)
-    ) {
-      document.body[fullscreenRequestMethod]();
-      // .catch(err => {
-      //   console.error(err);
-      // });
-    } else {
-      (document.fullscreenElement || document.webkitFullscreenElement) &&
-        document[fullscreenExitMethod]();
-      // .catch(err => {
-      //   console.error(err);
-      // });
+    if (isFullscreen && !document.fullscreenElement) {
+      document.body.requestFullscreen().catch(err => {
+        console.error(err);
+      });
+    } else if (!isFullscreen && document.fullscreenElement) {
+      document.requestFullscreen().catch(err => {
+        console.error(err);
+      });
     }
   }, [isFullscreen]);
 

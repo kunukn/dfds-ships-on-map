@@ -36,7 +36,6 @@ class MyApp extends App {
 
 const GlobalEffect = () => {
   let onFullscreenchange = e => {
-    console.log("onFullscreenchange ", e.toString());
     store.set(state => ({
       isFullscreen: !!(
         document.fullscreenElement || document.webkitFullscreenElement
