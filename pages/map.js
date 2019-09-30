@@ -1,38 +1,38 @@
 // http://api.dfds.cloud/prod/voyage/swagger/index.html
 
-import React, { useEffect, useState, useRef } from 'react';
-import Link from 'next/link';
-import Head from 'next/head';
-import { useStore } from 'laco-react';
-import { useLocalStorage } from 'react-use';
+import React, { useEffect, useState, useRef } from "react";
+import Link from "next/link";
+import Head from "next/head";
+import { useStore } from "laco-react";
+import { useLocalStorage } from "react-use";
 
-import mapRef from '~/mapRef.js';
-import store from '~/store.js';
-import getShipsFromApi from '~/api-layer/getShipsFromApi';
-import MainHeader from '~/components/main-header';
-import MainFooter from '~/components/main-footer';
-import TabMenu from '~/components/tab-menu/TabMenu';
-import arrayToObject from '~/utils/arrayToObject';
+import mapRef from "~/mapRef.js";
+import store from "~/store.js";
+import getShipsFromApi from "~/api-layer/getShipsFromApi";
+import MainHeader from "~/components/main-header";
+import MainFooter from "~/components/main-footer";
+import TabMenu from "~/components/tab-menu/TabMenu";
+import arrayToObject from "~/utils/arrayToObject";
 import {
   addShipMarkerToMap,
   createShipMarker,
-  addShipsToMap,
-} from '~/utils/mapUtil';
+  addShipsToMap
+} from "~/utils/mapUtil";
 
 let intervalKey = null;
 const twoMinutes = 1000 * 60 * 2;
 const fiveSeconds = 1000 * 5;
-let dataUpdateInterval = process.env.NODE_ENV === 'development' ? fiveSeconds : twoMinutes;
+let dataUpdateInterval =
+  process.env.NODE_ENV === "development" ? fiveSeconds : twoMinutes;
 
 const Map = ({ shipsProp = [], currentDate = 0 }) => {
   let [tabs, setTabs] = useState({ values: [false, false, false, false] });
   let [shipsState, setShipsState] = useState(shipsProp);
   let [lastUpdated, setLastUpdated] = useState(new Date(currentDate));
-  let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
+  let [storageValue, setStorageValue] = useLocalStorage("dfds-ships", {});
   let map = useRef({}).current;
   let isFirstRender = useRef(true);
   const { isFullscreen, logs } = useStore(store);
-
 
   let isOtherTabMenuOpen = index =>
     tabs.values.some((tab, i) => {
@@ -57,11 +57,10 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
     map = mapRef.get();
 
     store.set(state => {
-      state.logs.push('DOM init draw');
       state.logs.push(`ships last updated:
       ${lastUpdated.toUTCString()}`);
-
-      return { ...state }
+      state.logs.push("DOM init draw");
+      return { ...state };
     });
 
     setStorageValue({ ships: shipsState, date: Date.now() });
@@ -77,7 +76,7 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
       `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
       {
         maxZoom: 18,
-        id: 'mapbox.streets',
+        id: "mapbox.streets"
       }
     ).addTo(map);
 
@@ -93,10 +92,10 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
         let updated = new Date(Date.now());
         setLastUpdated(updated);
         store.set(state => {
-          state.logs.push(`ships last updated:
-          ${updated.toUTCString()}`);
+          state.logs = [`ships last updated:
+          ${updated.toUTCString()}`, ...state.logs];
 
-          return { ...state }
+          return { ...state };
         });
       }
     }, dataUpdateInterval);
@@ -134,7 +133,11 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
           isFullscreen={isFullscreen}
           title="logs"
         >
-          {logs.map((log, index) => <div className="log-item" key={index}>{log}</div>)}
+          {logs.map((log, index) => (
+            <div className="log-item" key={index}>
+              {log}
+            </div>
+          ))}
         </TabMenu>
         {/* <TabMenu
           level={1}
@@ -152,8 +155,7 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
       </>
 
       <style jsx>{`
-
-        .log-item{
+        .log-item {
           outline: 1px solid;
           margin-bottom: 8px;
           line-height: 1;
@@ -178,11 +180,11 @@ export default Map;
 
 // Only works client-side.
 let updateMarkerPosition = ({ ships, map }) => {
-  if (typeof window === 'object' && map && Array.isArray(ships)) {
+  if (typeof window === "object" && map && Array.isArray(ships)) {
     if (!ships.length) {
       // remove all markers from map because the API now says array is empty?
     } else {
-      const shipsDataObject = arrayToObject(ships, 'imo');
+      const shipsDataObject = arrayToObject(ships, "imo");
 
       map.eachLayer(layer => {
         let ship = shipsDataObject[layer.shipImo];
@@ -200,7 +202,7 @@ let updateMarkerPosition = ({ ships, map }) => {
             shipMarkersOnMap.push(layer);
           }
         });
-        const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
+        const shipsOnMapObject = arrayToObject(shipMarkersOnMap, "shipImo");
 
         ships.forEach(ship => {
           let shipOnMap = shipsOnMapObject[ship.imo];
