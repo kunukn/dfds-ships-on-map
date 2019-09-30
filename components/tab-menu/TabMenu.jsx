@@ -1,5 +1,7 @@
 import { useStore } from "laco-react";
+
 import store from "~/store.js";
+import CloseSvg from "~/static/icons/close.svg";
 
 const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
   const { isFullscreen } = useStore(store);
@@ -22,8 +24,12 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
       <div className="tab-menu">
         <div className="tab-menu-content">
           <div className="tab-menu-content-children">{children}</div>
-          <button className="tab-menu-close-button" onClick={onToggle}>
-            close
+          <button
+            className="tab-menu-close-button"
+            onClick={onToggle}
+            aria-label="close"
+          >
+            <CloseSvg />
           </button>
         </div>
         <button
@@ -66,14 +72,12 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           font-size: 16px;
           padding: 4px 8px;
           background: transparent;
-          background: rgba(#4d4e4c, 0.5);
           color: white;
-          border: 1px solid white;
+          border: none;
           box-shadow: none;
           min-height: 30px;
-          border-radius: 30px;
           line-height: 1;
-          min-width: 4em;
+          color: gray;
         }
         .menu-text-toggle {
           border: 1px solid white;
