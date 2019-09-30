@@ -51,7 +51,6 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           right: 0;
           transition: transform 300ms;
           transform: translateX(100%);
-          
         }
         .tab-menu-content {
           overflow: auto;
@@ -68,7 +67,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
             backdrop-filter: saturate(180%) blur(12px);
           }
         }
-        .tab-menu-content-children{
+        .tab-menu-content-children {
           max-height: inherit;
         }
         .tab-menu-close-button {

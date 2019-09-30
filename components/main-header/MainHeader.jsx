@@ -21,7 +21,7 @@ const MainHeader = ({ lastUpdated }) => {
         console.error(err);
       });
     } else if (!isFullscreen && document.fullscreenElement) {
-      document.requestFullscreen().catch(err => {
+      document.exitFullscreen().catch(err => {
         console.error(err);
       });
     }
