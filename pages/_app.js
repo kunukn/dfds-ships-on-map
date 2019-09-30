@@ -1,9 +1,9 @@
-import React from 'react';
-import App from 'next/app';
-import { useStore } from 'laco-react';
+import React from "react";
+import App from "next/app";
+import { useStore } from "laco-react";
 
-import store from '~/store.js';
-import GlobalStyles from '~/components/GlobalStyles';
+import store from "~/store.js";
+import GlobalStyles from "~/components/GlobalStyles";
 
 if (process.browser) {
   try {
@@ -36,21 +36,44 @@ class MyApp extends App {
 
 const GlobalEffect = () => {
   let onFullscreenchange = e => {
-    store.set(state => ({ isFullscreen: !!document.fullscreenElement }));
+    console.log("onFullscreenchange");
+    store.set(state => ({
+      isFullscreen: !!(
+        document.fullscreenElement || document.webkitFullscreenElement
+      )
+    }));
   };
 
   React.useEffect(() => {
-    if (document.body.requestFullscreen) {
-      ['', 'webkit', 'moz', 'ms'].forEach(prefix =>
+    let isFullscreenSupported = !!(
+      document.body.requestFullscreen || document.body.webkitRequestFullScreen
+    );
+
+    let fullscreenRequestMethod;
+    let fullscreenExitMethod;
+    if ("requestFullscreen" in document.body) {
+      fullscreenRequestMethod = "requestFullscreen";
+      fullscreenExitMethod = "exitFullscreen";
+    }
+    if ("webkitRequestFullscreen" in document.body) {
+      fullscreenRequestMethod = "webkitRequestFullScreen";
+      fullscreenExitMethod = "webkitExitFullScreen";
+    }
+
+    if (isFullscreenSupported) {
+      ["", "webkit"].forEach(prefix =>
         document.addEventListener(
-          prefix + 'fullscreenchange',
+          prefix + "fullscreenchange",
           onFullscreenchange,
           false
         )
       );
     }
+
     store.set(state => ({
-      isFullscreenSupported: !!document.body.requestFullscreen,
+      isFullscreenSupported,
+      fullscreenRequestMethod,
+      fullscreenExitMethod
     }));
   }, []);
 

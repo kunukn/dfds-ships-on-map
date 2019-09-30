@@ -8,15 +8,15 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
 
   let getFallbackTitle = () => (
     <>
-      {"tab".split("").map(c => (
-        <b>{c}</b>
+      {"tab".split("").map((c, index) => (
+        <b key={index}>{c}</b>
       ))}
       <b>{level + 1}</b>
     </>
   );
 
   let titleToRender = title
-    ? title.split("").map(c => <b>{c}</b>)
+    ? title.split("").map((c, index) => <b key={index}>{c}</b>)
     : getFallbackTitle();
 
   return (

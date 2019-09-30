@@ -1,33 +1,40 @@
-import { useStore } from 'laco-react';
-import { Subscribe } from 'laco-react';
+import { useStore } from "laco-react";
+import { Subscribe } from "laco-react";
 
-import store from '~/store.js';
+import store from "~/store.js";
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
 
 const MainHeader = ({ lastUpdated }) => {
-  const { isFullscreen } = useStore(store);
+  const {
+    isFullscreen,
+    isFullscreenSupported,
+    fullscreenRequestMethod,
+    fullscreenExitMethod
+  } = useStore(store);
 
-  let firstRun = React.useRef(true);
+  let isFirstRender = React.useRef(true);
   React.useEffect(() => {
-    if (firstRun.current) {
-      firstRun.current = false;
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
       return;
     }
 
-    if (isFullscreen) {
-      document.body.requestFullscreen &&
-        !document.fullscreenElement &&
-        document.body.requestFullscreen().catch(err => {
-          console.error(err);
-        });
+    if (
+      isFullscreen &&
+      !(document.fullscreenElement || document.webkitFullscreenElement)
+    ) {
+      document.body[fullscreenRequestMethod]();
+      // .catch(err => {
+      //   console.error(err);
+      // });
     } else {
-      document.body.requestFullscreen &&
-        document.fullscreenElement &&
-        document.exitFullscreen().catch(err => {
-          console.error(err);
-        });
+      (document.fullscreenElement || document.webkitFullscreenElement) &&
+        document[fullscreenExitMethod]();
+      // .catch(err => {
+      //   console.error(err);
+      // });
     }
   }, [isFullscreen]);
 
@@ -43,7 +50,7 @@ const MainHeader = ({ lastUpdated }) => {
                   className="toggle-full-screen"
                   onClick={fullscreenWasToggled}
                 >
-                  fullscreen {storeState.isFullscreen ? 'off' : 'on'}
+                  fullscreen {storeState.isFullscreen ? "off" : "on"}
                 </button>
               )}
             </div>
@@ -86,11 +93,11 @@ const MainHeader = ({ lastUpdated }) => {
       `}</style>
       <style jsx>{`
         .logo {
-          opacity: ${isFullscreen ? 0.7 : ''};
+          opacity: ${isFullscreen ? 0.7 : ""};
         }
         .toggle-full-screen {
           background: rgba(#4d4e4c, 0.5);
-          opacity: ${isFullscreen ? 0.7 : ''};
+          opacity: ${isFullscreen ? 0.7 : ""};
         }
       `}</style>
     </>
