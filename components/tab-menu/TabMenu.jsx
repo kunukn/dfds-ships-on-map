@@ -62,9 +62,9 @@ const TabMenu = ({ isOpen, onToggle, isOtherOpen, level }) => {
           min-width: 4em;
         }
         .menu-text-toggle {
+          border: 1px solid white;
           border-top-left-radius: 16px;
           border-bottom-left-radius: 16px;
-          border-color: white;
           box-shadow: none;
           font-size: 16px;
           position: absolute;
