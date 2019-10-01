@@ -1,7 +1,7 @@
 import { useStore } from "laco-react";
 
 import store from "~/store.js";
-import CloseSvg from "~/static/icons/close.svg";
+import CloseSvg from "~/static/icons/Close.svg";
 
 const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
   const { isFullscreen } = useStore(store);

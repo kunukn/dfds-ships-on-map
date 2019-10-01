@@ -6,6 +6,9 @@ import Head from "next/head";
 import { useStore } from "laco-react";
 import { useLocalStorage } from "react-use";
 
+import TrackingPinRailway from "~/static/icons/TrackingPinRailway.svg";
+import TrackingPinShip from "~/static/icons/TrackingPinShip.svg";
+import TrackingPinTruck from "~/static/icons/TrackingPinTruck.svg";
 import mapRef from "~/mapRef.js";
 import store from "~/store.js";
 import getShipsFromApi from "~/api-layer/getShipsFromApi";

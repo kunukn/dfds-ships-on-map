@@ -2,8 +2,8 @@ import { useStore } from "laco-react";
 import { Subscribe } from "laco-react";
 
 import store from "~/store.js";
-import FullscreenEnterIcon from "~/static/icons/fullscreen-enter.svg";
-import FullscreenExitIcon from "~/static/icons/fullscreen-exit.svg";
+import FullscreenEnterIcon from "~/static/icons/FullscreenEnter.svg";
+import FullscreenExitIcon from "~/static/icons/FullscreenExit.svg";
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
