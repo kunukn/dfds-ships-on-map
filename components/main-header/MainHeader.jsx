@@ -2,6 +2,8 @@ import { useStore } from "laco-react";
 import { Subscribe } from "laco-react";
 
 import store from "~/store.js";
+import FullscreenEnterIcon from "~/static/icons/fullscreen-enter.svg";
+import FullscreenExitIcon from "~/static/icons/fullscreen-exit.svg";
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
@@ -39,7 +41,11 @@ const MainHeader = ({ lastUpdated }) => {
                   className="toggle-full-screen"
                   onClick={fullscreenWasToggled}
                 >
-                  fullscreen {storeState.isFullscreen ? "off" : "on"}
+                  {storeState.isFullscreen ? (
+                    <FullscreenExitIcon className="fullscreen-exit-icon" />
+                  ) : (
+                    <FullscreenEnterIcon className="fullscreen-exit-icon" />
+                  )}
                 </button>
               )}
             </div>
@@ -69,15 +75,24 @@ const MainHeader = ({ lastUpdated }) => {
         }
         .toggle-full-screen {
           color: white;
-          font-size: 16px;
+          font-size: 24px;
           margin: 0;
-          border: 1px solid currentColor;
+          border: none;
           margin: 4px;
-          padding: 4px;
-          min-height: 30px;
-          border-radius: 30px;
           line-height: 1;
-          min-width: 8em;
+          background: transparent;
+          background: rgba(#4d4e4c, 0.5);
+          color: white;
+          fill: white;
+          padding: 0;
+          display: block;
+          cursor: pointer;
+        }
+        :global(.fullscreen-exit-icon) {
+          display: block;
+        }
+        :global(.fullscreen-enter-icon) {
+          display: block;
         }
       `}</style>
       <style jsx>{`
@@ -85,7 +100,6 @@ const MainHeader = ({ lastUpdated }) => {
           opacity: ${isFullscreen ? 0.7 : ""};
         }
         .toggle-full-screen {
-          background: rgba(#4d4e4c, 0.5);
           opacity: ${isFullscreen ? 0.7 : ""};
         }
       `}</style>

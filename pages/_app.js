@@ -2,11 +2,18 @@ import React from "react";
 import App from "next/app";
 import { useStore } from "laco-react";
 
+import getShipsFromApi from "~/api-layer/getShipsFromApi";
 import store from "~/store.js";
 import GlobalStyles from "~/components/GlobalStyles";
 
 if (process.browser) {
   try {
+    (async () => {
+      let ships = await getShipsFromApi();
+      store.set(state => ({
+        ships
+      }));
+    })();
   } catch (ex) {
     console.error(ex.toString());
   }

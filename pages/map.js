@@ -26,13 +26,13 @@ let dataUpdateInterval =
   process.env.NODE_ENV === "development" ? fiveSeconds : twoMinutes;
 
 const Map = () => {
+  const { isFullscreen, logs, ships = [] } = useStore(store);
   let [tabs, setTabs] = useState({ values: [false, false, false, false] });
-  let [shipsState, setShipsState] = useState([]);
+  let [shipsState, setShipsState] = useState(ships);
   let [lastUpdated, setLastUpdated] = useState(new Date(Date.now()));
   let [storageValue, setStorageValue] = useLocalStorage("dfds-ships", {});
   let map = useRef({}).current;
   let isFirstRender = useRef(true);
-  const { isFullscreen, logs } = useStore(store);
 
   let isOtherTabMenuOpen = index =>
     tabs.values.some((tab, i) => {
@@ -90,7 +90,14 @@ const Map = () => {
       setLastUpdated(updated);
       addShipsToMap({ ships, map });
     };
-    fetchDataAndUpdateState();
+
+    if (ships.length) {
+      let updated = new Date(Date.now());
+      setLastUpdated(updated);
+      addShipsToMap({ ships, map });
+    } else {
+      fetchDataAndUpdateState();
+    }
   }, []);
 
   // real-time update
@@ -109,7 +116,7 @@ const Map = () => {
           ];
 
           // Max length for array to avoid DOM slowness.
-          if(state.logs.length > 20){
+          if (state.logs.length > 20) {
             state.logs.length = 20;
           }
 
@@ -157,19 +164,6 @@ const Map = () => {
             </div>
           ))}
         </TabMenu>
-        {/* <TabMenu
-          level={1}
-          isOpen={tabs.values[1]}
-          onToggle={() => onTabsToggle(1)}
-          isOtherOpen={isOtherTabMenuOpen(1)}
-          isFullscreen={isFullscreen}
-        />
-        <TabMenu
-          level={2}
-          isOpen={tabs.values[2]}
-          onToggle={() => onTabsToggle(2)}
-          isOtherOpen={isOtherTabMenuOpen(2)}
-        /> */}
       </>
 
       <style jsx>{`
