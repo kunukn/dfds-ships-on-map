@@ -25,10 +25,10 @@ const fiveSeconds = 1000 * 5;
 let dataUpdateInterval =
   process.env.NODE_ENV === "development" ? fiveSeconds : twoMinutes;
 
-const Map = ({ shipsProp = [], currentDate = 0 }) => {
+const Map = () => {
   let [tabs, setTabs] = useState({ values: [false, false, false, false] });
-  let [shipsState, setShipsState] = useState(shipsProp);
-  let [lastUpdated, setLastUpdated] = useState(new Date(currentDate));
+  let [shipsState, setShipsState] = useState([]);
+  let [lastUpdated, setLastUpdated] = useState(new Date(Date.now()));
   let [storageValue, setStorageValue] = useLocalStorage("dfds-ships", {});
   let map = useRef({}).current;
   let isFirstRender = useRef(true);
@@ -79,8 +79,18 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
         id: "mapbox.streets"
       }
     ).addTo(map);
+  }, []);
 
-    addShipsToMap({ ships: shipsState, map });
+  // fetch ships initially
+  useEffect(() => {
+    let fetchDataAndUpdateState = async () => {
+      let ships = await getShipsFromApi();
+      setShipsState(ships);
+      let updated = new Date(Date.now());
+      setLastUpdated(updated);
+      addShipsToMap({ ships, map });
+    };
+    fetchDataAndUpdateState();
   }, []);
 
   // real-time update
@@ -92,8 +102,16 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
         let updated = new Date(Date.now());
         setLastUpdated(updated);
         store.set(state => {
-          state.logs = [`ships last updated:
-          ${updated.toUTCString()}`, ...state.logs];
+          state.logs = [
+            `ships last updated:
+          ${updated.toUTCString()}`,
+            ...state.logs
+          ];
+
+          // Max length for array to avoid DOM slowness.
+          if(state.logs.length > 20){
+            state.logs.length = 20;
+          }
 
           return { ...state };
         });
@@ -171,10 +189,10 @@ const Map = ({ shipsProp = [], currentDate = 0 }) => {
     </>
   );
 };
-Map.getInitialProps = async ({ req, query }) => {
-  let shipsProp = await getShipsFromApi();
-  return { shipsProp, currentDate: Date.now() };
-};
+// Map.getInitialProps = async ({ req, query }) => {
+//   let shipsProp = await getShipsFromApi();
+//   return { shipsProp, currentDate: Date.now() };
+// };
 
 export default Map;
 

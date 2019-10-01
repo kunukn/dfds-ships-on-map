@@ -91,10 +91,10 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           box-shadow: none;
           font-size: 16px;
           position: absolute;
-          left: -1em;
-          width: 1em;
+          left: -1.5em;
+          width: 1.5em;
           height: 90px;
-          top: ${level * 90 + level * 10}px;
+          top: ${10 + level * 90 + level * 10}px;
           display: flex;
           flex-direction: column;
           align-items: center;
