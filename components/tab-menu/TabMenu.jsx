@@ -37,7 +37,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           onClick={onToggle}
           aria-label="tab1"
         >
-          {titleToRender}
+          <span className="menu-text-toggle-content">{titleToRender}</span>
         </button>
       </div>
 
@@ -84,29 +84,39 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           line-height: 1;
           color: gray;
         }
+        .menu-text-toggle-content {
+          border-top-left-radius: 1em;
+          border-bottom-left-radius: 1em;
+          background: rgba(#eee, 0.95);
+          position: absolute;
+          top: 0;
+          right: 0;
+          height: 100%;
+          width: 1em;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          @supports (backdrop-filter: blur(10px)) {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: saturate(180%) blur(12px);
+          }
+        }
         .menu-text-toggle {
-          border: none;
-          border-top-left-radius: 16px;
-          border-bottom-left-radius: 16px;
-          box-shadow: none;
           font-size: 16px;
+          border: none;
+          box-shadow: none;
           position: absolute;
           left: -1.5em;
           width: 1.5em;
           height: 90px;
           top: ${10 + level * 90 + level * 10}px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
           transition: opacity 300ms, background-color 300ms;
           z-index: 2;
           user-select: none;
-          background: rgba(#eee, 0.95);
-          @supports (backdrop-filter: blur(10px)) {
-            background-color: rgba(255, 255, 255, 0.7);
-            backdrop-filter: saturate(180%) blur(12px);
-          }
+          padding-left: 1em;
+          background: transparent;
+          _outline: 1px solid;
         }
         .menu-text-toggle :global(b) {
           line-height: 1;
