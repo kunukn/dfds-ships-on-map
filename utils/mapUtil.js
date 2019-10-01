@@ -27,7 +27,8 @@ export let createShipMarker = data => {
   let marker = L.marker([data.position.lat, data.position.lng], {
     icon,
     title: data.name,
-    alt: data.name
+    alt: data.name,
+    zIndexOffset: 1,
   });
   marker.shipImo = data.imo;
   marker.isShipMarker = true;
@@ -35,7 +36,7 @@ export let createShipMarker = data => {
 };
 
 export let createPortMarker = data => {
-  let svg = createSvgPort();
+  let svg = createSvgPort({icon: '#002b45'});
 
   /*
     For data URI SVG support in Firefox & IE it's necessary to URI encode the string
@@ -52,7 +53,8 @@ export let createPortMarker = data => {
   let marker = L.marker([data.position.lat, data.position.lng], {
     icon,
     title: data.name,
-    alt: data.name
+    alt: data.name,
+    zIndexOffset: 0,
   });
 
   marker.isPortMarker = true;

@@ -19,7 +19,8 @@ import arrayToObject from "~/utils/arrayToObject";
 import {
   addShipMarkerToMap,
   createShipMarker,
-  addShipsToMap
+  addShipsToMap,
+  addPortsToMap
 } from "~/utils/mapUtil";
 
 let intervalKey = null;
@@ -84,7 +85,7 @@ const Map = () => {
     ).addTo(map);
   }, []);
 
-  // fetch ships initially
+  // fetch ships initially and add to map
   useEffect(() => {
     let fetchDataAndUpdateState = async () => {
       let ships = await getShipsFromApi();
@@ -101,6 +102,37 @@ const Map = () => {
     } else {
       fetchDataAndUpdateState();
     }
+  }, []);
+
+  // add ports to map
+  useEffect(() => {
+    let ports = [
+      {
+        name: "Calais terminal",
+        position: { lat: 50.966269, lng: 1.862349 }
+      },
+      {
+        name: "Dunkirk terminal",
+        position: { lat: 51.016405, lng: 2.198786 }
+      },
+      {
+        name: "Dover terminal",
+        position: { lat: 51.128317, lng: 1.333217 }
+      },
+      {
+        name: "Dieppe terminal",
+        position: { lat: 49.93398, lng: 1.08966 }
+      },
+      {
+        name: "Newhaven terminal",
+        position: { lat: 50.793432, lng: 0.054003 }
+      },
+      {
+        name: "Amsterdam (Ijmuiden) terminal",
+        position: { lat: 52.462207, lng: 4.586865 }
+      }
+    ];
+    addPortsToMap({ ports, map });
   }, []);
 
   // real-time update
