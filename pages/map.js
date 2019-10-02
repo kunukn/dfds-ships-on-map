@@ -1,40 +1,43 @@
 // http://api.dfds.cloud/prod/voyage/swagger/index.html
 
-import React, { useEffect, useState, useRef } from "react";
-import Link from "next/link";
-import Head from "next/head";
-import { useStore } from "laco-react";
-import { useLocalStorage } from "react-use";
+import React, { useEffect, useState, useRef } from 'react';
+import Link from 'next/link';
+import Head from 'next/head';
+import { useStore } from 'laco-react';
+import { useLocalStorage } from 'react-use';
 
-import TrackingPinRailway from "~/static/icons/TrackingPinRailway.svg";
-import TrackingPinShip from "~/static/icons/TrackingPinShip.svg";
-import TrackingPinTruck from "~/static/icons/TrackingPinTruck.svg";
-import mapRef from "~/mapRef.js";
-import store from "~/store.js";
-import getShipsFromApi from "~/api-layer/getShipsFromApi";
-import MainHeader from "~/components/main-header";
-import MainFooter from "~/components/main-footer";
-import TabMenu from "~/components/tab-menu/TabMenu";
-import arrayToObject from "~/utils/arrayToObject";
+import TrackingPinRailway from '~/static/icons/TrackingPinRailway.svg';
+import TrackingPinShip from '~/static/icons/TrackingPinShip.svg';
+import TrackingPinTruck from '~/static/icons/TrackingPinTruck.svg';
+import mapRef from '~/mapRef.js';
+import store from '~/store.js';
+import getShipsFromApi from '~/api-layer/getShipsFromApi';
+import MainHeader from '~/components/main-header';
+import MainFooter from '~/components/main-footer';
+import TabMenu from '~/components/tab-menu/TabMenu';
+import arrayToObject from '~/utils/arrayToObject';
 import {
   addShipMarkerToMap,
   createShipMarker,
   addShipsToMap,
-  addPortsToMap
-} from "~/utils/mapUtil";
+  addPortsToMap,
+} from '~/utils/mapUtil';
+import terminals from '~/data-layer/terminals';
+import ports from '~/data-layer/ports';
 
+let portsAndTerminals = ports.concat(terminals);
 let intervalKey = null;
 const twoMinutes = 1000 * 60 * 2;
 const fiveSeconds = 1000 * 5;
 let dataUpdateInterval =
-  process.env.NODE_ENV === "development" ? fiveSeconds : twoMinutes;
+  process.env.NODE_ENV === 'development' ? fiveSeconds : twoMinutes;
 
 const Map = () => {
   const { isFullscreen, logs, ships = [] } = useStore(store);
   let [tabs, setTabs] = useState({ values: [false, false, false, false] });
   let [shipsState, setShipsState] = useState(ships);
   let [lastUpdated, setLastUpdated] = useState(new Date(Date.now()));
-  let [storageValue, setStorageValue] = useLocalStorage("dfds-ships", {});
+  let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
   let map = useRef({}).current;
   let isFirstRender = useRef(true);
 
@@ -63,7 +66,7 @@ const Map = () => {
     store.set(state => {
       state.logs.push(`ships updated:
       ${lastUpdated.toUTCString()}`);
-      state.logs.push("DOM init draw");
+      state.logs.push('DOM init draw');
       return { ...state };
     });
 
@@ -80,7 +83,7 @@ const Map = () => {
       `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
       {
         maxZoom: 18,
-        id: "mapbox.streets"
+        id: 'mapbox.streets',
       }
     ).addTo(map);
   }, []);
@@ -106,67 +109,7 @@ const Map = () => {
 
   // add ports to map
   useEffect(() => {
-    let ports = [
-      {
-        name: "Calais terminal",
-        position: { lat: 50.966269, lng: 1.862349 }
-      },
-      {
-        name: "Dunkirk terminal",
-        position: { lat: 51.016405, lng: 2.198786 }
-      },
-      {
-        name: "Dover terminal",
-        position: { lat: 51.128317, lng: 1.333217 }
-      },
-      {
-        name: "Dieppe terminal",
-        position: { lat: 49.93398, lng: 1.08966 }
-      },
-      {
-        name: "Newhaven terminal",
-        position: { lat: 50.793432, lng: 0.054003 }
-      },
-      {
-        name: "Amsterdam (Ijmuiden) terminal",
-        position: { lat: 52.462207, lng: 4.586865 }
-      },
-      {
-        name: "Newcastle terminal",
-        position: { lat: 54.992593, lng: -1.451966 }
-      },
-      {
-        name: "Copenhagen terminal",
-        position: { lat: 55.701529, lng: 12.595976 }
-      },
-      {
-        name: "Oslo terminal",
-        position: { lat: 59.902629, lng: 10.743466 }
-      },
-      {
-        name: "Kiel terminal",
-        position: { lat: 54.333263, lng: 10.176098 }
-      },
-      {
-        name: "Paldiski terminal",
-        position: { lat: 59.347205, lng: 24.057701 }
-      },
-      {
-        name: "Klaipeda terminal",
-        position: { lat: 55.684123, lng: 21.144374 }
-      },
-      {
-        name: "Karlshamn terminal",
-        position: { lat: 56.162593, lng: 14.816593 }
-      },
-      {
-        name: "Kapellskär terminal",
-        position: { lat: 59.762497, lng: 19.036611 }
-      },
-
-      
-    ];
-    addPortsToMap({ ports, map });
+    addPortsToMap({ ports: portsAndTerminals, map });
   }, []);
 
   // real-time update
@@ -181,7 +124,7 @@ const Map = () => {
           state.logs = [
             `ships updated:
           ${updated.toUTCString()}`,
-            ...state.logs
+            ...state.logs,
           ];
 
           // Max length for array to avoid DOM slowness.
@@ -261,11 +204,11 @@ export default Map;
 
 // Only works client-side.
 let updateMarkerPosition = ({ ships, map }) => {
-  if (typeof window === "object" && map && Array.isArray(ships)) {
+  if (typeof window === 'object' && map && Array.isArray(ships)) {
     if (!ships.length) {
       // remove all markers from map because the API now says array is empty?
     } else {
-      const shipsDataObject = arrayToObject(ships, "imo");
+      const shipsDataObject = arrayToObject(ships, 'imo');
 
       map.eachLayer(layer => {
         let ship = shipsDataObject[layer.shipImo];
@@ -283,7 +226,7 @@ let updateMarkerPosition = ({ ships, map }) => {
             shipMarkersOnMap.push(layer);
           }
         });
-        const shipsOnMapObject = arrayToObject(shipMarkersOnMap, "shipImo");
+        const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
 
         ships.forEach(ship => {
           let shipOnMap = shipsOnMapObject[ship.imo];
