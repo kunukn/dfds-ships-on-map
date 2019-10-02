@@ -66,7 +66,7 @@ const Map = () => {
     store.set(state => {
       state.logs.push(`ships updated:
       ${lastUpdated.toUTCString()}`);
-      state.logs.push('DOM init draw');
+      state.logs.push('App rendered.');
       return { ...state };
     });
 
