@@ -14,7 +14,7 @@ const MainFooter = ({ lastUpdated }) => (
         font-size: 14px;
         line-height: 1.25;
         color: white;
-        background: rgba(#4d4e4c, 0.7);
+        background: rgba($color-groupBlue, 0.6);
         text-align: left;
         padding: 2px 4px;
         z-index: 1;

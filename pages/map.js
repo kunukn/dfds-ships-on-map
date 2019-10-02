@@ -61,7 +61,7 @@ const Map = () => {
     map = mapRef.get();
 
     store.set(state => {
-      state.logs.push(`ships last updated:
+      state.logs.push(`ships updated:
       ${lastUpdated.toUTCString()}`);
       state.logs.push("DOM init draw");
       return { ...state };
@@ -179,7 +179,7 @@ const Map = () => {
         setLastUpdated(updated);
         store.set(state => {
           state.logs = [
-            `ships last updated:
+            `ships updated:
           ${updated.toUTCString()}`,
             ...state.logs
           ];

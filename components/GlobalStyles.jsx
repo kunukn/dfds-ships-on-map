@@ -24,13 +24,19 @@ let GlobalStyles = () => (
       font-family: DFDS, Verdana, sans-serif;
       padding: 0;
       margin: 0;
-      color: #4d4e4c;
+      color: $color-textGrey;
       background-color: white;
     }
     @media (min-width: 700px) {
     }
     #__next {
       position: relative;
+    }
+
+    button {
+      border: none;
+      box-shadow: none;
+      background: transparent;
     }
 
     a {
@@ -50,6 +56,10 @@ let GlobalStyles = () => (
     .svg-ship-icon {
       &--highlight {
       }
+    }
+
+    .leaflet-control.leaflet-control-zoom {
+      border: none;
     }
   `}</style>
 );

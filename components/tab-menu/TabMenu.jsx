@@ -1,14 +1,14 @@
-import { useStore } from "laco-react";
+import { useStore } from 'laco-react';
 
-import store from "~/store.js";
-import CloseSvg from "~/static/icons/Close.svg";
+import store from '~/store.js';
+import CloseSvg from '~/static/icons/Close.svg';
 
 const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
   const { isFullscreen } = useStore(store);
 
   let getFallbackTitle = () => (
     <>
-      {"tab".split("").map((c, index) => (
+      {'tab'.split('').map((c, index) => (
         <b key={index}>{c}</b>
       ))}
       <b>{level + 1}</b>
@@ -16,7 +16,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
   );
 
   let titleToRender = title
-    ? title.split("").map((c, index) => <b key={index}>{c}</b>)
+    ? title.split('').map((c, index) => <b key={index}>{c}</b>)
     : getFallbackTitle();
 
   return (
@@ -35,7 +35,8 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
         <button
           className="menu-text-toggle"
           onClick={onToggle}
-          aria-label="tab1"
+          aria-label="logs"
+          title="logs"
         >
           <span className="menu-text-toggle-content">{titleToRender}</span>
         </button>
@@ -47,7 +48,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           height: calc(100vh - 60px);
           max-height: calc(100vh - 100px);
           position: absolute;
-          top: 40px;
+          top: 60px;
           right: 0;
           transition: transform 300ms;
           transform: translateX(100%);
@@ -75,15 +76,20 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           top: 4px;
           right: 4px;
           font-size: 16px;
-          padding: 4px 8px;
+          padding: 4px;
           background: transparent;
           color: white;
           border: none;
           box-shadow: none;
-          min-height: 30px;
+          _min-height: 30px;
           line-height: 1;
           color: gray;
+
+          > :global(svg) {
+            display: block;
+          }
         }
+
         .menu-text-toggle-content {
           border-top-left-radius: 1em;
           border-bottom-left-radius: 1em;
@@ -110,7 +116,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           left: -1.5em;
           width: 1.5em;
           height: 90px;
-          top: ${10 + level * 90 + level * 10}px;
+          top: ${0 + level * 90 + level * 10}px;
           transition: opacity 300ms, background-color 300ms;
           z-index: 2;
           user-select: none;
@@ -128,12 +134,12 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
       `}</style>
       <style jsx>{`
         .tab-menu {
-          transform: ${isOpen ? "translateX(0)" : "translateX(100%)"};
+          transform: ${isOpen ? 'translateX(0)' : 'translateX(100%)'};
           z-index: ${isOpen ? 1 : 0};
         }
         .menu-text-toggle {
-          opacity: ${isFullscreen ? 0.6 : ""};
-          opacity: ${isOtherOpen ? 0 : ""};
+          opacity: ${isFullscreen ? 0.6 : ''};
+          opacity: ${isOtherOpen ? 0 : ''};
         }
       `}</style>
     </>

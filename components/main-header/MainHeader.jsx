@@ -1,9 +1,12 @@
-import { useStore } from "laco-react";
-import { Subscribe } from "laco-react";
+import { useStore } from 'laco-react';
+import { Subscribe } from 'laco-react';
 
-import store from "~/store.js";
-import FullscreenEnterIcon from "~/static/icons/FullscreenEnter.svg";
-import FullscreenExitIcon from "~/static/icons/FullscreenExit.svg";
+import store from '~/store.js';
+import FullscreenEnterIcon from '~/static/icons/FullscreenEnter.svg';
+import FullscreenExitIcon from '~/static/icons/FullscreenExit.svg';
+import DFDSLogo from '~/static/icons/DFDSLogo.svg';
+import SettingsIcon from '~/static/icons/Settings.svg';
+import UserIcon from '~/static/icons/User.svg';
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
@@ -34,12 +37,15 @@ const MainHeader = ({ lastUpdated }) => {
       <Subscribe to={[store]}>
         {storeState => (
           <header className="main-header">
-            <div className="logo">DFDS Ships</div>
-            <div>
+            <div className="logo">
+              <DFDSLogo className="dfds-logo" />
+            </div>
+            <div className="button-group">
               {storeState.isFullscreenSupported && (
                 <button
                   className="toggle-full-screen"
                   onClick={fullscreenWasToggled}
+                  title="toggle full screen"
                 >
                   {storeState.isFullscreen ? (
                     <FullscreenExitIcon className="fullscreen-exit-icon" />
@@ -48,6 +54,20 @@ const MainHeader = ({ lastUpdated }) => {
                   )}
                 </button>
               )}
+              <button
+                className="button-user"
+                onClick={() => alert('TODO')}
+                title="user"
+              >
+                <UserIcon className="user-icon" />
+              </button>
+              <button
+                title="settings"
+                className="button-settings"
+                onClick={() => alert('TODO')}
+              >
+                <SettingsIcon className="settings-icon" />
+              </button>
             </div>
           </header>
         )}
@@ -55,38 +75,56 @@ const MainHeader = ({ lastUpdated }) => {
 
       <style jsx>{`
         .main-header {
-          height: 40px;
+          height: 50px;
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           font-size: 14px;
-          color: white;
+          color: #002b45;
           text-align: left;
           display: flex;
           justify-content: space-between;
-          align-items: flex-start;
+          align-items: center;
           flex-wrap: wrap;
+          _background: rgba(white, 0.5);
         }
         .logo {
-          font-size: 20px;
-          padding: 4px 8px;
-          background: rgba(#4d4e4c, 0.5);
+          display: flex;
+          height: inherit;
+          align-items: center;
+          padding-left: 10px;
+        }
+        .button-group {
+          display: flex;
+          background: rgba(white, 0.5);
+        }
+        .button-settings {
+          display: block;
+          width: 50px;
+          color: $color-groupBlue;
+          cursor: pointer;
+        }
+        .button-user {
+          display: block;
+          width: 50px;
+          color: $color-groupBlue;
+          cursor: pointer;
         }
         .toggle-full-screen {
-          color: white;
-          font-size: 24px;
+          font-size: 30px;
           margin: 0;
           border: none;
-          margin: 4px;
           line-height: 1;
           background: transparent;
-          background: rgba(#4d4e4c, 0.5);
-          color: white;
-          fill: white;
-          padding: 0;
+          fill: $color-groupBlue;
+          padding: 10px;
+          width: 50px;
           display: block;
           cursor: pointer;
+          > :global(svg) {
+            _background: rgba($color-groupBlue, 0.5);
+          }
         }
         :global(.fullscreen-exit-icon) {
           display: block;
@@ -97,10 +135,10 @@ const MainHeader = ({ lastUpdated }) => {
       `}</style>
       <style jsx>{`
         .logo {
-          opacity: ${isFullscreen ? 0.7 : ""};
+          opacity: ${isFullscreen ? 0.7 : ''};
         }
         .toggle-full-screen {
-          opacity: ${isFullscreen ? 0.7 : ""};
+          opacity: ${isFullscreen ? 0.7 : ''};
         }
       `}</style>
     </>
