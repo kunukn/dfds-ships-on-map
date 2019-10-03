@@ -1,10 +1,12 @@
+// https://api.hellman.oxygen.dfds.cloud/dev/vessel/swagger/index.html
+// http://api.dfds.cloud/prod/voyage/swagger/index.html
+
 import fetch from 'isomorphic-unfetch';
 
 export default async function getShips(req, res) {
   async function getShipsFromApi() {
     try {
       let url = `https://api.hellman.oxygen.dfds.cloud/dev/vessel/api/v1/Ships`;
-      // http://api.dfds.cloud/prod/voyage
 
       const response = await fetch(url, {
         method: 'GET',
