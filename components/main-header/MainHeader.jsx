@@ -93,9 +93,11 @@ const MainHeader = ({ lastUpdated }) => {
           display: flex;
           height: inherit;
           align-items: center;
+          justify-content: stretch;
           padding-left: 10px;
         }
         .button-group {
+          height: inherit;
           display: flex;
           background: rgba(white, 0.5);
         }

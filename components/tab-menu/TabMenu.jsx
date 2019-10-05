@@ -91,14 +91,14 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
         }
 
         .menu-text-toggle-content {
-          border-top-left-radius: 1em;
-          border-bottom-left-radius: 1em;
+          border-top-left-radius: 1.5em;
+          border-bottom-left-radius: 1.5em;
           background: rgba(#eee, 0.95);
           position: absolute;
           top: 0;
           right: 0;
           height: 100%;
-          width: 1em;
+          width: 1.5em;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -120,7 +120,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           transition: opacity 300ms, background-color 300ms;
           z-index: 2;
           user-select: none;
-          padding-left: 1em;
+          padding-left: 1.5em / 2;
           background: transparent;
           _outline: 1px solid;
         }
