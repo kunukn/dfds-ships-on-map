@@ -100,6 +100,10 @@ const MainHeader = ({ lastUpdated }) => {
           height: inherit;
           display: flex;
           background: rgba(white, 0.5);
+          @supports (backdrop-filter: blur(10px)) {
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: saturate(180%) blur(4px);
+          }
         }
         .button-settings {
           display: block;
