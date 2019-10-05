@@ -7,6 +7,7 @@ import FullscreenExitIcon from '~/static/icons/FullscreenExit.svg';
 import DFDSLogo from '~/static/icons/DFDSLogo.svg';
 import SettingsIcon from '~/static/icons/Settings.svg';
 import UserIcon from '~/static/icons/User.svg';
+import SearchIcon from '~/static/icons/Search.svg';
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
@@ -43,7 +44,7 @@ const MainHeader = ({ lastUpdated }) => {
             <div className="button-group">
               {storeState.isFullscreenSupported && (
                 <button
-                  className="toggle-full-screen"
+                  className="button toggle-full-screen"
                   onClick={fullscreenWasToggled}
                   title="toggle full screen"
                 >
@@ -54,8 +55,17 @@ const MainHeader = ({ lastUpdated }) => {
                   )}
                 </button>
               )}
+
               <button
-                className="button-user"
+                className="button button-search"
+                onClick={() => alert('TODO')}
+                title="search"
+              >
+                <SearchIcon className="search-icon" />
+              </button>
+
+              <button
+                className="button button-user"
                 onClick={() => alert('TODO')}
                 title="user"
               >
@@ -63,7 +73,7 @@ const MainHeader = ({ lastUpdated }) => {
               </button>
               <button
                 title="settings"
-                className="button-settings"
+                className="button button-settings"
                 onClick={() => alert('TODO')}
               >
                 <SettingsIcon className="settings-icon" />
@@ -106,17 +116,17 @@ const MainHeader = ({ lastUpdated }) => {
             backdrop-filter: saturate(180%) blur(4px);
           }
         }
-        .button-settings {
-          display: block;
+        .button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           width: 50px;
           color: $color-groupBlue;
           cursor: pointer;
-        }
-        .button-user {
-          display: block;
-          width: 50px;
-          color: $color-groupBlue;
-          cursor: pointer;
+          font-size: 20px;
+          > :global(svg) {
+            _outline: 1px solid red;
+          }
         }
         .toggle-full-screen {
           font-size: 30px;
@@ -125,13 +135,7 @@ const MainHeader = ({ lastUpdated }) => {
           line-height: 1;
           background: transparent;
           fill: $color-groupBlue;
-          padding: 10px;
-          width: 50px;
-          display: block;
           cursor: pointer;
-          > :global(svg) {
-            _background: rgba($color-groupBlue, 0.5);
-          }
         }
         :global(.fullscreen-exit-icon) {
           display: block;
