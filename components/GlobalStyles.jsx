@@ -59,7 +59,23 @@ let GlobalStyles = () => (
     }
 
     .leaflet-control.leaflet-control-zoom {
-      border: none;
+      _border: none;
+    }
+
+    .leaflet-control-zoom-in {
+      background-color: rgba(255, 255, 255, 0.9) !important;
+      @supports (backdrop-filter: blur(4px)) {
+        background-color: rgba(255, 255, 255, 0.7) !important;
+        backdrop-filter: saturate(180%) blur(4px);
+      }
+    }
+
+    .leaflet-control-zoom-out {
+      background-color: rgba(255, 255, 255, 0.9) !important;
+      @supports (backdrop-filter: blur(4px)) {
+        background-color: rgba(255, 255, 255, 0.7) !important;
+        backdrop-filter: saturate(180%) blur(4px);
+      }
     }
   `}</style>
 );
