@@ -5,6 +5,7 @@ const mapRef = {
     mapRef.set(
       L.map('mapid', {
         zoomControl: false,
+        attributionControl: false,
       })
     );
   },

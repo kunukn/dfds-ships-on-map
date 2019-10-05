@@ -120,7 +120,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           transition: opacity 300ms, background-color 300ms;
           z-index: 2;
           user-select: none;
-          padding-left: .5em;
+          padding-left: 0.5em;
           background: transparent;
           _outline: 1px solid;
         }
