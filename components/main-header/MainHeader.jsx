@@ -80,6 +80,7 @@ const MainHeader = ({ lastUpdated }) => {
           top: 0;
           left: 0;
           width: 100%;
+          max-width: 1300px;
           font-size: 14px;
           color: #002b45;
           text-align: left;
@@ -141,10 +142,10 @@ const MainHeader = ({ lastUpdated }) => {
       `}</style>
       <style jsx>{`
         .logo {
-          opacity: ${isFullscreen ? 0.7 : ''};
+          _opacity: ${isFullscreen ? 0.7 : ''};
         }
         .toggle-full-screen {
-          opacity: ${isFullscreen ? 0.7 : ''};
+          _opacity: ${isFullscreen ? 0.7 : ''};
         }
       `}</style>
     </>
