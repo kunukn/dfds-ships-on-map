@@ -113,14 +113,14 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           border: none;
           box-shadow: none;
           position: absolute;
-          left: -1.5em;
-          width: 1.5em;
+          left: -2em;
+          width: 2em;
           height: 90px;
           top: ${0 + level * 90 + level * 10}px;
           transition: opacity 300ms, background-color 300ms;
           z-index: 2;
           user-select: none;
-          padding-left: 1.5em / 2;
+          padding-left: .5em;
           background: transparent;
           _outline: 1px solid;
         }
