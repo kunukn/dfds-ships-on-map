@@ -64,7 +64,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           padding: 40px 10px 10px;
           background: rgba(#eee, 0.95);
           @supports (backdrop-filter: blur(10px)) {
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.2);
             backdrop-filter: saturate(180%) blur(4px);
           }
         }
@@ -122,7 +122,6 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           user-select: none;
           padding-left: 0.5em;
           background: transparent;
-          _outline: 1px solid;
         }
         .menu-text-toggle :global(b) {
           line-height: 1;
