@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { useStore } from 'laco-react';
 import { useLocalStorage } from 'react-use';
-import cx from 'clsx'
+import cx from 'clsx';
 
 import TrackingPinRailway from '~/static/icons/TrackingPinRailway.svg';
 import TrackingPinShip from '~/static/icons/TrackingPinShip.svg';
@@ -77,6 +77,12 @@ const Map = () => {
     let latitude = 55.676098;
     let longitude = 12.568337;
     let zoomLevel = 5;
+
+    L.control
+      .zoom({
+        position: 'bottomleft',
+      })
+      .addTo(map);
 
     map.setView([latitude, longitude], zoomLevel);
 
@@ -190,12 +196,14 @@ const Map = () => {
         :global(.leaflet-control-zoom) {
           __outline: 1px solid red;
           __position: relative;
-          top: 40px;
+          bottom: 40px;
         }
       `}</style>
     </>
   );
 };
+
+// Server-side
 // Map.getInitialProps = async ({ req, query }) => {
 //   let shipsProp = await getShipsFromApi();
 //   return { shipsProp, currentDate: Date.now() };
