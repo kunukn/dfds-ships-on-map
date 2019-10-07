@@ -9,7 +9,7 @@ export let createCustomIcon = () =>
     }
   });
 
-  export let createCustomIconSmall = () =>
+export let createCustomIconSmall = () =>
   L.Icon.extend({
     options: {
       iconSize: [20, 20],
@@ -19,7 +19,10 @@ export let createCustomIcon = () =>
   });
 
 
-  export let createShipMarker = data => {
+export let createShipMarker = data => {
+
+  if (!data.position) return null;
+
   let svg = createSvgShip();
 
   /*
@@ -46,7 +49,10 @@ export let createCustomIcon = () =>
 };
 
 export let createPortMarker = data => {
-  let svg = createSvgPort({icon: '#002b45'});
+
+  if (!data.position) return null;
+
+  let svg = createSvgPort({ icon: '#002b45' });
 
   /*
     For data URI SVG support in Firefox & IE it's necessary to URI encode the string
@@ -114,7 +120,7 @@ export let addShipsToMap = ({ ships, map }) => {
     ships.length &&
     ships.forEach(ship => {
       let marker = createShipMarker(ship);
-      addShipMarkerToMap({ marker, ship, map });
+      if (marker) addShipMarkerToMap({ marker, ship, map });
     });
 };
 
@@ -123,6 +129,6 @@ export let addPortsToMap = ({ ports, map }) => {
     ports.length &&
     ports.forEach(port => {
       let marker = createPortMarker(port);
-      addPortMarkerToMap({ map, marker, port });
+      if (marker) addPortMarkerToMap({ map, marker, port });
     });
 };
