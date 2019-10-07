@@ -441,4 +441,6 @@ const ships = [
   },
 ];
 
+//export default (req, res) => res.json([]); // debug
+
 export default (req, res) => res.json(ships);

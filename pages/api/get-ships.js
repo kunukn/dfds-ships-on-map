@@ -16,16 +16,14 @@ export default async function getShips(req, res) {
         },
       });
 
-      let json = await response.json();
+      return await response.json();
 
-      return json;
     } catch (ex) {
       console.error('get-ships', ex.toString());
-      return null;
+      return [];
     }
   }
 
   let ships = await getShipsFromApi();
-  //console.log(ships)
   return res.json(ships);
 }

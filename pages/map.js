@@ -203,7 +203,7 @@ const Map = () => {
   );
 };
 
-// Server-side
+/* Server-side */
 // Map.getInitialProps = async ({ req, query }) => {
 //   let shipsProp = await getShipsFromApi();
 //   return { shipsProp, currentDate: Date.now() };
@@ -213,37 +213,44 @@ export default Map;
 
 // Only works client-side.
 let updateMarkerPosition = ({ ships, map }) => {
-  if (typeof window === 'object' && map && Array.isArray(ships)) {
-    if (!ships.length) {
-      // remove all markers from map because the API now says array is empty?
-    } else {
-      const shipsDataObject = arrayToObject(ships, 'imo');
 
-      map.eachLayer(layer => {
-        let ship = shipsDataObject[layer.shipImo];
-        if (layer.isShipMarker && ship) {
-          // update position
-          layer.setLatLng(L.latLng(ship.position.lat, ship.position.lng));
-        } else if (layer.isShipMarker) {
-          // remove marker not existing in data from map.
-          map.removeLayer(layer);
-        }
+  try {
+    if (typeof window === 'object' && map && Array.isArray(ships)) {
+      if (!ships.length) {
+        // remove all markers from map because the API now says array is empty?
+      } else {
+        const shipsDataObject = arrayToObject(ships, 'imo');
 
-        let shipMarkersOnMap = [];
         map.eachLayer(layer => {
-          if (layer.isShipMarker) {
-            shipMarkersOnMap.push(layer);
+          let ship = shipsDataObject[layer.shipImo];
+          if (layer.isShipMarker && ship) {
+            // update position
+            if (ship.position) {
+              layer.setLatLng(L.latLng(ship.position.lat, ship.position.lng));
+            }
+          } else if (layer.isShipMarker) {
+            // remove marker not existing in data from map.
+            map.removeLayer(layer);
           }
-        });
-        const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
 
-        ships.forEach(ship => {
-          let shipOnMap = shipsOnMapObject[ship.imo];
-          if (!shipOnMap) {
-            // TODO: all new ship from data which are not already in map. Add new marker.
-          }
+          let shipMarkersOnMap = [];
+          map.eachLayer(layer => {
+            if (layer.isShipMarker) {
+              shipMarkersOnMap.push(layer);
+            }
+          });
+          const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
+
+          ships.forEach(ship => {
+            let shipOnMap = shipsOnMapObject[ship.imo];
+            if (!shipOnMap) {
+              // TODO: all new ship from data which are not already in map. Add new marker.
+            }
+          });
         });
-      });
+      }
     }
+  } catch (ex) {
+    console.error(ex + '')
   }
 };
