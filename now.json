@@ -1,6 +1,6 @@
 {
   "name": "ships-on-map",
-  "alias": "ships-on-map.tech",
+  "alias": ["ships-on-map.tech"],
   "version": 2,
   "regions": ["bru1"],
   "builds": [{ "src": "next.config.js", "use": "@now/next" }],
