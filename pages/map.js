@@ -33,11 +33,11 @@ const fiveSeconds = 1000 * 5;
 let dataUpdateInterval =
   process.env.NODE_ENV === 'development' ? fiveSeconds : twoMinutes;
 
-const Map = () => {
+const Map = props => {
   const { isFullscreen, logs, ships = [] } = useStore(store);
   let [tabs, setTabs] = useState({ values: [false, false, false, false] });
   let [shipsState, setShipsState] = useState(ships);
-  let [lastUpdated, setLastUpdated] = useState(new Date(Date.now()));
+  let [lastUpdated, setLastUpdated] = useState(new Date(props.currentDate));
   let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
   let map = useRef({}).current;
   let isFirstRender = useRef(true);
@@ -204,10 +204,12 @@ const Map = () => {
 };
 
 /* Server-side */
-// Map.getInitialProps = async ({ req, query }) => {
-//   let shipsProp = await getShipsFromApi();
-//   return { shipsProp, currentDate: Date.now() };
-// };
+Map.getInitialProps = async ({ req, query }) => {
+  // let shipsProp = await getShipsFromApi();
+  // return { shipsProp, currentDate: Date.now() };
+
+  return { currentDate: Date.now() };
+};
 
 export default Map;
 
