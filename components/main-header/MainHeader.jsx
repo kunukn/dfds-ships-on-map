@@ -106,6 +106,7 @@ const MainHeader = ({ lastUpdated }) => {
           align-items: center;
           justify-content: stretch;
           padding-left: 10px;
+          pointer-events: none;
         }
         .button-group {
           height: inherit;
