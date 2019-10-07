@@ -19,6 +19,7 @@ import TabMenu from '~/components/tab-menu/TabMenu';
 import arrayToObject from '~/utils/arrayToObject';
 import {
   addShipMarkerToMap,
+  createDivShipMarker,
   createShipMarker,
   addShipsToMap,
   addPortsToMap,
@@ -222,30 +223,52 @@ let updateMarkerPosition = ({ ships, map }) => {
       } else {
         const shipsDataObject = arrayToObject(ships, 'imo');
 
+        // convert to HashSet
+        let shipMarkersOnMap = [];
+        map.eachLayer(layer => {
+          if (layer.isShipMarker) shipMarkersOnMap.push(layer);
+        });
+        const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
+
+        // convert to HashSet
+        const divShipMarkersOnMap = [];
+        map.eachLayer(layer => {
+          if (layer.isDivShipMarker) divShipMarkersOnMap.push(layer);
+        });
+        const divShipsOnMapObject = arrayToObject(
+          divShipMarkersOnMap,
+          'shipImo'
+        );
+
         map.eachLayer(layer => {
           let ship = shipsDataObject[layer.shipImo];
           if (layer.isShipMarker && ship) {
             // update position
             if (ship.position) {
               layer.setLatLng(L.latLng(ship.position.lat, ship.position.lng));
+              // update div related to the ship
+              let divShip = divShipsOnMapObject[layer.shipImo];
+              if (divShip) {
+                divShip.setLatLng(
+                  L.latLng(ship.position.lat, ship.position.lng)
+                );
+              }
             }
           } else if (layer.isShipMarker) {
             // remove marker not existing in data from map.
             map.removeLayer(layer);
-          }
-
-          let shipMarkersOnMap = [];
-          map.eachLayer(layer => {
-            if (layer.isShipMarker) {
-              shipMarkersOnMap.push(layer);
+            // update div related to the ship
+            let divShip = divShipsOnMapObject[layer.shipImo];
+            if (divShip) {
+              map.removeLayer(divShip);
             }
-          });
-          const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
+          }
 
           ships.forEach(ship => {
             let shipOnMap = shipsOnMapObject[ship.imo];
             if (!shipOnMap) {
               // TODO: all new ship from data which are not already in map. Add new marker.
+              // TODO: update div related to the ship
             }
           });
         });

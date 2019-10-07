@@ -6,6 +6,7 @@ export let createCustomIcon = () =>
       iconAnchor: [16, 32],
       //shadowAnchor: [4, 40],
       popupAnchor: [1, -32],
+      className: 'custom-icon',
     },
   });
 
@@ -17,6 +18,28 @@ export let createCustomIconSmall = () =>
       popupAnchor: [1, -20],
     },
   });
+
+export let createDivShipMarker = data => {
+  if (!data || !data.position) return null;
+
+  let icon = L.divIcon({
+    className: 'ship-div-marker-icon',
+    //bgPos: [0, 0],
+    html: `<div class="ship-div-marker-icon__name">${
+      data.name ? data.name.replace('Seaways','').replace('Côte des','') : ''
+    }</div>`,
+  });
+  let marker = L.marker([data.position.lat, data.position.lng], {
+    icon,
+    title: data.name,
+    alt: data.name,
+    //zIndexOffset: 1000,
+  });
+
+  marker.shipImo = data.imo;
+  marker.isDivShipMarker = true;
+  return marker;
+};
 
 export let createShipMarker = data => {
   if (!data || !data.position) return null;
@@ -118,6 +141,9 @@ export let addShipsToMap = ({ ships, map }) => {
     ships.forEach(ship => {
       let marker = createShipMarker(ship);
       if (marker) addShipMarkerToMap({ marker, ship, map });
+
+      let divMarker = createDivShipMarker(ship);
+      if (divMarker) divMarker.addTo(map);
     });
 };
 

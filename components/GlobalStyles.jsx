@@ -77,6 +77,23 @@ let GlobalStyles = () => (
         backdrop-filter: saturate(180%) blur(4px);
       }
     }
+
+    .ship-div-marker-icon {
+      _width: 100px;
+      _height: 100px;
+      pointer-events: none;
+      _border-radius: 50%;
+      _background: rgba(red, 0.5);
+      _transform: translate(-50%, -50%);
+    }
+    .ship-div-marker-icon__name {
+      transform: translateY(10px);
+      line-height: 1;
+      font-size: 10px;
+      color: $color-groupBlue;
+      font-weight: 300;
+      font-family: Verdana;
+    }
   `}</style>
 );
 
