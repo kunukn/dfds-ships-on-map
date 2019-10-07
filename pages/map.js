@@ -205,7 +205,7 @@ const Map = props => {
 
 /* Server-side */
 Map.getInitialProps = async ({ req, query }) => {
-  // let shipsProp = await getShipsFromApi();
+  // let shipsProp = await getShipsFromApi({ useProxy: false });
   // return { shipsProp, currentDate: Date.now() };
 
   return { currentDate: Date.now() };
@@ -215,7 +215,6 @@ export default Map;
 
 // Only works client-side.
 let updateMarkerPosition = ({ ships, map }) => {
-
   try {
     if (typeof window === 'object' && map && Array.isArray(ships)) {
       if (!ships.length) {
@@ -253,6 +252,6 @@ let updateMarkerPosition = ({ ships, map }) => {
       }
     }
   } catch (ex) {
-    console.error(ex + '')
+    console.error(ex + '');
   }
 };
