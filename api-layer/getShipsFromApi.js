@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-unfetch';
+
 import { apiBaseUrl } from '~/constants/urls';
+import { getShipNameByIMO } from '~/constants/shipNames';
 
 const options = {
   headers: {
@@ -11,18 +13,22 @@ const options = {
 export default async function getShipsFromApi() {
   try {
     //`https://api.hellman.oxygen.dfds.cloud/dev/vessel/api/v1/Ships`;
-    let url = `${apiBaseUrl}/get-ships`;
+    let url = `${apiBaseUrl}/get-ships?v=${Date.now()}`;
 
     if (process.env.NODE_ENV === 'development') {
       url = `${apiBaseUrl}/mock-ships`;
     }
 
     const response = await fetch(url, options);
-    let json = await response.json();
+    let json = (await response.json()) || [];
+
+    json.forEach(ship => {
+      if (!ship.name) ship.name = getShipNameByIMO(ship.imo);
+    });
 
     return json;
   } catch (ex) {
     console.error(ex.toString());
-    return null;
+    return [];
   }
 }
