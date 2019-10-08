@@ -26,10 +26,17 @@ mkcert localhost 127.0.0.1 ::1   # Enables them on localhost
 
 ## TODO
 
+
+
 - ~Ship icons~
 - ~Realtime updated positions~
-- Terminal locations
+- ~Terminal locations~
+- ~Display ship names~
+- ~Logging~
+- ~Fullscreen mode~
+- ~Ship direction~
+- Search and find ship by name
+- Search and find terminal by name
 - Shipping routes as dashed lines
-- Ship direction
 - Scheduled information from other API
-- Timeline, go back in history 
+- Timeline, go back in history
