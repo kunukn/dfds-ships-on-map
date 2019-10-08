@@ -74,5 +74,35 @@ let data = [
     name: 'Hanko terminal',
     position: { lat: 59.825464, lng: 22.963567 },
   },
+  {
+    id: 'goteborg',
+    name: 'Göteborg terminal',
+    position: { lat: 57.702806, lng: 11.859945 },
+  },
+  {
+    id: 'immingham',
+    name: 'Immingham Riverside terminal',
+    position: { lat: 53.637473, lng: -0.205425 },
+  },
+  {
+    id: 'esbjerg',
+    name: 'Esbjerg terminal',
+    position: { lat: 55.458367, lng: 8.480849 },
+  },
+  {
+    id: 'rotterdam',
+    name: 'Rotterdam terminal',
+    position: { lat: 51.9050155, lng: 4.3588183 },
+  },
+  {
+    id: 'cuxhaven',
+    name: 'Cuxhaven terminal',
+    position: { lat: 53.85273, lng: 8.7323999999 },
+  },
+  {
+    id: 'brevik',
+    name: 'Brevik terminal',
+    position: { lat: 59.0659642, lng: 9.6942992 },
+  },
 ];
 export default data;

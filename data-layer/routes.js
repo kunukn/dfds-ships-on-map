@@ -1,3 +1,5 @@
+// https://www.dfds.com/da-dk/shipping/ruter-og-afgange
+
 import terminals from './terminals';
 import arrayToObject from '~/utils/arrayToObject';
 
@@ -74,6 +76,46 @@ let data = [
     latlngs: [
       [lookup['hanko'].position.lat, lookup['hanko'].position.lng],
       [lookup['paldiski'].position.lat, lookup['paldiski'].position.lng],
+    ],
+  },
+  {
+    id: 10,
+    name: 'Göteborg - Immingham',
+    latlngs: [
+      [lookup['goteborg'].position.lat, lookup['goteborg'].position.lng],
+      [lookup['immingham'].position.lat, lookup['immingham'].position.lng],
+    ],
+  },
+  {
+    id: 10,
+    name: 'Esbjerg - Immingham',
+    latlngs: [
+      [lookup['esbjerg'].position.lat, lookup['esbjerg'].position.lng],
+      [lookup['immingham'].position.lat, lookup['immingham'].position.lng],
+    ],
+  },
+  {
+    id: 11,
+    name: 'Rotterdam - Immingham',
+    latlngs: [
+      [lookup['rotterdam'].position.lat, lookup['rotterdam'].position.lng],
+      [lookup['immingham'].position.lat, lookup['immingham'].position.lng],
+    ],
+  },
+  {
+    id: 12,
+    name: 'Cuxhaven - Immingham',
+    latlngs: [
+      [lookup['cuxhaven'].position.lat, lookup['cuxhaven'].position.lng],
+      [lookup['immingham'].position.lat, lookup['immingham'].position.lng],
+    ],
+  },
+  {
+    id: 13,
+    name: 'Brevik - Immingham',
+    latlngs: [
+      [lookup['brevik'].position.lat, lookup['brevik'].position.lng],
+      [lookup['immingham'].position.lat, lookup['immingham'].position.lng],
     ],
   },
 ];

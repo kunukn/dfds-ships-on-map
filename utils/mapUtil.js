@@ -178,7 +178,7 @@ export let addRoutes = ({ map }) => {
       L.polyline(route.latlngs, {
         color: '#4d4e4c',
         weight: 1,
-        opacity: 0.5,
+        opacity: 0.2,
         dashArray: '10 10',
         className: 'ship-route',
       }).addTo(map);
