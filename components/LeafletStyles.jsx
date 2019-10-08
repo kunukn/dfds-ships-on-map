@@ -49,6 +49,22 @@ let Styles = () => (
       text-align: center;
       width: 100px;
     }
+    .ship-div-marker-icon__direction {
+      position: absolute;
+      text-align: center;
+      font-size: 16px;
+      top: -42px;
+      width: 1em;
+      height: 1em;
+      line-height: 1;
+      left: 0;
+      color: $color-groupBlue;
+      _background: rgba(white, 0.2);
+      border-radius: 50%;
+      _display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   `}</style>
 );
 
