@@ -25,6 +25,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
           />
+          <link rel="shortcut icon" href="/static/favicon.ico"/>
         </Head>
         <body>
           <Main />
