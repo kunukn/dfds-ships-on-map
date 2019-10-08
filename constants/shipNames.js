@@ -34,6 +34,10 @@ export let getShipNameByIMO = imo => {
       return "Dunkerque Seaways";
     case 8502391:
       return "Princess Seaways";
+    case 8908466:
+      return "Calais Seaways";
+    case 9188427:
+      return "Optima Seaways";
   }
   return null;
 };
