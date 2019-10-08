@@ -24,19 +24,22 @@ export let createDivShipMarker = data => {
 
   let rotate = 0;
   if (data.navigation && data.navigation.heading) {
-    rotate = data.navigation.heading;
+    rotate = Number(data.navigation.heading) || 0;
+    rotate = Math.min(Math.max(rotate, 0), 360);
   }
 
   let icon = L.divIcon({
     className: "ship-div-marker-icon",
     //bgPos: [0, 0],
-    html: `<div class="ship-div-marker-icon__content">
+    html: `<div class="ship-div-marker-icon__content" id="shipDivMarkerContent${
+      data.imo
+    }">
             <div class="ship-div-marker-icon__name">${
               data.name
                 ? data.name.replace("Seaways", "").replace("Côte des", "")
                 : ""
             }</div>
-            <div class="js ship-div-marker-icon__direction" style="transform: rotate(${rotate}deg)">&#x2191</div>
+            <div class="js ship-div-marker-icon__direction" data-rotate="${rotate}" style="transform: rotate(${rotate}deg)">&#x2191</div>
         </div>`
   });
   let marker = L.marker([data.position.lat, data.position.lng], {

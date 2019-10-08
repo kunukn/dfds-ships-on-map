@@ -1,45 +1,45 @@
 // http://api.dfds.cloud/prod/voyage/swagger/index.html
 
-import React, { useEffect, useState, useRef } from 'react';
-import Link from 'next/link';
-import Head from 'next/head';
-import { useStore } from 'laco-react';
-import { useLocalStorage } from 'react-use';
-import cx from 'clsx';
+import React, { useEffect, useState, useRef } from "react";
+import Link from "next/link";
+import Head from "next/head";
+import { useStore } from "laco-react";
+import { useLocalStorage } from "react-use";
+import cx from "clsx";
 
-import TrackingPinRailway from '~/static/icons/TrackingPinRailway.svg';
-import TrackingPinShip from '~/static/icons/TrackingPinShip.svg';
-import TrackingPinTruck from '~/static/icons/TrackingPinTruck.svg';
-import mapRef from '~/mapRef.js';
-import store from '~/store.js';
-import getShipsFromApi from '~/api-layer/getShipsFromApi';
-import MainHeader from '~/components/main-header';
-import MainFooter from '~/components/main-footer';
-import TabMenu from '~/components/tab-menu/TabMenu';
-import arrayToObject from '~/utils/arrayToObject';
+import TrackingPinRailway from "~/static/icons/TrackingPinRailway.svg";
+import TrackingPinShip from "~/static/icons/TrackingPinShip.svg";
+import TrackingPinTruck from "~/static/icons/TrackingPinTruck.svg";
+import mapRef from "~/mapRef.js";
+import store from "~/store.js";
+import getShipsFromApi from "~/api-layer/getShipsFromApi";
+import MainHeader from "~/components/main-header";
+import MainFooter from "~/components/main-footer";
+import TabMenu from "~/components/tab-menu/TabMenu";
+import arrayToObject from "~/utils/arrayToObject";
 import {
   addShipMarkerToMap,
   createDivShipMarker,
   createShipMarker,
   addShipsToMap,
-  addPortsToMap,
-} from '~/utils/mapUtil';
-import terminals from '~/data-layer/terminals';
-import ports from '~/data-layer/ports';
+  addPortsToMap
+} from "~/utils/mapUtil";
+import terminals from "~/data-layer/terminals";
+import ports from "~/data-layer/ports";
 
 let portsAndTerminals = ports.concat(terminals);
 let intervalKey = null;
 const twoMinutes = 1000 * 60 * 2;
 const fiveSeconds = 1000 * 5;
 let dataUpdateInterval =
-  process.env.NODE_ENV === 'development' ? fiveSeconds : twoMinutes;
+  process.env.NODE_ENV === "development" ? fiveSeconds : twoMinutes;
 
 const Map = props => {
   const { isFullscreen, logs, ships = [] } = useStore(store);
   let [tabs, setTabs] = useState({ values: [false, false, false, false] });
   let [shipsState, setShipsState] = useState(ships);
   let [lastUpdated, setLastUpdated] = useState(new Date(props.currentDate));
-  let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
+  let [storageValue, setStorageValue] = useLocalStorage("dfds-ships", {});
   let map = useRef({}).current;
   let isFirstRender = useRef(true);
 
@@ -68,7 +68,7 @@ const Map = props => {
     store.set(state => {
       state.logs.push(`ships updated:
       ${lastUpdated.toUTCString()}`);
-      state.logs.push('App rendered.');
+      state.logs.push("App rendered.");
       return { ...state };
     });
 
@@ -81,7 +81,7 @@ const Map = props => {
 
     L.control
       .zoom({
-        position: 'bottomleft',
+        position: "bottomleft"
       })
       .addTo(map);
 
@@ -91,7 +91,7 @@ const Map = props => {
       `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
       {
         maxZoom: 18,
-        id: 'mapbox.streets',
+        id: "mapbox.streets"
       }
     ).addTo(map);
   }, []);
@@ -132,7 +132,7 @@ const Map = props => {
           state.logs = [
             `ships updated:
           ${updated.toUTCString()}`,
-            ...state.logs,
+            ...state.logs
           ];
 
           // Max length for array to avoid DOM slowness.
@@ -217,18 +217,18 @@ export default Map;
 // Only works client-side.
 let updateMarkerPosition = ({ ships, map }) => {
   try {
-    if (typeof window === 'object' && map && Array.isArray(ships)) {
+    if (typeof window === "object" && map && Array.isArray(ships)) {
       if (!ships.length) {
         // remove all markers from map because the API now says array is empty?
       } else {
-        const shipsDataObject = arrayToObject(ships, 'imo');
+        const shipsDataObject = arrayToObject(ships, "imo");
 
         // convert to HashSet
         let shipMarkersOnMap = [];
         map.eachLayer(layer => {
           if (layer.isShipMarker) shipMarkersOnMap.push(layer);
         });
-        const shipsOnMapObject = arrayToObject(shipMarkersOnMap, 'shipImo');
+        const shipsOnMapObject = arrayToObject(shipMarkersOnMap, "shipImo");
 
         // convert to HashSet
         const divShipMarkersOnMap = [];
@@ -237,7 +237,7 @@ let updateMarkerPosition = ({ ships, map }) => {
         });
         const divShipsOnMapObject = arrayToObject(
           divShipMarkersOnMap,
-          'shipImo'
+          "shipImo"
         );
 
         map.eachLayer(layer => {
@@ -252,6 +252,28 @@ let updateMarkerPosition = ({ ships, map }) => {
                 divShip.setLatLng(
                   L.latLng(ship.position.lat, ship.position.lng)
                 );
+                let rotate = 0;
+                if (ship.navigation && ship.navigation.heading) {
+                  rotate = Number(ship.navigation.heading) || 0;
+                  rotate = Math.min(Math.max(rotate, 0), 360);
+                }
+                //console.log(divShip);
+                let shipDivMarkerContentEl = document.getElementById(
+                  `shipDivMarkerContent${ship.imo}`
+                );
+                if (shipDivMarkerContentEl) {
+                  let direction = shipDivMarkerContentEl.querySelector(
+                    ".ship-div-marker-icon__direction"
+                  );
+                  if (direction) {
+                    let currentRotate = Number(direction.dataset.rotate) || 0;
+                    currentRotate = 0;
+                    if (currentRotate !== rotate) {
+                      // Only update DOM if different from previous.
+                      direction.style.transform = `rotate(${rotate}deg`;
+                    }
+                  }
+                }
               }
             }
           } else if (layer.isShipMarker) {
@@ -275,6 +297,6 @@ let updateMarkerPosition = ({ ships, map }) => {
       }
     }
   } catch (ex) {
-    console.error(ex + '');
+    console.error(ex + "");
   }
 };
