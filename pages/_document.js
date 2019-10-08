@@ -16,7 +16,8 @@ export default class MyDocument extends Document {
           <meta name="description" content="" />
           <meta name="keywords" content="" />
           <meta name="robots" content="noindex, nofollow" />
-          <link rel="manifest" href="/static/pwa/manifest.json" />
+          <link rel="apple-touch-icon" href="static/pwa/logo192.png" />
+          <link rel="manifest" href="./manifest.json" />
           <link
             rel="stylesheet"
             href="https://unpkg.com/@dfds-frontend/fonts@0.0.4/main/font.css"
