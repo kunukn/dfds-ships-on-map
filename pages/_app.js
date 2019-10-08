@@ -5,6 +5,7 @@ import { useStore } from "laco-react";
 import getShipsFromApi from "~/api-layer/getShipsFromApi";
 import store from "~/store.js";
 import GlobalStyles from "~/components/GlobalStyles";
+import LeafletStyles from "~/components/LeafletStyles";
 
 if (process.browser) {
   try {
@@ -34,6 +35,7 @@ class MyApp extends App {
     return (
       <>
         <GlobalStyles />
+        <LeafletStyles />
         <GlobalEffect />
         <Component {...pageProps} />
       </>
