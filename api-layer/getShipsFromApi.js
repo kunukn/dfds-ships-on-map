@@ -17,7 +17,7 @@ export default async function getShipsFromApi({ useProxy = true } = {}) {
       : `https://api.hellman.oxygen.dfds.cloud/dev/vessel/api/v1/Ships?v=${Date.now()}`;
 
     if (process.env.NODE_ENV === 'development') {
-      //url = `${apiBaseUrl}/mock-ships`;
+      url = `${apiBaseUrl}/mock-ships`;
     }
 
     const response = await fetch(url, options);

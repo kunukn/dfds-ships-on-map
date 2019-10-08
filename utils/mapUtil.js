@@ -174,12 +174,14 @@ export let addRoutes = ({ map }) => {
   // https://www.dfds.com/en/passenger-ferries
 
   routes.forEach(route => {
-    L.polyline(route.latlngs, {
-      color: '#4d4e4c',
-      weight: 1,
-      opacity: 0.5,
-      dashArray: '10 10',
-      className: 'ship-route',
-    }).addTo(map);
+    if (route.latlngs) {
+      L.polyline(route.latlngs, {
+        color: '#4d4e4c',
+        weight: 1,
+        opacity: 0.5,
+        dashArray: '10 10',
+        className: 'ship-route',
+      }).addTo(map);
+    }
   });
 };

@@ -30,10 +30,10 @@ import ports from "~/data-layer/ports";
 
 let portsAndTerminals = ports.concat(terminals);
 let intervalKey = null;
-const twoMinutes = 1000 * 60 * 2;
+const oneMinutes = 1000 * 60 * 1;
 const fiveSeconds = 1000 * 5;
 let dataUpdateInterval =
-  process.env.NODE_ENV === "development" ? fiveSeconds : twoMinutes;
+  process.env.NODE_ENV === "development" ? fiveSeconds : oneMinutes;
 
 const Map = props => {
   const { isFullscreen, logs, ships = [] } = useStore(store);
@@ -78,7 +78,7 @@ const Map = props => {
 
     let latitude = 55.676098;
     let longitude = 12.568337;
-    let zoomLevel = 5;
+    let zoomLevel = 6;
 
     L.control
       .zoom({
