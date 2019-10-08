@@ -78,14 +78,38 @@ let data = [
       [lookup['paldiski'].position.lat, lookup['paldiski'].position.lng],
     ],
   },
-  {
-    id: '',
-    name: 'Göteborg - Immingham',
-    latlngs: [
-      [lookup['goteborg'].position.lat, lookup['goteborg'].position.lng],
-      [lookup['immingham'].position.lat, lookup['immingham'].position.lng],
-    ],
-  },
+  // {
+  //   id: '',
+  //   name: 'Göteborg - Immingham',
+  //   latlngs: [
+  //     [lookup['goteborg'].position.lat, lookup['goteborg'].position.lng],
+  //     [lookup['immingham'].position.lat, lookup['immingham'].position.lng],
+  //   ],
+  // },
+  // {
+  //   id: '',
+  //   name: 'Göteborg - Brevik',
+  //   latlngs: [
+  //     [lookup['goteborg'].position.lat, lookup['goteborg'].position.lng],
+  //     [lookup['brevik'].position.lat, lookup['brevik'].position.lng],
+  //   ],
+  // },
+  // {
+  //   id: '',
+  //   name: 'Göteborg - Gent',
+  //   latlngs: [
+  //     [lookup['goteborg'].position.lat, lookup['goteborg'].position.lng],
+  //     [lookup['gent'].position.lat, lookup['gent'].position.lng],
+  //   ],
+  // },
+  // {
+  //   id: '',
+  //   name: 'Göteborg - Zeebrugge',
+  //   latlngs: [
+  //     [lookup['goteborg'].position.lat, lookup['goteborg'].position.lng],
+  //     [lookup['zeebrugge'].position.lat, lookup['zeebrugge'].position.lng],
+  //   ],
+  // },
   {
     id: '',
     name: 'Esbjerg - Immingham',
@@ -142,14 +166,14 @@ let data = [
       [lookup['tunis'].position.lat, lookup['tunis'].position.lng],
     ],
   },
-  {
-    id: '',
-    name: 'Klaipeda - Fredericia',
-    latlngs: [
-      [lookup['klaipeda'].position.lat, lookup['klaipeda'].position.lng],
-      [lookup['fredericia'].position.lat, lookup['fredericia'].position.lng],
-    ],
-  },
+  // {
+  //   id: '',
+  //   name: 'Klaipeda - Fredericia',
+  //   latlngs: [
+  //     [lookup['klaipeda'].position.lat, lookup['klaipeda'].position.lng],
+  //     [lookup['fredericia'].position.lat, lookup['fredericia'].position.lng],
+  //   ],
+  // },
   {
     id: '',
     name: 'Klaipeda - Copenhagen',
