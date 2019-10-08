@@ -5,11 +5,12 @@ Prototype
 
 Exploring tech in following areas.
 
-* Lago store with NextJS
+* Laco store with NextJS
 * React with leaflet
 * Tab menu experiment
 * fullscreen API with React
 * map as fullscreen page
+* proxy lampda API
 
 
 
