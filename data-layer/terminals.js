@@ -104,5 +104,40 @@ let data = [
     name: 'Brevik terminal',
     position: { lat: 59.0659642, lng: 9.6942992 },
   },
+  {
+    id: 'gent',
+    name: 'Gent terminal',
+    position: { lat: 51.116027, lng: 3.757366 },
+  },
+  {
+    id: 'zeebrugge',
+    name: 'Zeebrugge terminal',
+    position: { lat: 51.348799, lng: 3.179188 },
+  },
+  {
+    id: 'pendik',
+    name: 'Pendik terminal',
+    position: { lat: 40.861077, lng: 29.27226199 },
+  },
+  {
+    id: 'trieste',
+    name: 'Trieste terminal',
+    position: { lat: 45.6447701, lng: 13.7501296 },
+  },
+  {
+    id: 'marseille',
+    name: 'Marseille terminal',
+    position: { lat: 43.320379, lng: 5.3601 },
+  },
+  {
+    id: 'tunis',
+    name: 'Tunis terminal',
+    position: { lat: 36.797997, lng: 10.271916 },
+  },
+  {
+    id: 'fredericia',
+    name: 'Fredericia terminal',
+    position: { lat: 55.5602376, lng: 9.7447058 },
+  },
 ];
 export default data;

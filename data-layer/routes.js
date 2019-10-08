@@ -7,7 +7,7 @@ const lookup = arrayToObject(terminals, 'id');
 
 let data = [
   {
-    id: 1,
+    id: '',
     name: 'Copenhagen - Oslo',
     latlngs: [
       [lookup['copenhagen'].position.lat, lookup['copenhagen'].position.lng],
@@ -15,7 +15,7 @@ let data = [
     ],
   },
   {
-    id: 2,
+    id: '',
     name: 'Newcastle - Amsterdam',
     latlngs: [
       [lookup['newcastle'].position.lat, lookup['newcastle'].position.lng],
@@ -23,7 +23,7 @@ let data = [
     ],
   },
   {
-    id: 3,
+    id: '',
     name: 'Dover - Dunkirk',
     latlngs: [
       [lookup['dover'].position.lat, lookup['dover'].position.lng],
@@ -31,7 +31,7 @@ let data = [
     ],
   },
   {
-    id: 4,
+    id: '',
     name: 'Dover - Calais',
     latlngs: [
       [lookup['dover'].position.lat, lookup['dover'].position.lng],
@@ -39,7 +39,7 @@ let data = [
     ],
   },
   {
-    id: 5,
+    id: '',
     name: 'Newhaven - Dieppe',
     latlngs: [
       [lookup['newhaven'].position.lat, lookup['newhaven'].position.lng],
@@ -47,7 +47,7 @@ let data = [
     ],
   },
   {
-    id: 6,
+    id: '',
     name: 'Kiel - Klaipeda',
     latlngs: [
       [lookup['kiel'].position.lat, lookup['kiel'].position.lng],
@@ -55,7 +55,7 @@ let data = [
     ],
   },
   {
-    id: 7,
+    id: '',
     name: 'Karlshamn - Klaipeda',
     latlngs: [
       [lookup['karlshamn'].position.lat, lookup['karlshamn'].position.lng],
@@ -63,7 +63,7 @@ let data = [
     ],
   },
   {
-    id: 8,
+    id: '',
     name: 'Kapellskär - Paldiski',
     latlngs: [
       [lookup['kapellskar'].position.lat, lookup['kapellskar'].position.lng],
@@ -71,7 +71,7 @@ let data = [
     ],
   },
   {
-    id: 9,
+    id: '',
     name: 'Hanko - Paldiski',
     latlngs: [
       [lookup['hanko'].position.lat, lookup['hanko'].position.lng],
@@ -79,7 +79,7 @@ let data = [
     ],
   },
   {
-    id: 10,
+    id: '',
     name: 'Göteborg - Immingham',
     latlngs: [
       [lookup['goteborg'].position.lat, lookup['goteborg'].position.lng],
@@ -87,7 +87,7 @@ let data = [
     ],
   },
   {
-    id: 10,
+    id: '',
     name: 'Esbjerg - Immingham',
     latlngs: [
       [lookup['esbjerg'].position.lat, lookup['esbjerg'].position.lng],
@@ -95,7 +95,7 @@ let data = [
     ],
   },
   {
-    id: 11,
+    id: '',
     name: 'Rotterdam - Immingham',
     latlngs: [
       [lookup['rotterdam'].position.lat, lookup['rotterdam'].position.lng],
@@ -103,7 +103,7 @@ let data = [
     ],
   },
   {
-    id: 12,
+    id: '',
     name: 'Cuxhaven - Immingham',
     latlngs: [
       [lookup['cuxhaven'].position.lat, lookup['cuxhaven'].position.lng],
@@ -111,11 +111,51 @@ let data = [
     ],
   },
   {
-    id: 13,
+    id: '',
     name: 'Brevik - Immingham',
     latlngs: [
       [lookup['brevik'].position.lat, lookup['brevik'].position.lng],
       [lookup['immingham'].position.lat, lookup['immingham'].position.lng],
+    ],
+  },
+  {
+    id: '',
+    name: 'Brevik - Gent',
+    latlngs: [
+      [lookup['brevik'].position.lat, lookup['brevik'].position.lng],
+      [lookup['gent'].position.lat, lookup['gent'].position.lng],
+    ],
+  },
+  {
+    id: '',
+    name: 'Pendik - Trieste',
+    latlngs: [
+      [lookup['pendik'].position.lat, lookup['pendik'].position.lng],
+      [lookup['trieste'].position.lat, lookup['trieste'].position.lng],
+    ],
+  },
+  {
+    id: '',
+    name: 'Marseille - Tunis',
+    latlngs: [
+      [lookup['marseille'].position.lat, lookup['marseille'].position.lng],
+      [lookup['tunis'].position.lat, lookup['tunis'].position.lng],
+    ],
+  },
+  {
+    id: '',
+    name: 'Klaipeda - Fredericia',
+    latlngs: [
+      [lookup['klaipeda'].position.lat, lookup['klaipeda'].position.lng],
+      [lookup['fredericia'].position.lat, lookup['fredericia'].position.lng],
+    ],
+  },
+  {
+    id: '',
+    name: 'Klaipeda - Copenhagen',
+    latlngs: [
+      [lookup['klaipeda'].position.lat, lookup['klaipeda'].position.lng],
+      [lookup['copenhagen'].position.lat, lookup['copenhagen'].position.lng],
     ],
   },
 ];
