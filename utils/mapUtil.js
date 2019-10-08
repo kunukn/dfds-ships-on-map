@@ -167,3 +167,30 @@ export let addPortsToMap = ({ ports, map }) => {
       if (marker) addPortMarkerToMap({ map, marker, port });
     });
 };
+
+export let addRoutes = ({ map }) => {
+  // https://www.dfds.com/en/passenger-ferries
+  
+  // cph - osl
+  var latlngs = [[55.701529, 12.595976], [59.902629, 10.743466]];
+  var polyline = L.polyline(latlngs, {
+    color: "gray",
+    weight: 1,
+    opacity: 0.5,
+    dashArray: "10 10",
+    className: "ship-route"
+  }).addTo(map);
+
+  // newcastle - amsterdam
+  var latlngs = [[54.992593, -1.451966], [52.462207, 4.586865]];
+  var polyline = L.polyline(latlngs, {
+    color: "gray",
+    weight: 1,
+    opacity: 0.5,
+    dashArray: "10 10",
+    className: "ship-route"
+  }).addTo(map);
+
+  // zoom the map to the polyline
+  //map.fitBounds(polyline.getBounds());
+};

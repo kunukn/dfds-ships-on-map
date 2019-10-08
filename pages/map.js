@@ -22,7 +22,8 @@ import {
   createDivShipMarker,
   createShipMarker,
   addShipsToMap,
-  addPortsToMap
+  addPortsToMap,
+  addRoutes
 } from "~/utils/mapUtil";
 import terminals from "~/data-layer/terminals";
 import ports from "~/data-layer/ports";
@@ -115,9 +116,10 @@ const Map = props => {
     }
   }, []);
 
-  // add ports to map
+  // add ports and routes to map
   useEffect(() => {
     addPortsToMap({ ports: portsAndTerminals, map });
+    addRoutes({map});
   }, []);
 
   // real-time update
