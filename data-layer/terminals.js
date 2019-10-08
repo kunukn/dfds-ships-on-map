@@ -1,4 +1,4 @@
-let terminals = [
+let data = [
   {
     name: 'Calais terminal',
     position: { lat: 50.966269, lng: 1.862349 },
@@ -56,4 +56,4 @@ let terminals = [
     position: { lat: 59.762497, lng: 19.036611 },
   },
 ];
-export default terminals;
+export default data;
