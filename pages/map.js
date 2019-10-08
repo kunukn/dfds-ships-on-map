@@ -266,8 +266,10 @@ let updateMarkerPosition = ({ ships, map }) => {
                     ".ship-div-marker-icon__direction"
                   );
                   if (direction) {
-                    let currentRotate = Number(direction.dataset.rotate) || 0;
-                    currentRotate = 0;
+                    let currentRotate =
+                      Number(direction.dataset && direction.dataset.rotate) ||
+                      0;
+
                     if (currentRotate !== rotate) {
                       // Only update DOM if different from previous.
                       direction.style.transform = `rotate(${rotate}deg`;
