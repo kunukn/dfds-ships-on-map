@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 let GlobalStyles = () => (
   <style jsx global>{`
@@ -93,6 +93,12 @@ let GlobalStyles = () => (
       color: $color-groupBlue;
       font-weight: 300;
       font-family: Verdana;
+      position: absolute;
+      top: 0;
+      left: calc(50% - 50px);
+      width: 100%;
+      text-align: center;
+      width: 100px;
     }
   `}</style>
 );

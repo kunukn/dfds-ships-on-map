@@ -1,5 +1,5 @@
 // https://nextjs.org/docs/#custom-document
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -16,6 +16,7 @@ export default class MyDocument extends Document {
           <meta name="description" content="" />
           <meta name="keywords" content="" />
           <meta name="robots" content="noindex, nofollow" />
+          <meta name="theme-color" content="#002B45" />
           <link rel="apple-touch-icon" href="static/pwa/logo192.png" />
           <link rel="manifest" href="./manifest.json" />
           <link
@@ -26,7 +27,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
           />
-          <link rel="shortcut icon" href="/static/favicon.ico"/>
+          <link rel="shortcut icon" href="/static/favicon.ico" />
         </Head>
         <body>
           <Main />
@@ -38,7 +39,7 @@ export default class MyDocument extends Document {
           
             
           } catch(ex){console.warn(ex+'')}
-          `,
+          `
             }}
           />
           <NextScript />
