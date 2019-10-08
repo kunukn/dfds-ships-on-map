@@ -1,13 +1,13 @@
-import { useStore } from 'laco-react';
-import { Subscribe } from 'laco-react';
+import { useStore } from "laco-react";
+import { Subscribe } from "laco-react";
 
-import store from '~/store.js';
-import FullscreenEnterIcon from '~/static/icons/FullscreenEnter.svg';
-import FullscreenExitIcon from '~/static/icons/FullscreenExit.svg';
-import DFDSLogo from '~/static/icons/DFDSLogo.svg';
-import SettingsIcon from '~/static/icons/Settings.svg';
-import UserIcon from '~/static/icons/User.svg';
-import SearchIcon from '~/static/icons/Search.svg';
+import store from "~/store.js";
+import FullscreenEnterIcon from "~/static/icons/FullscreenEnter.svg";
+import FullscreenExitIcon from "~/static/icons/FullscreenExit.svg";
+import DFDSLogo from "~/static/icons/DFDSLogo.svg";
+import SettingsIcon from "~/static/icons/Settings.svg";
+import UserIcon from "~/static/icons/User.svg";
+import SearchIcon from "~/static/icons/Search.svg";
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
@@ -58,7 +58,7 @@ const MainHeader = ({ lastUpdated }) => {
 
               <button
                 className="button button-search"
-                onClick={() => alert('TODO')}
+                onClick={() => alert("TODO")}
                 title="search"
               >
                 <SearchIcon className="search-icon" />
@@ -66,7 +66,7 @@ const MainHeader = ({ lastUpdated }) => {
 
               <button
                 className="button button-user"
-                onClick={() => alert('TODO')}
+                onClick={() => alert("TODO")}
                 title="user"
               >
                 <UserIcon className="user-icon" />
@@ -74,7 +74,7 @@ const MainHeader = ({ lastUpdated }) => {
               <button
                 title="settings"
                 className="button button-settings"
-                onClick={() => alert('TODO')}
+                onClick={() => alert("TODO")}
               >
                 <SettingsIcon className="settings-icon" />
               </button>
@@ -98,6 +98,7 @@ const MainHeader = ({ lastUpdated }) => {
           justify-content: space-between;
           align-items: center;
           flex-wrap: wrap;
+          pointer-events: none;
           _background: rgba(white, 0.5);
         }
         .logo {
@@ -107,8 +108,13 @@ const MainHeader = ({ lastUpdated }) => {
           justify-content: stretch;
           padding-left: 10px;
           pointer-events: none;
+
+          > :global(svg) {
+            pointer-events: none;
+          }
         }
         .button-group {
+          pointer-events: all;
           height: inherit;
           display: flex;
           background: rgba(white, 0.5);
@@ -147,10 +153,10 @@ const MainHeader = ({ lastUpdated }) => {
       `}</style>
       <style jsx>{`
         .logo {
-          _opacity: ${isFullscreen ? 0.7 : ''};
+          _opacity: ${isFullscreen ? 0.7 : ""};
         }
         .toggle-full-screen {
-          _opacity: ${isFullscreen ? 0.7 : ''};
+          _opacity: ${isFullscreen ? 0.7 : ""};
         }
       `}</style>
     </>
