@@ -139,5 +139,10 @@ let data = [
     name: 'Fredericia terminal',
     position: { lat: 55.5602376, lng: 9.7447058 },
   },
+  {
+    id: 'yalova',
+    name: 'Yalova terminal',
+    position: { lat: 40.689391, lng: 29.432817 },
+  },
 ];
 export default data;
