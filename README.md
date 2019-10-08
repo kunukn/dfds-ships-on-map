@@ -35,8 +35,8 @@ mkcert localhost 127.0.0.1 ::1   # Enables them on localhost
 - ~Logging~
 - ~Fullscreen mode~
 - ~Ship direction~
+- ~Shipping routes as dashed lines~
 - Search and find ship by name
 - Search and find terminal by name
-- Shipping routes as dashed lines
 - Scheduled information from other API
 - Timeline, go back in history
