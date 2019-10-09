@@ -15,7 +15,8 @@ import store from '~/store.js';
 import getShipsFromApi from '~/api-layer/getShipsFromApi';
 import MainHeader from '~/components/main-header';
 import MainFooter from '~/components/main-footer';
-import TabMenu from '~/components/tab-menu/TabMenu';
+import TabMenuRight from '~/components/tab-menu-right/TabMenuRight';
+import TabMenuLeftLayer from '~/components/tab-menu-left/TabMenuLeftLayer';
 import arrayToObject from '~/utils/arrayToObject';
 import {
   addShipMarkerToMap,
@@ -28,38 +29,21 @@ import {
 import terminals from '~/data-layer/terminals';
 import ports from '~/data-layer/ports';
 
+const isDevelopment = process.env.NODE_ENV === 'development';
 let portsAndTerminals = ports.concat(terminals);
 let intervalKey = null;
 const threeMinutes = 1000 * 60 * 3;
 const fiveSeconds = 1000 * 5;
-let dataUpdateInterval =
-  process.env.NODE_ENV === 'development' ? fiveSeconds : threeMinutes;
+let dataUpdateInterval = isDevelopment ? fiveSeconds : threeMinutes;
 
 const Map = props => {
   const { isFullscreen, logs, ships = [] } = useStore(store);
-  let [tabs, setTabs] = useState({ values: [false, false, false, false] });
+  let [logTab, setLogTab] = useState(false);
   let [shipsState, setShipsState] = useState(ships);
   let [lastUpdated, setLastUpdated] = useState(new Date(props.currentDate));
   let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
   let map = useRef({}).current;
   let isFirstRender = useRef(true);
-
-  let isOtherTabMenuOpen = index =>
-    tabs.values.some((tab, i) => {
-      if (index === i) return false;
-      return !!tab;
-    });
-
-  let onTabsToggle = index => {
-    setTabs(state => {
-      let current = state.values[index];
-      state.values = state.values.map(tab => false);
-      if (!current) {
-        state.values[index] = true;
-      }
-      return { ...state };
-    });
-  };
 
   // DOM init draw
   useEffect(() => {
@@ -73,7 +57,7 @@ const Map = props => {
       return { ...state };
     });
 
-    setStorageValue({ ships: shipsState, date: Date.now() });
+    //setStorageValue({ ships: shipsState, date: Date.now() });
     window.ships = shipsState;
 
     let latitude = 55.676098;
@@ -88,13 +72,14 @@ const Map = props => {
 
     map.setView([latitude, longitude], zoomLevel);
 
-    L.tileLayer(
-      `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
-      {
-        maxZoom: 18,
-        id: 'mapbox.streets',
-      }
-    ).addTo(map);
+    //!isDevelopment &&
+      L.tileLayer(
+        `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
+        {
+          maxZoom: 18,
+          id: 'mapbox.streets',
+        }
+      ).addTo(map);
   }, []);
 
   // fetch ships initially and add to map
@@ -142,7 +127,7 @@ const Map = props => {
             state.logs.length = 20;
           }
 
-          return { ...state };
+          return Object.assign({}, state);
         });
       }
     }, dataUpdateInterval);
@@ -172,11 +157,9 @@ const Map = props => {
         <div id="mapid"></div>
         <MainHeader lastUpdated={lastUpdated} />
         <MainFooter lastUpdated={lastUpdated} />
-        <TabMenu
-          level={0}
-          isOpen={tabs.values[0]}
-          onToggle={() => onTabsToggle(0)}
-          isOtherOpen={isOtherTabMenuOpen(0)}
+        <TabMenuRight
+          isOpen={logTab}
+          onToggle={() => setLogTab(s => !s)}
           isFullscreen={isFullscreen}
           title="logs"
         >
@@ -185,7 +168,8 @@ const Map = props => {
               {log}
             </div>
           ))}
-        </TabMenu>
+        </TabMenuRight>
+        {false && <TabMenuLeftLayer />}
       </>
 
       <style jsx>{`

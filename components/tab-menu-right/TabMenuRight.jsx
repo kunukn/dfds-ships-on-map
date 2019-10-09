@@ -1,11 +1,20 @@
+// TODO: refactor. there is only one right tab item.
+
 import { useStore } from 'laco-react';
 
 import store from '~/store.js';
 import CloseSvg from '~/static/icons/Close.svg';
 
-const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
+const TabMenu = ({
+  children,
+  title,
+  isOpen,
+  onToggle,
+  level = 0,
+}) => {
   const { isFullscreen } = useStore(store);
 
+  // TODO: delete this
   let getFallbackTitle = () => (
     <>
       {'tab'.split('').map((c, index) => (
@@ -45,10 +54,10 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
       <style jsx>{`
         .tab-menu {
           width: 200px;
-          height: calc(100vh - 60px);
+          height: calc(100vh - 80px);
           max-height: calc(100vh - 100px);
           position: absolute;
-          top: 60px;
+          top: 80px;
           right: 0;
           transition: transform 300ms;
           transform: translateX(100%);
@@ -72,16 +81,15 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
           max-height: inherit;
         }
         .tab-menu-close-button {
-          position: absolute;
+          position: fixed;
           top: 4px;
-          right: 4px;
+          right: 20px;
           font-size: 16px;
           padding: 4px;
           background: transparent;
           color: white;
           border: none;
           box-shadow: none;
-          _min-height: 30px;
           line-height: 1;
           color: gray;
 
@@ -138,7 +146,6 @@ const TabMenu = ({ children, title, isOpen, onToggle, isOtherOpen, level }) => {
         }
         .menu-text-toggle {
           opacity: ${isFullscreen ? 0.6 : ''};
-          opacity: ${isOtherOpen ? 0 : ''};
         }
       `}</style>
     </>
