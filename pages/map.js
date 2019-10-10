@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { useStore } from 'laco-react';
 import { useLocalStorage } from 'react-use';
 import cx from 'clsx';
+import dynamic from 'next/dynamic'
 
 import TrackingPinRailway from '~/static/icons/TrackingPinRailway.svg';
 import TrackingPinShip from '~/static/icons/TrackingPinShip.svg';
@@ -15,8 +16,6 @@ import store from '~/store.js';
 import getShipsFromApi from '~/api-layer/getShipsFromApi';
 import MainHeader from '~/components/main-header';
 import MainFooter from '~/components/main-footer';
-import TabMenuRight from '~/components/tab-menu-right/TabMenuRight';
-import TabMenuLeftLayer from '~/components/tab-menu-left/TabMenuLeftLayer';
 import arrayToObject from '~/utils/arrayToObject';
 import {
   addShipMarkerToMap,
@@ -28,6 +27,13 @@ import {
 } from '~/utils/mapUtil';
 import terminals from '~/data-layer/terminals';
 import ports from '~/data-layer/ports';
+
+const TabMenuRight = dynamic(import('~/components/tab-menu-right/TabMenuRight'), {
+  ssr: false,
+})
+const TabMenuLeftLayer = dynamic(import('~/components/tab-menu-left/TabMenuLeftLayer'), {
+  ssr: false,
+})
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 let portsAndTerminals = ports.concat(terminals);
