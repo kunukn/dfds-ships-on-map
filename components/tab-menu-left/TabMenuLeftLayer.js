@@ -3,8 +3,8 @@ import { useStore } from 'laco-react';
 
 import TabMenu from './TabMenu';
 import store from '~/store.js';
-import CloseSvg from '~/static/icons/Close.svg';
-import SearchIcon from '~/static/icons/Search.svg';
+import CloseSvg from '~/public/static/icons/Close.svg';
+import SearchIcon from '~/public/static/icons/Search.svg';
 
 const TabMenuLayer = () => {
   const { isFullscreen } = useStore(store);

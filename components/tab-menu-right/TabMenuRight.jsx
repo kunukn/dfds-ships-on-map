@@ -3,7 +3,7 @@
 import { useStore } from 'laco-react';
 
 import store from '~/store.js';
-import CloseSvg from '~/static/icons/Close.svg';
+import CloseSvg from '~/public/static/icons/Close.svg';
 
 const TabMenu = ({
   children,

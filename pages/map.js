@@ -8,9 +8,9 @@ import { useLocalStorage } from 'react-use';
 import cx from 'clsx';
 import dynamic from 'next/dynamic'
 
-import TrackingPinRailway from '~/static/icons/TrackingPinRailway.svg';
-import TrackingPinShip from '~/static/icons/TrackingPinShip.svg';
-import TrackingPinTruck from '~/static/icons/TrackingPinTruck.svg';
+import TrackingPinRailway from '~/public/static/icons/TrackingPinRailway.svg';
+import TrackingPinShip from '~/public/static/icons/TrackingPinShip.svg';
+import TrackingPinTruck from '~/public/static/icons/TrackingPinTruck.svg';
 import mapRef from '~/mapRef.js';
 import store from '~/store.js';
 import getShipsFromApi from '~/api-layer/getShipsFromApi';

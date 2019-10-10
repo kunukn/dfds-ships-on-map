@@ -1,7 +1,7 @@
 import { useStore } from "laco-react";
 
 import store from "~/store.js";
-import CloseSvg from "~/static/icons/close.svg";
+import CloseSvg from "~/public/static/icons/close.svg";
 
 const Tabs = ({ children}) => {
   const { isFullscreen } = useStore(store);

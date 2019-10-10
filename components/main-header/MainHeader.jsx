@@ -2,12 +2,12 @@ import { useStore } from "laco-react";
 import { Subscribe } from "laco-react";
 
 import store from "~/store.js";
-import FullscreenEnterIcon from "~/static/icons/FullscreenEnter.svg";
-import FullscreenExitIcon from "~/static/icons/FullscreenExit.svg";
-import DFDSLogo from "~/static/icons/DFDSLogo.svg";
-import SettingsIcon from "~/static/icons/Settings.svg";
-import UserIcon from "~/static/icons/User.svg";
-import SearchIcon from "~/static/icons/Search.svg";
+import FullscreenEnterIcon from "~/public/static/icons/FullscreenEnter.svg";
+import FullscreenExitIcon from "~/public/static/icons/FullscreenExit.svg";
+import DFDSLogo from "~/public/static/icons/DFDSLogo.svg";
+import SettingsIcon from "~/public/static/icons/Settings.svg";
+import UserIcon from "~/public/static/icons/User.svg";
+import SearchIcon from "~/public/static/icons/Search.svg";
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
