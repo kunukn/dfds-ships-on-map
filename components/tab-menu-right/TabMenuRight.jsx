@@ -71,7 +71,7 @@ const TabMenu = ({
           width: 100%;
           height: 100%;
           padding: 40px 10px 10px;
-          background: rgba(#eee, 0.95);
+          background: rgba(white, 0.5);
           @supports (backdrop-filter: blur(10px)) {
             background-color: rgba(255, 255, 255, 0.2);
             backdrop-filter: saturate(180%) blur(4px);
@@ -101,7 +101,7 @@ const TabMenu = ({
         .menu-text-toggle-content {
           border-top-left-radius: 1.5em;
           border-bottom-left-radius: 1.5em;
-          background: rgba(#eee, 0.95);
+          background: rgba(white, 0.5);
           position: absolute;
           top: 0;
           right: 0;
@@ -111,7 +111,7 @@ const TabMenu = ({
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          @supports (backdrop-filter: blur(10px)) {
+          @supports (backdrop-filter: blur(4px)) {
             background-color: rgba(255, 255, 255, 0.7);
             backdrop-filter: saturate(180%) blur(4px);
           }

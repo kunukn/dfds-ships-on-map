@@ -55,14 +55,14 @@ const MainHeader = ({ lastUpdated }) => {
                   )}
                 </button>
               )}
-
+{/* 
               <button
                 className="button button-search"
                 onClick={() => alert("TODO")}
                 title="search"
               >
                 <SearchIcon className="search-icon" />
-              </button>
+              </button> */}
 
               <button
                 className="button button-user"
@@ -70,7 +70,7 @@ const MainHeader = ({ lastUpdated }) => {
                 title="user"
               >
                 <UserIcon className="user-icon" />
-              </button>
+              </button> 
               <button
                 title="settings"
                 className="button button-settings"
@@ -117,20 +117,23 @@ const MainHeader = ({ lastUpdated }) => {
           pointer-events: all;
           height: inherit;
           display: flex;
-          background: rgba(white, 0.5);
-          @supports (backdrop-filter: blur(10px)) {
-            background-color: rgba(255, 255, 255, 0.5);
-            backdrop-filter: saturate(180%) blur(4px);
-          }
+          
         }
         .button {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 50px;
+          width: 40px;
+          margin: 5px;
           color: $color-groupBlue;
           cursor: pointer;
           font-size: 20px;
+          border-radius: 50%;
+          background: rgba(white, 0.5);
+          @supports (backdrop-filter: blur(10px)) {
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: saturate(180%) blur(4px);
+          }
           > :global(svg) {
             _outline: 1px solid red;
           }
