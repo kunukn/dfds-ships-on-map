@@ -40,8 +40,12 @@ const MainFooter = ({ lastUpdated }) => {
           pointer-events: none;
           padding: 2px;
           > :global(svg) {
-            width: ${17 * 3.5}px;
-            height: ${6 * 3.5}px;
+            width: ${17 * 3}px;
+            height: ${6 * 3}px;
+            @media (min-width: 900px) {
+              width: ${17 * 4}px;
+              height: ${6 * 4}px;
+            }
           }
         }
       `}</style>
