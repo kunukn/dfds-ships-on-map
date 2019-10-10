@@ -42,7 +42,9 @@ const MainHeader = ({ lastUpdated }) => {
         {storeState => (
           <header className="main-header">
             <div className="left-sidebar">
-              <div className="sidebar-content">TODO: find ship and terminals</div>
+              <div className="sidebar-content">
+                TODO: find ship and terminals
+              </div>
               <button
                 onClick={() => {
                   setLeftSidebarToggle(s => !s);
@@ -50,7 +52,9 @@ const MainHeader = ({ lastUpdated }) => {
                 className="button-sidebar"
                 aria-label="sidebar"
               >
-                <NextIcon />
+                <div className="button-sidebar-content">
+                  <NextIcon />
+                </div>
               </button>
             </div>
 
@@ -155,22 +159,30 @@ const MainHeader = ({ lastUpdated }) => {
           background: rgba(white, 0.5);
           transition: transform 300ms;
         }
+        .button-sidebar-content {
+          background: rgba(white, 0.5);
+          @supports (backdrop-filter: blur(10px)) {
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: saturate(180%) blur(4px);
+          }
+          height: inherit;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
         .button-sidebar {
           position: absolute;
-          right: -20px;
+          right: -30px;
+          width: 30px;
           top: 0;
           padding: 0;
+          padding-right: 10px;
           color: $color-groupBlue;
           display: flex;
           justify: center;
           align-items: center;
           height: 50px;
           font-size: 20px;
-          background: rgba(white, 0.5);
-          @supports (backdrop-filter: blur(10px)) {
-            background-color: rgba(255, 255, 255, 0.5);
-            backdrop-filter: saturate(180%) blur(4px);
-          }
         }
         .sidebar-content {
           position: absolute;
@@ -197,7 +209,7 @@ const MainHeader = ({ lastUpdated }) => {
             ? "translateX(0)"
             : "translateX(-100%)"};
         }
-        .button-sidebar {
+        .button-sidebar-content {
           transform: ${leftSidebarToggle ? "rotate(.5turn)" : "rotate(0)"};
         }
       `}</style>
