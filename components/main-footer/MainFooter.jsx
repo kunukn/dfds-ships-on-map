@@ -38,8 +38,9 @@ const MainFooter = ({ lastUpdated }) => {
           bottom: 0;
           right: 0;
           pointer-events: none;
-          padding: 2px;
+          margin: 2px;
           > :global(svg) {
+            display: block;
             width: ${17 * 3}px;
             height: ${6 * 3}px;
             @media (min-width: 900px) {
