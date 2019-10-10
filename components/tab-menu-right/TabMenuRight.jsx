@@ -124,7 +124,7 @@ const TabMenu = ({
           left: -2em;
           width: 2em;
           height: 90px;
-          top: ${0 + level * 90 + level * 10}px;
+          top: ${20 + level * 90 + level * 10}px;
           transition: opacity 300ms, background-color 300ms;
           z-index: 2;
           user-select: none;

@@ -5,6 +5,7 @@ import store from "~/store.js";
 import FullscreenEnterIcon from "~/public/static/icons/FullscreenEnter.svg";
 import FullscreenExitIcon from "~/public/static/icons/FullscreenExit.svg";
 import DFDSLogo from "~/public/static/icons/DFDSLogo.svg";
+import NextIcon from "~/public/static/icons/Next.svg";
 import SettingsIcon from "~/public/static/icons/Settings.svg";
 import UserIcon from "~/public/static/icons/User.svg";
 import SearchIcon from "~/public/static/icons/Search.svg";
@@ -38,9 +39,20 @@ const MainHeader = ({ lastUpdated }) => {
       <Subscribe to={[store]}>
         {storeState => (
           <header className="main-header">
-            <div className="logo">
-              <DFDSLogo className="dfds-logo" />
+            <div className="left-sidebar">
+              <button
+                onClick={() => {
+                  alert("TODO");
+                }}
+                className="button-left-sidebar"
+                aria-label="sidebar"
+              >
+                <NextIcon />
+              </button>
             </div>
+            {/* <div className="logo">
+              <DFDSLogo className="dfds-logo" />
+            </div> */}
             <div className="button-group">
               {storeState.isFullscreenSupported && (
                 <button
@@ -55,7 +67,7 @@ const MainHeader = ({ lastUpdated }) => {
                   )}
                 </button>
               )}
-{/* 
+              {/* 
               <button
                 className="button button-search"
                 onClick={() => alert("TODO")}
@@ -70,7 +82,7 @@ const MainHeader = ({ lastUpdated }) => {
                 title="user"
               >
                 <UserIcon className="user-icon" />
-              </button> 
+              </button>
               <button
                 title="settings"
                 className="button button-settings"
@@ -117,7 +129,6 @@ const MainHeader = ({ lastUpdated }) => {
           pointer-events: all;
           height: inherit;
           display: flex;
-          
         }
         .button {
           display: flex;
@@ -146,6 +157,23 @@ const MainHeader = ({ lastUpdated }) => {
           background: transparent;
           fill: $color-groupBlue;
           cursor: pointer;
+        }
+        .left-sidebar {
+          pointer-events: all;
+        }
+        .button-left-sidebar {
+          padding: 0;
+          color: $color-groupBlue;
+          display: flex;
+          justify: center;
+          align-items: center;
+          height: 40px;
+          font-size: 20px;
+          background: rgba(white, 0.5);
+          @supports (backdrop-filter: blur(10px)) {
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: saturate(180%) blur(4px);
+          }
         }
         :global(.fullscreen-exit-icon) {
           display: block;
