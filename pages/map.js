@@ -35,12 +35,6 @@ const TabMenuRight = dynamic(
     ssr: false,
   }
 );
-const TabMenuLeftLayer = dynamic(
-  import('~/components/tab-menu-left/TabMenuLeftLayer'),
-  {
-    ssr: false,
-  }
-);
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 let portsAndTerminals = ports.concat(terminals);
@@ -91,13 +85,13 @@ const Map = props => {
     map.setView([latitude, longitude], zoomLevel);
 
     //!isDevelopment &&
-      L.tileLayer(
-        `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
-        {
-          maxZoom: 18,
-          id: 'mapbox.streets',
-        }
-      ).addTo(map);
+    L.tileLayer(
+      `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
+      {
+        maxZoom: 18,
+        id: 'mapbox.streets',
+      }
+    ).addTo(map);
   }, []);
 
   // fetch ships initially and add to map
@@ -187,7 +181,6 @@ const Map = props => {
             </div>
           ))}
         </TabMenuRight>
-        {false && <TabMenuLeftLayer />}
       </>
 
       <style jsx>{`
