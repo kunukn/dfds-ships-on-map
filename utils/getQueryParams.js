@@ -1,4 +1,6 @@
 const getQueryParams = () => {
+  if (typeof window === 'undefined') return {};
+
   const params = {};
 
   location.href.replace(/([^(?|#)=&]+)(=([^&]*))?/g, ($0, $1, $2, $3) => {
