@@ -189,5 +189,5 @@ export let addRoutes = ({ map }) => {
 
 export let zoomToShip = ship => {
   let map = mapRef.get();
-  map && map.setView([ship.position.lat, ship.position.lng], 8);
+  map && map.setView([ship.position.lat, ship.position.lng], 9);
 };
