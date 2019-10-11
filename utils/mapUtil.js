@@ -1,3 +1,4 @@
+import mapRef from '~/mapRef.js';
 import routes from '~/data-layer/routes';
 
 export let createCustomIcon = () =>
@@ -184,4 +185,9 @@ export let addRoutes = ({ map }) => {
       }).addTo(map);
     }
   });
+};
+
+export let zoomToShip = ship => {
+  let map = mapRef.get();
+  map && map.setView([ship.position.lat, ship.position.lng], 8);
 };

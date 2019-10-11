@@ -74,9 +74,13 @@ const Map = props => {
     window.ships = shipsState;
     const params = getQueryParams();
 
-    let latitude = !isNaN(+params.lat) ? +params.lat : 55.676098;
-    let longitude = !isNaN(+params.lng) ? +params.lng : 12.568337;
-    let zoomLevel = !isNaN(+params.zoom) ? +params.zoom : 6;
+    if (params.logs) {
+      setLogTab(true);
+    }
+
+    let latitude = isNumber(+params.lat) ? +params.lat : 55.676098;
+    let longitude = isNumber(+params.lng) ? +params.lng : 12.568337;
+    let zoomLevel = isNumber(+params.zoom) ? +params.zoom : 6;
 
     L.control
       .zoom({
@@ -87,13 +91,13 @@ const Map = props => {
     map.setView([latitude, longitude], zoomLevel);
 
     //!isDevelopment &&
-    L.tileLayer(
-      `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
-      {
-        maxZoom: 18,
-        id: 'mapbox.streets',
-      }
-    ).addTo(map);
+      L.tileLayer(
+        `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
+        {
+          maxZoom: 18,
+          id: 'mapbox.streets',
+        }
+      ).addTo(map);
   }, []);
 
   // fetch ships initially and add to map
@@ -169,7 +173,7 @@ const Map = props => {
       </Head>
       <>
         <div id="mapid"></div>
-        <MainHeader lastUpdated={lastUpdated} />
+        <MainHeader lastUpdated={lastUpdated} ships={shipsState} />
         <MainFooter lastUpdated={lastUpdated} />
         <TabMenuRight
           isOpen={logTab}
@@ -302,3 +306,5 @@ let updateMarkerPosition = ({ ships, map }) => {
     console.error(ex + '');
   }
 };
+
+const isNumber = n => !isNaN(n);

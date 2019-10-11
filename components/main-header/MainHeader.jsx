@@ -1,25 +1,31 @@
-import { useStore } from "laco-react";
-import { Subscribe } from "laco-react";
+import { useStore, Subscribe } from 'laco-react';
 
-import store from "~/store.js";
-import FullscreenEnterIcon from "~/public/static/icons/FullscreenEnter.svg";
-import FullscreenExitIcon from "~/public/static/icons/FullscreenExit.svg";
-import DFDSLogo from "~/public/static/icons/DFDSLogo.svg";
-import NextIcon from "~/public/static/icons/Next.svg";
-import SettingsIcon from "~/public/static/icons/Settings.svg";
-import UserIcon from "~/public/static/icons/User.svg";
-import SearchIcon from "~/public/static/icons/Search.svg";
+import store from '~/store.js';
+import FullscreenEnterIcon from '~/public/static/icons/FullscreenEnter.svg';
+import FullscreenExitIcon from '~/public/static/icons/FullscreenExit.svg';
+import DFDSLogo from '~/public/static/icons/DFDSLogo.svg';
+import NextIcon from '~/public/static/icons/Next.svg';
+import SettingsIcon from '~/public/static/icons/Settings.svg';
+import UserIcon from '~/public/static/icons/User.svg';
+import SearchIcon from '~/public/static/icons/Search.svg';
+import getQueryParams from '~/utils/getQueryParams';
+import { zoomToShip } from '~/utils/mapUtil';
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
 
-const MainHeader = ({ lastUpdated }) => {
+const MainHeader = ({ lastUpdated, ships }) => {
   const { isFullscreen } = useStore(store);
 
   const [leftSidebarToggle, setLeftSidebarToggle] = React.useState(false);
 
   let isFirstRender = React.useRef(true);
   React.useEffect(() => {
+    let params = getQueryParams();
+    if (params.leftsidebar) {
+      setLeftSidebarToggle(true);
+    }
+
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
@@ -43,7 +49,18 @@ const MainHeader = ({ lastUpdated }) => {
           <header className="main-header">
             <div className="left-sidebar">
               <div className="sidebar-content">
-                TODO: find ship and terminals
+                <div className="ship-search-headline">Zoom to ship</div>
+                {ships.map(s => (
+                  <div key={s.name} className="ship-search-item">
+                    <button
+                      onClick={() => {
+                        zoomToShip(s);
+                      }}
+                    >
+                      {s.name}
+                    </button>
+                  </div>
+                ))}
               </div>
               <button
                 onClick={() => {
@@ -91,7 +108,7 @@ const MainHeader = ({ lastUpdated }) => {
               <button
                 title="settings"
                 className="button button-settings"
-                onClick={() => alert("TODO")}
+                onClick={() => alert('TODO')}
               >
                 <SettingsIcon className="settings-icon" />
               </button>
@@ -150,13 +167,19 @@ const MainHeader = ({ lastUpdated }) => {
         }
         .left-sidebar {
           pointer-events: all;
+
           position: relative;
-          height: 300px;
+          height: calc(100vh - 150px);
+          max-height: calc(100vh - 150px);
           width: 200px;
           position: absolute;
           top: 5px;
           left: 0;
           background: rgba(white, 0.5);
+          @supports (backdrop-filter: blur(10px)) {
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: saturate(180%) blur(4px);
+          }
           transition: transform 300ms;
         }
         .button-sidebar-content {
@@ -189,6 +212,9 @@ const MainHeader = ({ lastUpdated }) => {
           top: 0;
           left: 0;
           padding: 10px;
+          overflow: auto;
+          height: 100%;
+          width: 100%;
         }
         :global(.fullscreen-exit-icon) {
           display: block;
@@ -196,21 +222,37 @@ const MainHeader = ({ lastUpdated }) => {
         :global(.fullscreen-enter-icon) {
           display: block;
         }
+        .ship-search-headline {
+          font-size: 20px;
+          padding: 4px;
+        }
+        .ship-search-item {
+          margin-bottom: 10px;
+          > button {
+            font-size: inherit;
+            cursor: pointer;
+            padding: 4px;
+            display: block;
+            width: 100%;
+            background: white;
+            text-align: left;
+          }
+        }
       `}</style>
       <style jsx>{`
         .logo {
-          _opacity: ${isFullscreen ? 0.7 : ""};
+          _opacity: ${isFullscreen ? 0.7 : ''};
         }
         .toggle-full-screen {
-          _opacity: ${isFullscreen ? 0.7 : ""};
+          _opacity: ${isFullscreen ? 0.7 : ''};
         }
         .left-sidebar {
           transform: ${leftSidebarToggle
-            ? "translateX(0)"
-            : "translateX(-100%)"};
+            ? 'translateX(0)'
+            : 'translateX(-100%)'};
         }
         .button-sidebar-content {
-          transform: ${leftSidebarToggle ? "rotate(.5turn)" : "rotate(0)"};
+          transform: ${leftSidebarToggle ? 'rotate(.5turn)' : 'rotate(0)'};
         }
       `}</style>
     </>
