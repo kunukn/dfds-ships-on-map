@@ -6,8 +6,9 @@ import Head from 'next/head';
 import { useStore } from 'laco-react';
 import { useLocalStorage } from 'react-use';
 import cx from 'clsx';
-import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic';
 
+import getQueryParams from '~/utils/getQueryParams';
 import TrackingPinRailway from '~/public/static/icons/TrackingPinRailway.svg';
 import TrackingPinShip from '~/public/static/icons/TrackingPinShip.svg';
 import TrackingPinTruck from '~/public/static/icons/TrackingPinTruck.svg';
@@ -28,12 +29,18 @@ import {
 import terminals from '~/data-layer/terminals';
 import ports from '~/data-layer/ports';
 
-const TabMenuRight = dynamic(import('~/components/tab-menu-right/TabMenuRight'), {
-  ssr: false,
-})
-const TabMenuLeftLayer = dynamic(import('~/components/tab-menu-left/TabMenuLeftLayer'), {
-  ssr: false,
-})
+const TabMenuRight = dynamic(
+  import('~/components/tab-menu-right/TabMenuRight'),
+  {
+    ssr: false,
+  }
+);
+const TabMenuLeftLayer = dynamic(
+  import('~/components/tab-menu-left/TabMenuLeftLayer'),
+  {
+    ssr: false,
+  }
+);
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 let portsAndTerminals = ports.concat(terminals);
@@ -65,6 +72,8 @@ const Map = props => {
 
     //setStorageValue({ ships: shipsState, date: Date.now() });
     window.ships = shipsState;
+    const params = getQueryParams();
+    console.log(params);
 
     let latitude = 55.676098;
     let longitude = 12.568337;
@@ -78,14 +87,14 @@ const Map = props => {
 
     map.setView([latitude, longitude], zoomLevel);
 
-    //!isDevelopment &&
-      L.tileLayer(
-        `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
-        {
-          maxZoom: 18,
-          id: 'mapbox.streets',
-        }
-      ).addTo(map);
+    !isDevelopment &&
+    L.tileLayer(
+      `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
+      {
+        maxZoom: 18,
+        id: 'mapbox.streets',
+      }
+    ).addTo(map);
   }, []);
 
   // fetch ships initially and add to map
