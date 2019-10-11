@@ -42,6 +42,8 @@ const MainHeader = ({ lastUpdated, ships }) => {
     }
   }, [isFullscreen]);
 
+  let shipsSorted = ships.sort((a, b) => ('' + a.name).localeCompare(b.name));
+
   return (
     <>
       <Subscribe to={[store]}>
@@ -50,7 +52,7 @@ const MainHeader = ({ lastUpdated, ships }) => {
             <div className="left-sidebar">
               <div className="sidebar-content">
                 <div className="ship-search-headline">Zoom to ship</div>
-                {ships.map(s => (
+                {shipsSorted.map(s => (
                   <div key={s.name} className="ship-search-item">
                     <button
                       onClick={() => {
