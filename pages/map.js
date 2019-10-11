@@ -73,11 +73,10 @@ const Map = props => {
     //setStorageValue({ ships: shipsState, date: Date.now() });
     window.ships = shipsState;
     const params = getQueryParams();
-    console.log(params);
 
-    let latitude = 55.676098;
-    let longitude = 12.568337;
-    let zoomLevel = 6;
+    let latitude = !isNaN(+params.lat) ? +params.lat : 55.676098;
+    let longitude = !isNaN(+params.lng) ? +params.lng : 12.568337;
+    let zoomLevel = !isNaN(+params.zoom) ? +params.zoom : 6;
 
     L.control
       .zoom({
@@ -87,7 +86,7 @@ const Map = props => {
 
     map.setView([latitude, longitude], zoomLevel);
 
-    !isDevelopment &&
+    //!isDevelopment &&
     L.tileLayer(
       `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
       {
