@@ -298,7 +298,7 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           top: 50px;
           left: 0;
           padding: 0 10px 10px;
-          overflow: scroll;
+          overflow-y: scroll;
           height: calc(100% - 50px);
           width: 100%;
         }
@@ -325,9 +325,10 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           flex-wrap: wrap;
           justify-content: flex-start;
           align-items: center;
+          margin-bottom: 10px;
         }
         :global(.search-header ~ .search-header) {
-          margin-top: 20px;
+          margin-top: 10px;
         }
         .search-area {
           transition: opacity 280ms;

@@ -53,6 +53,11 @@ let Styles = () => (
       line-height: 1.5;
     }
 
+    _::-webkit-scrollbar {
+      width: 1em;
+    }
+
+    /* collapse library */
     .collapse-css-transition {
       transition: height 260ms cubic-bezier(0.4, 0, 0.2, 1);
     }
