@@ -10,6 +10,7 @@ import UserIcon from '~/public/static/icons/User.svg';
 import SearchIcon from '~/public/static/icons/Search.svg';
 import TrackingPinShip from '~/public/static/icons/TrackingPinShip.svg';
 import MapNavigation from '~/public/static/icons/MapNavigation.svg';
+import UpIcon from '~/public/static/icons/Up.svg';
 import getQueryParams from '~/utils/getQueryParams';
 import { zoomToShip, zoomToTerminal } from '~/utils/mapUtil';
 import { StaticStyles, DynamicStyles } from './MainHeader.styles';
@@ -54,15 +55,30 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
       <Subscribe to={[store]}>
         {storeState => (
           <header className="main-header">
-            <aside className="left-sidebar">
+            <aside
+              className="left-sidebar"
+              style={{
+                transform: leftSidebarToggle
+                  ? 'translateX(0)'
+                  : 'translateX(-100%)',
+              }}
+            >
               <div className="left-sidebar-headline">Find</div>
               <div className="sidebar-content">
                 <div className="search-header">
                   <div>
                     Zoom to <TrackingPinShip />
                   </div>
-                  <button onClick={() => setShipSearchArea(s => !s)}>
-                    {shipSearchArea ? 'hide' : 'show'}
+                  <button
+                    onClick={() => setShipSearchArea(s => !s)}
+                    aria-label="toggle ships"
+                    className={
+                      shipSearchArea
+                        ? 'toggle toggle-show'
+                        : 'toggle toggle-hide'
+                    }
+                  >
+                    <UpIcon />
                   </button>
                 </div>
 
@@ -87,8 +103,16 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
                   <div>
                     Zoom to <MapNavigation />
                   </div>
-                  <button onClick={() => setTerminalSearchArea(s => !s)}>
-                    {terminalSearchArea ? 'hide' : 'show'}
+                  <button
+                    onClick={() => setTerminalSearchArea(s => !s)}
+                    aria-label="toggle ships"
+                    className={
+                      terminalSearchArea
+                        ? 'toggle toggle-show'
+                        : 'toggle toggle-hide'
+                    }
+                  >
+                    <UpIcon />
                   </button>
                 </div>
 
@@ -103,7 +127,7 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
                           zoomToTerminal(item);
                         }}
                       >
-                        {item.name}
+                        {prettyTerminalName(item.name)}
                       </button>
                     </div>
                   ))}
@@ -118,7 +142,13 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
                 aria-label="sidebar"
               >
                 <div className="button-sidebar-content">
-                  <NextIcon />
+                  <NextIcon
+                    style={{
+                      transform: leftSidebarToggle
+                        ? 'rotate(.5turn)'
+                        : 'rotate(0)',
+                    }}
+                  />
                 </div>
               </button>
             </aside>
@@ -172,7 +202,6 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           top: 0;
           left: 0;
           width: 100%;
-          _max-width: 1300px;
           font-size: 14px;
           color: #002b45;
           text-align: left;
@@ -239,6 +268,9 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           display: flex;
           justify-content: center;
           align-items: center;
+          > :global(svg) {
+            transition: transform 300ms cubic-bezier(0, 1, 0, 1);
+          }
         }
         .button-sidebar {
           position: absolute;
@@ -259,7 +291,7 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           top: 50px;
           left: 0;
           padding: 0 10px 10px;
-          overflow: auto;
+          overflow: scroll;
           height: calc(100% - 50px);
           width: 100%;
         }
@@ -286,13 +318,9 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           flex-wrap: wrap;
           justify-content: flex-start;
           align-items: center;
-          > button {
-            padding: 0;
-            text-align: left;
-            margin-left: 10px;
-            display: inline-block;
-            background: #eee;
-          }
+        }
+        :global(.search-header ~ .search-header) {
+          margin-top: 20px;
         }
         .search-area {
         }
@@ -308,23 +336,30 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
             text-align: left;
           }
         }
+        .toggle {
+          cursor: pointer;
+          padding: 0;
+          text-align: left;
+
+          margin-left: auto;
+          display: inline-block;
+          background: rgba(white, 0.5);
+          border-radius: 50%;
+          _padding: 2px;
+          transition: transform 280ms cubic-bezier(0, 1, 0, 1);
+          display: inline-block;
+          font-size: 20px;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .toggle-hide {
+          transform: rotate(0.5turn);
+        }
       `}</style>
-      <style jsx>{`
-        .logo {
-          _opacity: ${isFullscreen ? 0.7 : ''};
-        }
-        .toggle-full-screen {
-          _opacity: ${isFullscreen ? 0.7 : ''};
-        }
-        .left-sidebar {
-          transform: ${leftSidebarToggle
-            ? 'translateX(0)'
-            : 'translateX(-100%)'};
-        }
-        .button-sidebar-content {
-          transform: ${leftSidebarToggle ? 'rotate(.5turn)' : 'rotate(0)'};
-        }
-      `}</style>
+      <style jsx>{``}</style>
     </>
   );
 };
@@ -333,3 +368,10 @@ export default MainHeader;
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
+
+const prettyTerminalName = name => {
+  if (name) {
+    return name.replace('terminal', '');
+  }
+  return name;
+};
