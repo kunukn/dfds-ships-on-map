@@ -1,4 +1,6 @@
 import { useStore, Subscribe } from 'laco-react';
+import Collapse from '@kunukn/react-collapse';
+import cx from 'clsx';
 
 import store from '~/store.js';
 import FullscreenEnterIcon from '~/public/static/icons/FullscreenEnter.svg';
@@ -82,22 +84,25 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
                   </button>
                 </div>
 
-                <div
-                  className="search-area"
-                  style={{ display: shipSearchArea ? '' : 'none' }}
-                >
-                  {shipsSorted.map(item => (
-                    <div key={item.name} className="search-item">
-                      <button
-                        onClick={() => {
-                          zoomToShip(item);
-                        }}
-                      >
-                        {item.name}
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                <Collapse isOpen={shipSearchArea}>
+                  <div
+                    className={cx('search-area', {
+                      'search-area--is-open': shipSearchArea,
+                    })}
+                  >
+                    {shipsSorted.map(item => (
+                      <div key={item.name} className="search-item">
+                        <button
+                          onClick={() => {
+                            zoomToShip(item);
+                          }}
+                        >
+                          {item.name}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </Collapse>
 
                 <div className="search-header">
                   <div>
@@ -115,23 +120,25 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
                     <UpIcon />
                   </button>
                 </div>
-
-                <div
-                  className="search-area"
-                  style={{ display: terminalSearchArea ? '' : 'none' }}
-                >
-                  {terminalsSorted.map(item => (
-                    <div key={item.name} className="search-item">
-                      <button
-                        onClick={() => {
-                          zoomToTerminal(item);
-                        }}
-                      >
-                        {prettyTerminalName(item.name)}
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                <Collapse isOpen={terminalSearchArea}>
+                  <div
+                    className={cx('search-area', {
+                      'search-area--is-open': terminalSearchArea,
+                    })}
+                  >
+                    {terminalsSorted.map(item => (
+                      <div key={item.name} className="search-item">
+                        <button
+                          onClick={() => {
+                            zoomToTerminal(item);
+                          }}
+                        >
+                          {prettyTerminalName(item.name)}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </Collapse>
               </div>
 
               <button
@@ -323,6 +330,11 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           margin-top: 20px;
         }
         .search-area {
+          transition: opacity 300ms;
+          opacity: 0.5;
+        }
+        .search-area--is-open {
+          opacity: 1;
         }
         .search-item {
           margin-bottom: 10px;

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 let Styles = () => (
   <style jsx global>{`
@@ -53,6 +53,9 @@ let Styles = () => (
       line-height: 1.5;
     }
 
+    .collapse-css-transition {
+      transition: height 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
   `}</style>
 );
 
