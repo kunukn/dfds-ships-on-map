@@ -50,6 +50,7 @@ const MainHeader = ({ lastUpdated, ships }) => {
         {storeState => (
           <header className="main-header">
             <div className="left-sidebar">
+              <div className="left-sidebar-headline">Headline</div>
               <div className="sidebar-content">
                 <div className="ship-search-headline">Zoom to ship</div>
                 {shipsSorted.map(s => (
@@ -210,12 +211,22 @@ const MainHeader = ({ lastUpdated, ships }) => {
         }
         .sidebar-content {
           position: absolute;
+          top: 50px;
+          left: 0;
+          padding: 0 10px 10px;
+          overflow: auto;
+          height: calc(100% - 50px);
+          width: 100%;
+        }
+        .left-sidebar-headline {
+          position: absolute;
           top: 0;
           left: 0;
-          padding: 10px;
-          overflow: auto;
-          height: 100%;
+          padding: 14px;
           width: 100%;
+          height: 50px;
+          line-height: 1;
+          font-size: 20px;
         }
         :global(.fullscreen-exit-icon) {
           display: block;

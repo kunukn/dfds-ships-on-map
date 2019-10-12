@@ -84,7 +84,7 @@ const Map = props => {
 
     map.setView([latitude, longitude], zoomLevel);
 
-    //!isDevelopment &&
+    !isDevelopment &&
     L.tileLayer(
       `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
       {
