@@ -19,6 +19,7 @@ const MainHeader = ({ lastUpdated, ships }) => {
   const { isFullscreen } = useStore(store);
 
   const [leftSidebarToggle, setLeftSidebarToggle] = React.useState(false);
+  const [shipSearchArea, setShipSearchArea] = React.useState(true);
 
   let isFirstRender = React.useRef(true);
   React.useEffect(() => {
@@ -51,20 +52,25 @@ const MainHeader = ({ lastUpdated, ships }) => {
         {storeState => (
           <header className="main-header">
             <div className="left-sidebar">
-              <div className="left-sidebar-headline">Headline</div>
+              <div className="left-sidebar-headline">Find</div>
               <div className="sidebar-content">
-                <div className="ship-search-headline">Zoom to ship</div>
-                {shipsSorted.map(s => (
-                  <div key={s.name} className="ship-search-item">
-                    <button
-                      onClick={() => {
-                        zoomToShip(s);
-                      }}
-                    >
-                      {s.name}
-                    </button>
-                  </div>
-                ))}
+                <div className="ship-search-header">
+                  <span>Zoom to ship</span>
+                  <button onClick={() => setShipSearchArea(s => !s)}>{shipSearchArea ? 'hide' : 'show'}</button>
+                </div>
+                <div className="ship-search-area" style={{display: shipSearchArea ? '' : 'none'}}>
+                  {shipsSorted.map(s => (
+                    <div key={s.name} className="ship-search-item">
+                      <button
+                        onClick={() => {
+                          zoomToShip(s);
+                        }}
+                      >
+                        {s.name}
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
               <button
                 onClick={() => {
@@ -235,9 +241,20 @@ const MainHeader = ({ lastUpdated, ships }) => {
         :global(.fullscreen-enter-icon) {
           display: block;
         }
-        .ship-search-headline {
+        .ship-search-header{
           font-size: 20px;
           padding: 4px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          align-items: center;
+          > button {
+            padding: 0;
+            text-align: left;
+            margin-left: 10px;
+            display: inline-block;
+            background: #eee;
+          }
         }
         .ship-search-item {
           margin-bottom: 10px;
