@@ -250,6 +250,7 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           fill: $color-groupBlue;
         }
         .left-sidebar {
+          transition: transform 260ms;
           pointer-events: all;
           position: relative;
           height: calc(100vh - 150px);
@@ -263,7 +264,6 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: saturate(180%) blur(4px);
           }
-          transition: transform 300ms;
         }
         .button-sidebar-content {
           background: rgba(white, 0.5);
@@ -276,7 +276,7 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           justify-content: center;
           align-items: center;
           > :global(svg) {
-            transition: transform 300ms cubic-bezier(0, 1, 0, 1);
+            transition: transform 260ms cubic-bezier(0, 1, 0, 1);
           }
         }
         .button-sidebar {
@@ -330,7 +330,7 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           margin-top: 20px;
         }
         .search-area {
-          transition: opacity 300ms;
+          transition: opacity 280ms;
           opacity: 0.5;
         }
         .search-area--is-open {
@@ -352,13 +352,11 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           cursor: pointer;
           padding: 0;
           text-align: left;
-
           margin-left: auto;
           display: inline-block;
           background: rgba(white, 0.5);
           border-radius: 50%;
-          _padding: 2px;
-          transition: transform 280ms cubic-bezier(0, 1, 0, 1);
+          transition: transform 260ms cubic-bezier(0, 1, 0, 1);
           display: inline-block;
           font-size: 20px;
           width: 40px;
