@@ -159,7 +159,7 @@ const Map = props => {
   return (
     <>
       <Head>
-        <title>DFDS Ships</title>
+        <title>DFDS Ships on map</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"

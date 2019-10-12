@@ -1,5 +1,5 @@
 // https://nextjs.org/docs/#custom-document
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
   // static async getInitialProps(ctx) {
@@ -13,9 +13,8 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <meta name="description" content="" />
-          <meta name="keywords" content="" />
-          <meta name="robots" content="noindex, nofollow" />
+          <meta name="description" content="dfds ships on map" />
+          <meta name="keywords" content="dfds ships map" />
           <meta name="theme-color" content="#002B45" />
           <link rel="apple-touch-icon" href="static/pwa/logo192.png" />
           <link rel="manifest" href="./manifest.json" />
@@ -36,7 +35,7 @@ export default class MyDocument extends Document {
             gtag('config', 'UA-149675936-1');        
             
           } catch(ex){console.warn(ex+'')}
-          `
+          `,
             }}
           />
 
@@ -60,7 +59,7 @@ export default class MyDocument extends Document {
           
             
           } catch(ex){console.warn(ex+'')}
-          `
+          `,
             }}
           />
           <NextScript />
