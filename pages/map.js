@@ -12,6 +12,7 @@ import getQueryParams from '~/utils/getQueryParams';
 import TrackingPinRailway from '~/public/static/icons/TrackingPinRailway.svg';
 import TrackingPinShip from '~/public/static/icons/TrackingPinShip.svg';
 import TrackingPinTruck from '~/public/static/icons/TrackingPinTruck.svg';
+import MapNavigation from '~/public/static/icons/MapNavigation.svg';
 import mapRef from '~/mapRef.js';
 import store from '~/store.js';
 import getShipsFromApi from '~/api-layer/getShipsFromApi';
@@ -85,13 +86,13 @@ const Map = props => {
     map.setView([latitude, longitude], zoomLevel);
 
     !isDevelopment &&
-    L.tileLayer(
-      `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
-      {
-        maxZoom: 18,
-        id: 'mapbox.streets',
-      }
-    ).addTo(map);
+      L.tileLayer(
+        `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
+        {
+          maxZoom: 18,
+          id: 'mapbox.streets',
+        }
+      ).addTo(map);
   }, []);
 
   // fetch ships initially and add to map
@@ -167,7 +168,11 @@ const Map = props => {
       </Head>
       <>
         <div id="mapid"></div>
-        <MainHeader lastUpdated={lastUpdated} ships={shipsState} />
+        <MainHeader
+          lastUpdated={lastUpdated}
+          ships={shipsState}
+          terminals={terminals}
+        />
         <MainFooter lastUpdated={lastUpdated} />
         <TabMenuRight
           isOpen={logTab}

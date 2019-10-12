@@ -8,18 +8,18 @@ import NextIcon from '~/public/static/icons/Next.svg';
 import SettingsIcon from '~/public/static/icons/Settings.svg';
 import UserIcon from '~/public/static/icons/User.svg';
 import SearchIcon from '~/public/static/icons/Search.svg';
+import TrackingPinShip from '~/public/static/icons/TrackingPinShip.svg';
+import MapNavigation from '~/public/static/icons/MapNavigation.svg';
 import getQueryParams from '~/utils/getQueryParams';
-import { zoomToShip } from '~/utils/mapUtil';
+import { zoomToShip, zoomToTerminal } from '~/utils/mapUtil';
 import { StaticStyles, DynamicStyles } from './MainHeader.styles';
 
-const fullscreenWasToggled = () =>
-  store.set(state => ({ isFullscreen: !state.isFullscreen }));
-
-const MainHeader = ({ lastUpdated, ships }) => {
+const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
   const { isFullscreen } = useStore(store);
 
   const [leftSidebarToggle, setLeftSidebarToggle] = React.useState(false);
   const [shipSearchArea, setShipSearchArea] = React.useState(true);
+  const [terminalSearchArea, setTerminalSearchArea] = React.useState(true);
 
   let isFirstRender = React.useRef(true);
   React.useEffect(() => {
@@ -45,33 +45,71 @@ const MainHeader = ({ lastUpdated, ships }) => {
   }, [isFullscreen]);
 
   let shipsSorted = ships.sort((a, b) => ('' + a.name).localeCompare(b.name));
+  let terminalsSorted = terminals.sort((a, b) =>
+    ('' + a.name).localeCompare(b.name)
+  );
 
   return (
     <>
       <Subscribe to={[store]}>
         {storeState => (
           <header className="main-header">
-            <div className="left-sidebar">
+            <aside className="left-sidebar">
               <div className="left-sidebar-headline">Find</div>
               <div className="sidebar-content">
-                <div className="ship-search-header">
-                  <span>Zoom to ship</span>
-                  <button onClick={() => setShipSearchArea(s => !s)}>{shipSearchArea ? 'hide' : 'show'}</button>
+                <div className="search-header">
+                  <div>
+                    Zoom to <TrackingPinShip />
+                  </div>
+                  <button onClick={() => setShipSearchArea(s => !s)}>
+                    {shipSearchArea ? 'hide' : 'show'}
+                  </button>
                 </div>
-                <div className="ship-search-area" style={{display: shipSearchArea ? '' : 'none'}}>
-                  {shipsSorted.map(s => (
-                    <div key={s.name} className="ship-search-item">
+
+                <div
+                  className="search-area"
+                  style={{ display: shipSearchArea ? '' : 'none' }}
+                >
+                  {shipsSorted.map(item => (
+                    <div key={item.name} className="search-item">
                       <button
                         onClick={() => {
-                          zoomToShip(s);
+                          zoomToShip(item);
                         }}
                       >
-                        {s.name}
+                        {item.name}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="search-header">
+                  <div>
+                    Zoom to <MapNavigation />
+                  </div>
+                  <button onClick={() => setTerminalSearchArea(s => !s)}>
+                    {terminalSearchArea ? 'hide' : 'show'}
+                  </button>
+                </div>
+
+                <div
+                  className="search-area"
+                  style={{ display: terminalSearchArea ? '' : 'none' }}
+                >
+                  {terminalsSorted.map(item => (
+                    <div key={item.name} className="search-item">
+                      <button
+                        onClick={() => {
+                          zoomToTerminal(item);
+                        }}
+                      >
+                        {item.name}
                       </button>
                     </div>
                   ))}
                 </div>
               </div>
+
               <button
                 onClick={() => {
                   setLeftSidebarToggle(s => !s);
@@ -83,7 +121,7 @@ const MainHeader = ({ lastUpdated, ships }) => {
                   <NextIcon />
                 </div>
               </button>
-            </div>
+            </aside>
 
             <div className="button-group">
               {storeState.isFullscreenSupported && (
@@ -241,7 +279,7 @@ const MainHeader = ({ lastUpdated, ships }) => {
         :global(.fullscreen-enter-icon) {
           display: block;
         }
-        .ship-search-header{
+        .search-header {
           font-size: 20px;
           padding: 4px;
           display: flex;
@@ -256,7 +294,9 @@ const MainHeader = ({ lastUpdated, ships }) => {
             background: #eee;
           }
         }
-        .ship-search-item {
+        .search-area {
+        }
+        .search-item {
           margin-bottom: 10px;
           > button {
             font-size: inherit;
@@ -290,3 +330,6 @@ const MainHeader = ({ lastUpdated, ships }) => {
 };
 
 export default MainHeader;
+
+const fullscreenWasToggled = () =>
+  store.set(state => ({ isFullscreen: !state.isFullscreen }));
