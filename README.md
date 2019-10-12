@@ -5,6 +5,9 @@ Prototype
 
 Exploring tech in following areas.
 
+* Navigation by ship position on map - deep link
+* Navigation by terminal position on map - deep link
+* support querystring
 * Laco store with NextJS
 * React with leaflet
 * Tab menu experiment
