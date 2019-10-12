@@ -17,7 +17,7 @@ export default class MyDocument extends Document {
           <meta name="keywords" content="dfds ships map" />
           <meta name="theme-color" content="#002B45" />
           <link rel="apple-touch-icon" href="static/pwa/logo192.png" />
-          <link rel="manifest" href="./manifest.json" />
+          <link rel="manifest" href="/static/manifest.json" />
 
           <script
             async
