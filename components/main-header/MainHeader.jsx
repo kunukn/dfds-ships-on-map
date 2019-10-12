@@ -10,6 +10,7 @@ import UserIcon from '~/public/static/icons/User.svg';
 import SearchIcon from '~/public/static/icons/Search.svg';
 import getQueryParams from '~/utils/getQueryParams';
 import { zoomToShip } from '~/utils/mapUtil';
+import { StaticStyles, DynamicStyles } from './MainHeader.styles';
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
