@@ -5,6 +5,9 @@ Prototype
 
 Exploring tech in following areas.
 
+* Navigation by ship position on map - deep link
+* Navigation by terminal position on map - deep link
+* support querystring
 * Laco store with NextJS
 * React with leaflet
 * Tab menu experiment
@@ -37,7 +40,7 @@ mkcert localhost 127.0.0.1 ::1   # Enables them on localhost
 - ~Fullscreen mode~
 - ~Ship direction~
 - ~Shipping routes as dashed lines~
-- Search and find ship by name
-- Search and find terminal by name
+- ~Search and find ship by name~
+- ~Search and find terminal by name~
 - Scheduled information from other API
 - Timeline, go back in history
