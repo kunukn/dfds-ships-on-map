@@ -27,7 +27,7 @@ const SettingsOverlay = () => {
             <CloseIcon />
           </button>
         </div>
-        <div className="settings-overlay-content">settings overlay</div>
+        <div className="settings-overlay-content">TODO: settings</div>
       </div>
 
       <style jsx>{`
