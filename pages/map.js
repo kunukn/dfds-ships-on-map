@@ -199,7 +199,7 @@ const Map = props => {
         :global(.leaflet-control-zoom) {
           __outline: 1px solid red;
           __position: relative;
-          bottom: 40px;
+          bottom: 20px;
         }
       `}</style>
     </>

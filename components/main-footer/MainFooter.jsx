@@ -1,4 +1,4 @@
-import DFDSLogo from "~/public/static/icons/DFDSLogo.svg";
+import DFDSLogo from '~/public/static/icons/DFDSLogo.svg';
 
 const MainFooter = ({ lastUpdated }) => {
   return (
@@ -43,9 +43,13 @@ const MainFooter = ({ lastUpdated }) => {
             display: block;
             width: ${17 * 3}px;
             height: ${6 * 3}px;
-            @media (min-width: 900px) {
+            @media (min-width: 800px) {
               width: ${17 * 4}px;
               height: ${6 * 4}px;
+            }
+            @media (min-width: 1200px) {
+              width: ${17 * 5}px;
+              height: ${6 * 5}px;
             }
           }
         }
