@@ -7,7 +7,7 @@ import store from '~/store.js';
 import { onSettingsToggle } from './SettingsOverlay';
 
 const MainHeaderButtonsGroup = () => {
-  const { isFullscreen, isSettingsOpen } = useStore(store);
+  const { isFullscreen } = useStore(store);
 
   let isFirstRender = React.useRef(true);
   React.useEffect(() => {

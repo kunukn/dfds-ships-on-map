@@ -7,7 +7,11 @@ module.exports = {
     ecmaVersion: 9, // or 7,8,9
   },
   plugins: ['react-hooks'],
+  globals: {
+    React: 'writable',
+  },
   rules: {
+    'react/react-in-jsx-scope': 'off',
     'array-callback-return': 'warn',
     'arrow-body-style': 'error',
     'arrow-parens': 'error',
