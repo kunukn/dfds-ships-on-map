@@ -180,9 +180,8 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
 
         .sidebar {
           color: $color-groupBlue;
-          transition: transform 260ms;
+          transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
           pointer-events: all;
-          position: relative;
           height: calc(100vh - 160px);
           max-height: calc(100vh - 160px);
           width: 200px;
@@ -259,7 +258,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           margin-top: 10px;
         }
         .sidebar-search-area {
-          transition: opacity 280ms;
+          transition: opacity 280ms cubic-bezier(0.4, 0, 0.2, 1);
           opacity: 0.5;
         }
         .sidebar-search-area--is-open {
@@ -275,6 +274,9 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
             width: 100%;
             background: white;
             text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
         .toggle {

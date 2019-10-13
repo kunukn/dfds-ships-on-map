@@ -37,7 +37,7 @@ const OptionsOverlay = () => {
           top: 0;
           right: 0;
           transform: translateY(-100%);
-          transition: transform 280ms cubic-bezier(0, 1, 0, 1);
+          transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
           background-color: rgba(white, 0.9);
           @supports (backdrop-filter: blur(4px)) {
             background-color: rgba(255, 255, 255, 0.5);

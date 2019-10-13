@@ -16,7 +16,7 @@ export default class MyDocument extends Document {
           <meta name="description" content="dfds ships on map" />
           <meta name="keywords" content="dfds ships map" />
           <meta name="theme-color" content="#002B45" />
-          <link rel="apple-touch-icon" href="static/pwa/logo192.png" />
+          <link rel="apple-touch-icon" href="/static/pwa/logo192.png" />
           <link rel="manifest" href="/static/manifest.json" />
 
           <script
@@ -31,9 +31,7 @@ export default class MyDocument extends Document {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-          
-            gtag('config', 'UA-149675936-1');        
-            
+            gtag('config', 'UA-149675936-1');
           } catch(ex){console.warn(ex+'')}
           `,
             }}
@@ -56,8 +54,6 @@ export default class MyDocument extends Document {
             dangerouslySetInnerHTML={{
               __html: `
           try {
-          
-            
           } catch(ex){console.warn(ex+'')}
           `,
             }}
