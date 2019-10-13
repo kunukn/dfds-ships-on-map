@@ -17,6 +17,7 @@ import UpIcon from '~/public/static/icons/Up.svg';
 import getQueryParams from '~/utils/getQueryParams';
 import { zoomToShip, zoomToTerminal } from '~/utils/mapUtil';
 import { StaticStyles, DynamicStyles } from './MainHeader.styles';
+import LeftSidebar from '~/components/left-sidebar/LeftSideBar';
 
 const onOptionsToggle = () =>
   store.set(state => ({ isOptionsOpen: !state.isOptionsOpen }));
@@ -52,118 +53,12 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
     }
   }, [isFullscreen]);
 
-  let shipsSorted = ships.sort((a, b) => ('' + a.name).localeCompare(b.name));
-  let terminalsSorted = terminals.sort((a, b) =>
-    ('' + a.name).localeCompare(b.name)
-  );
-
   return (
     <>
       <Subscribe to={[store]}>
         {storeState => (
           <>
-            <aside
-              className="left-sidebar"
-              style={{
-                transform: leftSidebarToggle
-                  ? 'translateX(0)'
-                  : 'translateX(-100%)',
-              }}
-            >
-              <div className="left-sidebar-headline">Find</div>
-              <div className="sidebar-content">
-                <div className="search-header">
-                  <div>
-                    Zoom to <TrackingPinShip />
-                  </div>
-                  <button
-                    onClick={() => setShipSearchArea(s => !s)}
-                    aria-label="toggle ships"
-                    className={
-                      shipSearchArea
-                        ? 'toggle toggle-show'
-                        : 'toggle toggle-hide'
-                    }
-                  >
-                    <UpIcon />
-                  </button>
-                </div>
-
-                <Collapse isOpen={shipSearchArea}>
-                  <div
-                    className={cx('search-area', {
-                      'search-area--is-open': shipSearchArea,
-                    })}
-                  >
-                    {shipsSorted.map(item => (
-                      <div key={item.name} className="search-item">
-                        <button
-                          onClick={() => {
-                            zoomToShip(item);
-                          }}
-                        >
-                          {item.name}
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </Collapse>
-
-                <div className="search-header">
-                  <div>
-                    Zoom to <MapNavigation />
-                  </div>
-                  <button
-                    onClick={() => setTerminalSearchArea(s => !s)}
-                    aria-label="toggle ships"
-                    className={
-                      terminalSearchArea
-                        ? 'toggle toggle-show'
-                        : 'toggle toggle-hide'
-                    }
-                  >
-                    <UpIcon />
-                  </button>
-                </div>
-                <Collapse isOpen={terminalSearchArea}>
-                  <div
-                    className={cx('search-area', {
-                      'search-area--is-open': terminalSearchArea,
-                    })}
-                  >
-                    {terminalsSorted.map(item => (
-                      <div key={item.name} className="search-item">
-                        <button
-                          onClick={() => {
-                            zoomToTerminal(item);
-                          }}
-                        >
-                          {prettyTerminalName(item.name)}
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </Collapse>
-              </div>
-
-              <button
-                onClick={() => {
-                  setLeftSidebarToggle(s => !s);
-                }}
-                className="button-sidebar"
-                aria-label="sidebar"
-              >
-                <div className="button-sidebar-content">
-                  <NextIcon
-                    style={{
-                      transform: leftSidebarToggle
-                        ? 'rotate(.5turn)'
-                        : 'rotate(0)',
-                    }}
-                  />
-                </div>
-              </button>
-            </aside>
+            <LeftSidebar ships={ships} terminals={terminals} />
 
             <div className="button-group">
               {storeState.isFullscreenSupported && (
@@ -287,127 +182,13 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           border: none;
           fill: $color-groupBlue;
         }
-        .left-sidebar {
-          color: $color-groupBlue;
-          transition: transform 260ms;
-          pointer-events: all;
-          position: relative;
-          height: calc(100vh - 160px);
-          max-height: calc(100vh - 160px);
-          width: 200px;
-          position: absolute;
-          top: 10px;
-          left: 0;
-          background: rgba(white, 0.8);
-          @supports (backdrop-filter: blur(10px)) {
-            background-color: rgba(255, 255, 255, 0.5);
-            backdrop-filter: saturate(180%) blur(4px);
-          }
-        }
-
-        .button-sidebar {
-          position: absolute;
-          right: -30px;
-          width: 30px;
-          top: 0;
-          padding: 0;
-          padding-right: 10px;
-          color: $color-groupBlue;
-          display: flex;
-          justify: center;
-          align-items: center;
-          height: 50px;
-          font-size: 20px;
-          background: transparent;
-        }
-        .button-sidebar-content {
-          background-color: rgba(white, 0.9);
-          height: inherit;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          > :global(svg) {
-            transition: transform 260ms cubic-bezier(0, 1, 0, 1);
-          }
-        }
-        .sidebar-content {
-          position: absolute;
-          top: 50px;
-          left: 0;
-          padding: 0 10px 10px;
-          overflow-y: scroll;
-          height: calc(100% - 50px);
-          width: 100%;
-        }
-        .left-sidebar-headline {
-          position: absolute;
-          top: 0;
-          left: 0;
-          padding: 14px;
-          width: 100%;
-          height: 50px;
-          line-height: 1;
-          font-size: 20px;
-        }
         :global(.fullscreen-exit-icon) {
           display: block;
         }
         :global(.fullscreen-enter-icon) {
           display: block;
         }
-        .search-header {
-          font-size: 20px;
-          padding: 4px;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: flex-start;
-          align-items: center;
-          margin-bottom: 10px;
-        }
-        :global(.search-header ~ .search-header) {
-          margin-top: 10px;
-        }
-        .search-area {
-          transition: opacity 280ms;
-          opacity: 0.5;
-        }
-        .search-area--is-open {
-          opacity: 1;
-        }
-        .search-item {
-          margin-bottom: 10px;
-          > button {
-            font-size: inherit;
-            cursor: pointer;
-            padding: 4px;
-            display: block;
-            width: 100%;
-            background: white;
-            text-align: left;
-          }
-        }
-        .toggle {
-          cursor: pointer;
-          padding: 0;
-          text-align: left;
-          margin-left: auto;
-          display: inline-block;
-          background: rgba(white, 0.5);
-          border-radius: 50%;
-          transition: transform 260ms cubic-bezier(0, 1, 0, 1);
-          display: inline-block;
-          font-size: 20px;
-          width: 40px;
-          height: 40px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .toggle-hide {
-          transform: rotate(0.5turn);
-        }
       `}</style>
-      <style jsx>{``}</style>
     </>
   );
 };
@@ -416,10 +197,3 @@ export default MainHeader;
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
-
-const prettyTerminalName = name => {
-  if (name) {
-    return name.replace('terminal', '');
-  }
-  return name;
-};

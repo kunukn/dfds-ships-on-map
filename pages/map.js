@@ -45,7 +45,7 @@ const fiveSeconds = 1000 * 5;
 let dataUpdateInterval = isDevelopment ? fiveSeconds : threeMinutes;
 
 const Map = props => {
-  const { isFullscreen, logs, ships = [] } = useStore(store);
+  const { isFullscreen, logs, ships = [], isSettingsOpen } = useStore(store);
   let [logTab, setLogTab] = useState(false);
   let [shipsState, setShipsState] = useState(ships);
   let [lastUpdated, setLastUpdated] = useState(new Date(props.currentDate));
@@ -85,7 +85,7 @@ const Map = props => {
 
     map.setView([latitude, longitude], zoomLevel);
 
-    !isDevelopment &&
+    //!isDevelopment &&
     L.tileLayer(
       `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
       {
@@ -172,6 +172,7 @@ const Map = props => {
           lastUpdated={lastUpdated}
           ships={shipsState}
           terminals={terminals}
+          
         />
         <MainFooter lastUpdated={lastUpdated} />
         <TabMenuRight
