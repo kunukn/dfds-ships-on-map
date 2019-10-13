@@ -56,7 +56,7 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
     <>
       <Subscribe to={[store]}>
         {storeState => (
-          <header className="main-header">
+          <>
             <aside
               className="left-sidebar"
               style={{
@@ -175,21 +175,21 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
                 </button>
               )}
               {/* 
-              <button
-                className="button button-search"
-                onClick={() => alert("TODO")}
-                title="search"
-              >
-                <SearchIcon className="search-icon" />
-              </button> */}
+          <button
+            className="button button-search"
+            onClick={() => alert("TODO")}
+            title="search"
+          >
+            <SearchIcon className="search-icon" />
+          </button> */}
 
               {/* <button
-                className="button button-user"
-                onClick={() => alert("TODO")}
-                title="user"
-              >
-                <UserIcon className="user-icon" />
-              </button> */}
+            className="button button-user"
+            onClick={() => alert("TODO")}
+            title="user"
+          >
+            <UserIcon className="user-icon" />
+          </button> */}
               <button
                 title="settings"
                 className="button button-settings"
@@ -198,31 +198,23 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
                 <SettingsIcon className="settings-icon" />
               </button>
             </div>
-          </header>
+          </>
         )}
       </Subscribe>
 
       <style jsx>{`
-        .main-header {
-          height: 60px;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          font-size: 14px;
-          color: #002b45;
-          text-align: left;
+        .button-group {
           display: flex;
           justify-content: flex-end;
           align-items: center;
           flex-wrap: wrap;
-          pointer-events: none;
-        }
-
-        .button-group {
+          height: 60px;
+          _width: 200px;
+          position: absolute;
+          top: 0;
+          right: 0;
+          color: #002b45;
           pointer-events: all;
-          height: inherit;
-          display: flex;
         }
         .button {
           display: flex;
@@ -250,6 +242,7 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           fill: $color-groupBlue;
         }
         .left-sidebar {
+          color: #002b45;
           transition: transform 260ms;
           pointer-events: all;
           position: relative;
@@ -266,8 +259,8 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           }
         }
         .button-sidebar-content {
-          background: rgba(white, 0.5);
-          @supports (backdrop-filter: blur(10px)) {
+          background: rgba(white, 0.7);
+          @supports (backdrop-filter: blur(4px)) {
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: saturate(180%) blur(4px);
           }
