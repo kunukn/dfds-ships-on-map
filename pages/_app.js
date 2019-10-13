@@ -50,9 +50,14 @@ const GlobalEffect = () => {
 
   React.useEffect(() => {
     let params = getQueryParams();
-    if (params.settings || params.options) {
+    if (params.settings) {
       store.set(state => ({
-        isOptionsOpen: true,
+        isSettingsOpen: true,
+      }));
+    }
+    if (params.leftsidebar) {
+      store.set(state => ({
+        isLeftSidebarOpen: true,
       }));
     }
 

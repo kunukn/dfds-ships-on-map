@@ -4,9 +4,10 @@ import FullscreenEnterIcon from '~/public/static/icons/FullscreenEnter.svg';
 import FullscreenExitIcon from '~/public/static/icons/FullscreenExit.svg';
 import SettingsIcon from '~/public/static/icons/Settings.svg';
 import store from '~/store.js';
+import { onSettingsToggle } from './SettingsOverlay';
 
 const MainHeaderButtonsGroup = () => {
-  const { isFullscreen, isOptionsOpen } = useStore(store);
+  const { isFullscreen, isSettingsOpen } = useStore(store);
 
   let isFirstRender = React.useRef(true);
   React.useEffect(() => {
@@ -48,7 +49,7 @@ const MainHeaderButtonsGroup = () => {
             <button
               title="settings"
               className="button button-settings"
-              onClick={onOptionsToggle}
+              onClick={onSettingsToggle}
             >
               <SettingsIcon className="settings-icon" />
             </button>
@@ -115,7 +116,3 @@ export default MainHeaderButtonsGroup;
 
 const fullscreenWasToggled = () =>
   store.set(state => ({ isFullscreen: !state.isFullscreen }));
-
-const onOptionsToggle = () =>
-  store.set(state => ({ isOptionsOpen: !state.isOptionsOpen }));
-const onOptionsClose = () => store.set(state => ({ isOptionsOpen: false }));

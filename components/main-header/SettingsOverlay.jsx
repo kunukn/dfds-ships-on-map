@@ -4,40 +4,40 @@ import cx from 'clsx';
 import store from '~/store.js';
 import CloseIcon from '~/public/static/icons/Close.svg';
 
-const onOptionsClose = () => store.set(state => ({ isOptionsOpen: false }));
+const onClose = () => store.set(state => ({ isSettingsOpen: false }));
 
-const OptionsOverlay = () => {
-  const { isOptionsOpen } = useStore(store);
+const SettingsOverlay = () => {
+  const { isSettingsOpen } = useStore(store);
 
   return (
     <>
       <div
-        className="options-overlay"
+        className="settings-overlay"
         style={{
-          transform: isOptionsOpen ? 'translateY(0)' : 'translateY(-100%)',
+          transform: isSettingsOpen ? 'translateY(0)' : 'translateY(-100%)',
         }}
       >
-        <div className="options-overlay-header">
+        <div className="settings-overlay-header">
           <div>Settings</div>
           <button
             aria-label="close"
-            className="button-options-overlay-close"
-            onClick={onOptionsClose}
+            className="button-settings-overlay-close"
+            onClick={onClose}
           >
             <CloseIcon />
           </button>
         </div>
-        <div className="options-overlay-content">settings overlay</div>
+        <div className="settings-overlay-content">settings overlay</div>
       </div>
 
       <style jsx>{`
-        .options-overlay {
+        .settings-overlay {
           color: $color-groupBlue;
           position: absolute;
           top: 0;
           right: 0;
           transform: translateY(-100%);
-          transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+          transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
           background-color: rgba(white, 0.9);
           @supports (backdrop-filter: blur(4px)) {
             background-color: rgba(255, 255, 255, 0.5);
@@ -52,7 +52,7 @@ const OptionsOverlay = () => {
           overflow: auto;
           border-bottom-left-radius: 10px;
         }
-        .options-overlay-header {
+        .settings-overlay-header {
           font-size: 20px;
           display: flex;
           justify-content: space-between;
@@ -62,7 +62,7 @@ const OptionsOverlay = () => {
           flex-wrap: wrap;
         }
 
-        .button-options-overlay-close {
+        .button-settings-overlay-close {
           cursor: pointer;
           display: flex;
           justify-content: center;
@@ -77,14 +77,19 @@ const OptionsOverlay = () => {
           > :global(svg) {
           }
         }
-        .options-overlay-content {
+        .settings-overlay-content {
           display: flex;
           justify-content: center;
           align-items: center;
+          padding: 10px;
+          font-size: 16px;
         }
       `}</style>
     </>
   );
 };
 
-export default OptionsOverlay;
+export default SettingsOverlay;
+
+export const onSettingsToggle = () =>
+  store.set(state => ({ isSettingsOpen: !state.isSettingsOpen }));

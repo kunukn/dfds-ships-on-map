@@ -5,14 +5,14 @@ import store from '~/store.js';
 import { StaticStyles, DynamicStyles } from './MainHeader.styles';
 import LeftSidebar from '~/components/left-sidebar/LeftSidebar';
 import MainHeaderButtonsGroup from './MainHeaderButtonsGroup';
-import OptionsOverlay from './OptionsOverlay';
+import SettingsOverlay from './SettingsOverlay';
 
 const MainHeader = ({ ships = [], terminals = [] }) => {
   return (
     <>
       <LeftSidebar ships={ships} terminals={terminals} />
       <MainHeaderButtonsGroup />
-      <OptionsOverlay />
+      <SettingsOverlay />
 
       <style jsx>{``}</style>
     </>
