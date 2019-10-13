@@ -8,6 +8,7 @@ import FullscreenExitIcon from '~/public/static/icons/FullscreenExit.svg';
 import DFDSLogo from '~/public/static/icons/DFDSLogo.svg';
 import NextIcon from '~/public/static/icons/Next.svg';
 import SettingsIcon from '~/public/static/icons/Settings.svg';
+import CloseIcon from '~/public/static/icons/Close.svg';
 import UserIcon from '~/public/static/icons/User.svg';
 import SearchIcon from '~/public/static/icons/Search.svg';
 import TrackingPinShip from '~/public/static/icons/TrackingPinShip.svg';
@@ -17,8 +18,12 @@ import getQueryParams from '~/utils/getQueryParams';
 import { zoomToShip, zoomToTerminal } from '~/utils/mapUtil';
 import { StaticStyles, DynamicStyles } from './MainHeader.styles';
 
+const onOptionsToggle = () =>
+  store.set(state => ({ isOptionsOpen: !state.isOptionsOpen }));
+const onOptionsClose = () => store.set(state => ({ isOptionsOpen: false }));
+
 const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
-  const { isFullscreen } = useStore(store);
+  const { isFullscreen, isOptionsOpen } = useStore(store);
 
   const [leftSidebarToggle, setLeftSidebarToggle] = React.useState(false);
   const [shipSearchArea, setShipSearchArea] = React.useState(true);
@@ -193,16 +198,57 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
               <button
                 title="settings"
                 className="button button-settings"
-                onClick={() => alert('TODO')}
+                onClick={onOptionsToggle}
               >
                 <SettingsIcon className="settings-icon" />
               </button>
+            </div>
+            <div
+              className="menu-overlay"
+              style={{
+                transform: isOptionsOpen
+                  ? 'translateY(0)'
+                  : 'translateY(-100%)',
+              }}
+            >
+              <div className="menu-overlay-header">
+                <button
+                  aria-label="close"
+                  className="button-menu-overlay-close"
+                  onClick={onOptionsClose}
+                >
+                  <CloseIcon />
+                </button>
+              </div>
+              <div className="menu-overlay-content">menu overlay</div>
             </div>
           </>
         )}
       </Subscribe>
 
       <style jsx>{`
+        .menu-overlay {
+          position: absolute;
+          top: 0;
+          right: 0;
+          transform: translateY(-100%);
+          transition: transform 260ms;
+          background: white;
+          min-height: 200px;
+          min-width: 200px;
+          z-index: 1;
+        }
+        .menu-overlay-header {
+          display: flex;
+          padding: 10px;
+          background: #eee;
+        }
+        .button-menu-overlay-close {
+          margin-left: auto;
+          font-size: 20px;
+          > :global(svg) {
+          }
+        }
         .button-group {
           display: flex;
           justify-content: flex-end;
@@ -276,7 +322,6 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
         }
         .button-sidebar-content {
           background-color: rgba(white, 0.9);
-
           height: inherit;
           display: flex;
           justify-content: center;

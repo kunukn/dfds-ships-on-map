@@ -1,20 +1,15 @@
-import React from "react";
-import App from "next/app";
-import { useStore } from "laco-react";
+import React from 'react';
+import App from 'next/app';
 
-import getShipsFromApi from "~/api-layer/getShipsFromApi";
-import store from "~/store.js";
-import GlobalStyles from "~/components/GlobalStyles";
-import LeafletStyles from "~/components/LeafletStyles";
+import getShipsFromApi from '~/api-layer/getShipsFromApi';
+import store from '~/store.js';
+import GlobalStyles from '~/components/GlobalStyles';
+import LeafletStyles from '~/components/LeafletStyles';
+import getQueryParams from '~/utils/getQueryParams';
 
 if (process.browser) {
   try {
-    (async () => {
-      let ships = await getShipsFromApi();
-      store.set(state => ({
-        ships
-      }));
-    })();
+    (async () => {})();
   } catch (ex) {
     console.error(ex.toString());
   }
@@ -46,19 +41,26 @@ class MyApp extends App {
 const GlobalEffect = () => {
   let onFullscreenchange = e => {
     store.set(state => ({
-      isFullscreen: !!document.fullscreenElement
+      isFullscreen: !!document.fullscreenElement,
     }));
   };
 
   React.useEffect(() => {
+    let params = getQueryParams();
+    if (params.settings || params.options) {
+      store.set(state => ({
+        isOptionsOpen: true,
+      }));
+    }
+
     let isFullscreenSupported = !!document.fullscreenEnabled;
 
-    if (isFullscreenSupported && "requestFullscreen" in document.body) {
-      document.addEventListener("fullscreenchange", onFullscreenchange, false);
+    if (isFullscreenSupported && 'requestFullscreen' in document.body) {
+      document.addEventListener('fullscreenchange', onFullscreenchange, false);
     }
 
     store.set(state => ({
-      isFullscreenSupported
+      isFullscreenSupported,
     }));
   }, []);
 

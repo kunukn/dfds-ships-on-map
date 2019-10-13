@@ -85,14 +85,14 @@ const Map = props => {
 
     map.setView([latitude, longitude], zoomLevel);
 
-    //!isDevelopment &&
-      L.tileLayer(
-        `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
-        {
-          maxZoom: 18,
-          id: 'mapbox.streets',
-        }
-      ).addTo(map);
+    !isDevelopment &&
+    L.tileLayer(
+      `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
+      {
+        maxZoom: 18,
+        id: 'mapbox.streets',
+      }
+    ).addTo(map);
   }, []);
 
   // fetch ships initially and add to map
@@ -197,8 +197,6 @@ const Map = props => {
         }
 
         :global(.leaflet-control-zoom) {
-          __outline: 1px solid red;
-          __position: relative;
           bottom: 20px;
         }
       `}</style>
