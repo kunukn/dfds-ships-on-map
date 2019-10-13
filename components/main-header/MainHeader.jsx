@@ -242,7 +242,7 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           fill: $color-groupBlue;
         }
         .left-sidebar {
-          color: #002b45;
+          color: $color-groupBlue;
           transition: transform 260ms;
           pointer-events: all;
           position: relative;
@@ -252,26 +252,13 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           position: absolute;
           top: 10px;
           left: 0;
-          background: rgba(white, 0.5);
+          background: rgba(white, 0.8);
           @supports (backdrop-filter: blur(10px)) {
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: saturate(180%) blur(4px);
           }
         }
-        .button-sidebar-content {
-          background: rgba(white, 0.7);
-          @supports (backdrop-filter: blur(4px)) {
-            background-color: rgba(255, 255, 255, 0.5);
-            backdrop-filter: saturate(180%) blur(4px);
-          }
-          height: inherit;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          > :global(svg) {
-            transition: transform 260ms cubic-bezier(0, 1, 0, 1);
-          }
-        }
+
         .button-sidebar {
           position: absolute;
           right: -30px;
@@ -285,6 +272,18 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           align-items: center;
           height: 50px;
           font-size: 20px;
+          background: transparent;
+        }
+        .button-sidebar-content {
+          background-color: rgba(white, 0.9);
+
+          height: inherit;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          > :global(svg) {
+            transition: transform 260ms cubic-bezier(0, 1, 0, 1);
+          }
         }
         .sidebar-content {
           position: absolute;
