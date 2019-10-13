@@ -3,7 +3,7 @@ import cx from 'clsx';
 
 import store from '~/store.js';
 import { StaticStyles, DynamicStyles } from './MainHeader.styles';
-import LeftSidebar from '~/components/left-sidebar/LeftSideBar';
+import LeftSidebar from '~/components/left-sidebar/LeftSidebar';
 import MainHeaderButtonsGroup from './MainHeaderButtonsGroup';
 import OptionsOverlay from './OptionsOverlay';
 
