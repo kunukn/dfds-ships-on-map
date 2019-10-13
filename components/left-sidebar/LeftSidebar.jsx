@@ -62,8 +62,8 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
         <div className="sidebar-headline">Find</div>
         <div className="sidebar-content">
           <div className="sidebar-search-header">
-            <div>
-              Zoom to <TrackingPinShip />
+            <div className="sidebar-search-header-info">
+              <span>Zoom to</span> <TrackingPinShip />
             </div>
             <button
               onClick={() => setShipSearchArea(s => !s)}
@@ -228,7 +228,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           width: 100%;
           height: 50px;
           line-height: 1;
-          font-size: 20px;
+          font-size: 24px;
         }
         :global(.fullscreen-exit-icon) {
           display: block;
@@ -244,6 +244,14 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           justify-content: flex-start;
           align-items: center;
           margin-bottom: 10px;
+        }
+        .sidebar-search-header-info {
+          display: flex;
+          align-items: center;
+          > span {
+            display: inline-block;
+            margin-right: 6px;
+          }
         }
         :global(.sidebar-search-header ~ .sidebar-search-header) {
           margin-top: 10px;
