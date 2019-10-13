@@ -204,7 +204,7 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
 
       <style jsx>{`
         .main-header {
-          height: 50px;
+          height: 60px;
           position: absolute;
           top: 0;
           left: 0;
@@ -230,7 +230,7 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           align-items: center;
           width: 40px;
           height: 40px;
-          margin: 5px;
+          margin: 10px;
           color: $color-groupBlue;
           cursor: pointer;
           font-size: 20px;
@@ -253,11 +253,11 @@ const MainHeader = ({ lastUpdated, ships = [], terminals = [] }) => {
           transition: transform 260ms;
           pointer-events: all;
           position: relative;
-          height: calc(100vh - 150px);
-          max-height: calc(100vh - 150px);
+          height: calc(100vh - 160px);
+          max-height: calc(100vh - 160px);
           width: 200px;
           position: absolute;
-          top: 5px;
+          top: 10px;
           left: 0;
           background: rgba(white, 0.5);
           @supports (backdrop-filter: blur(10px)) {

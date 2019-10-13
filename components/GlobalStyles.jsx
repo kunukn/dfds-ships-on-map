@@ -2,7 +2,9 @@ import React from 'react';
 
 let Styles = () => (
   <style jsx global>{`
-    * {
+    *,
+    ::before,
+    ::after {
       box-sizing: border-box;
     }
 
