@@ -5,13 +5,7 @@ import { useStore } from 'laco-react';
 import store from '~/store.js';
 import CloseSvg from '~/public/static/icons/Close.svg';
 
-const TabMenu = ({
-  children,
-  title,
-  isOpen,
-  onToggle,
-  level = 0,
-}) => {
+const TabMenu = ({ children, title, isOpen, onToggle, level = 0 }) => {
   const { isFullscreen } = useStore(store);
 
   // TODO: delete this
@@ -87,11 +81,10 @@ const TabMenu = ({
           font-size: 16px;
           padding: 4px;
           background: transparent;
-          color: white;
           border: none;
           box-shadow: none;
           line-height: 1;
-          color: gray;
+          color: $color-groupBlue;
 
           > :global(svg) {
             display: block;

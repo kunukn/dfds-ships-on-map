@@ -9,20 +9,23 @@ import getQueryParams from '~/utils/getQueryParams';
 
 if (process.browser) {
   try {
-    (async () => {})();
+    (async () => {
+      // Don't use the store here, doesn't update in the render.
+      // use that in useEffect.
+    })();
   } catch (ex) {
     console.error(ex.toString());
   }
 }
 
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-    return { pageProps };
-  }
+  // static async getInitialProps({ Component, ctx }) {
+  //   let pageProps = {};
+  //   if (Component.getInitialProps) {
+  //     pageProps = await Component.getInitialProps(ctx);
+  //   }
+  //   return { pageProps };
+  // }
 
   render() {
     const { Component, pageProps } = this.props;

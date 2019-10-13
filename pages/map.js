@@ -85,14 +85,14 @@ const Map = props => {
 
     map.setView([latitude, longitude], zoomLevel);
 
-    //!isDevelopment &&
-    L.tileLayer(
-      `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
-      {
-        maxZoom: 18,
-        id: 'mapbox.streets',
-      }
-    ).addTo(map);
+    !isDevelopment &&
+      L.tileLayer(
+        `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
+        {
+          maxZoom: 18,
+          id: 'mapbox.streets',
+        }
+      ).addTo(map);
   }, []);
 
   // fetch ships initially and add to map
@@ -168,13 +168,6 @@ const Map = props => {
       </Head>
       <>
         <div id="mapid"></div>
-        <MainHeader
-          lastUpdated={lastUpdated}
-          ships={shipsState}
-          terminals={terminals}
-          
-        />
-        <MainFooter lastUpdated={lastUpdated} />
         <TabMenuRight
           isOpen={logTab}
           onToggle={() => setLogTab(s => !s)}
@@ -187,6 +180,12 @@ const Map = props => {
             </div>
           ))}
         </TabMenuRight>
+        <MainHeader
+          lastUpdated={lastUpdated}
+          ships={shipsState}
+          terminals={terminals}
+        />
+        <MainFooter lastUpdated={lastUpdated} />
       </>
 
       <style jsx>{`
