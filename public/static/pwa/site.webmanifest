@@ -1,0 +1,9 @@
+{
+  "short_name": "ships on map",
+  "name": "DFDS ships on map",
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "display": "fullscreen",
+  "scope": "/",
+  "theme_color": "#002B45"
+}

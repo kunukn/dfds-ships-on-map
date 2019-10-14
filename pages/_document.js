@@ -16,8 +16,19 @@ export default class MyDocument extends Document {
           <meta name="description" content="dfds ships on map" />
           <meta name="keywords" content="dfds ships map" />
           <meta name="theme-color" content="#002B45" />
+          <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="/static/favicon.ico"
+          />
           <link rel="apple-touch-icon" href="/static/pwa/logo192.png" />
-          <link rel="manifest" href="/static/manifest.json" />
+          <link rel="manifest" href="/static/pwa/site.webmanifest" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="default"
+          />
 
           <script
             async
@@ -45,7 +56,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
           />
-          <link rel="shortcut icon" href="/static/favicon.ico" />
+
         </Head>
         <body>
           <Main />
