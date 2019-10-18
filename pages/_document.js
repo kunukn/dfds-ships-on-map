@@ -47,7 +47,6 @@ export default class MyDocument extends Document {
           `,
             }}
           />
-
           <link
             rel="stylesheet"
             href="https://unpkg.com/@dfds-frontend/fonts@0.0.4/main/font.css"
@@ -56,7 +55,10 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
           />
-
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
         </Head>
         <body>
           <Main />

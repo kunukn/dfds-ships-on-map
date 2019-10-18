@@ -14,6 +14,7 @@ import TrackingPinShip from '~/public/static/icons/TrackingPinShip.svg';
 import TrackingPinTruck from '~/public/static/icons/TrackingPinTruck.svg';
 import MapNavigation from '~/public/static/icons/MapNavigation.svg';
 import mapRef from '~/mapRef.js';
+import tileLayerRef from '~/tileLayerRef.js';
 import store from '~/store.js';
 import getShipsFromApi from '~/api-layer/getShipsFromApi';
 import MainHeader from '~/components/main-header';
@@ -26,6 +27,8 @@ import {
   addShipsToMap,
   addPortsToMap,
   addRoutes,
+  tileLayerMapbox,
+  tileLayerOpenStreetMaps,
 } from '~/utils/mapUtil';
 import terminals from '~/data-layer/terminals';
 import ports from '~/data-layer/ports';
@@ -85,14 +88,21 @@ const Map = props => {
 
     map.setView([latitude, longitude], zoomLevel);
 
-    !isDevelopment &&
-      L.tileLayer(
-        `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`,
-        {
-          maxZoom: 18,
-          id: 'mapbox.streets',
-        }
-      ).addTo(map);
+    let selectedTileLayer = tileLayerMapbox;
+    if (params.openstreetmaps) {
+      selectedTileLayer = tileLayerOpenStreetMaps;
+    }
+
+    //!isDevelopment &&
+
+    let tileLayer = L.tileLayer(selectedTileLayer, {
+      maxZoom: 18,
+      id: 'mapbox.streets',
+    });
+
+    tileLayerRef.set(tileLayer);
+
+    tileLayer.addTo(map);
   }, []);
 
   // fetch ships initially and add to map

@@ -36,12 +36,12 @@ export let createDivShipMarker = data => {
     //bgPos: [0, 0],
     html: `<div class="ship-div-marker-icon__content" id="shipDivMarkerContent${
       data.imo
-      }">
+    }">
             <div class="ship-div-marker-icon__name">${
-      data.name
-        ? data.name.replace('Seaways', '').replace('Côte des', '')
-        : ''
-      }</div>
+              data.name
+                ? data.name.replace('Seaways', '').replace('Côte des', '')
+                : ''
+            }</div>
             <div class="js ship-div-marker-icon__direction" data-rotate="${rotate}" style="transform: rotate(${rotate}deg)">&#x2191</div>
         </div>`,
   });
@@ -200,3 +200,7 @@ export let zoomToTerminal = terminal => {
     terminal.position &&
     map.setView([terminal.position.lat, terminal.position.lng], 9);
 };
+
+export const tileLayerMapbox = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${process.env.mapBoxToken}`;
+export const tileLayerOpenStreetMaps =
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';

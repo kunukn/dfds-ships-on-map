@@ -1,7 +1,7 @@
 let map = null;
 
 const mapRef = {
-  init: () => {
+  init() {
     mapRef.set(
       L.map('mapid', {
         zoomControl: false,
@@ -10,7 +10,7 @@ const mapRef = {
     );
   },
   get: () => map,
-  set: newmap => {
+  set(newmap) {
     map = newmap;
   },
 };

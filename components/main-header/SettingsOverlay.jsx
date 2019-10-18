@@ -3,11 +3,44 @@ import cx from 'clsx';
 
 import store from '~/store.js';
 import CloseIcon from '~/public/static/icons/Close.svg';
+import mapRef from '~/mapRef.js';
+import tileLayerRef from '~/tileLayerRef.js';
+import { tileLayerMapbox, tileLayerOpenStreetMaps } from '~/utils/mapUtil';
 
 const onClose = () => store.set(state => ({ isSettingsOpen: false }));
 
 const SettingsOverlay = () => {
   const { isSettingsOpen } = useStore(store);
+  let [mapType, setMapType] = React.useState(1);
+  let isFirstRender = React.useRef(true);
+
+  React.useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    let map = mapRef.get();
+
+    let existingTileLayer = tileLayerRef.get();
+
+    if (mapType === 1) {
+      let tileLayer = L.tileLayer(tileLayerMapbox, {
+        maxZoom: 18,
+        id: 'mapbox.streets',
+      });
+      map.removeLayer(existingTileLayer);
+      map.addLayer(tileLayer);
+      tileLayerRef.set(tileLayer);
+    } else {
+      let tileLayer = L.tileLayer(tileLayerOpenStreetMaps, {
+        maxZoom: 18,
+      });
+      map.removeLayer(existingTileLayer);
+      map.addLayer(tileLayer);
+      tileLayerRef.set(tileLayer);
+    }
+  }, [mapType]);
 
   return (
     <>
@@ -27,7 +60,31 @@ const SettingsOverlay = () => {
             <CloseIcon />
           </button>
         </div>
-        <div className="settings-overlay-content">TODO: settings</div>
+        <div className="settings-overlay-content">
+          <div className="radio-buttons">
+            <form>
+              <label>
+                <span>MapBox map</span>
+                <input
+                  type="radio"
+                  value="1"
+                  checked={mapType === 1}
+                  onChange={() => setMapType(1)}
+                />
+              </label>
+
+              <label>
+                <span>OpenStreetMaps map</span>
+                <input
+                  type="radio"
+                  value="2"
+                  checked={mapType === 2}
+                  onChange={() => setMapType(2)}
+                />
+              </label>
+            </form>
+          </div>
+        </div>
       </div>
 
       <style jsx>{`
@@ -78,11 +135,20 @@ const SettingsOverlay = () => {
           }
         }
         .settings-overlay-content {
-          display: flex;
-          justify-content: center;
-          align-items: center;
           padding: 10px;
           font-size: 16px;
+          
+          :global(form){
+            display: flex;
+            flex-direction: column;
+          }
+          :global(label) {
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            align-self: flex-start;
+          }
         }
       `}</style>
     </>
