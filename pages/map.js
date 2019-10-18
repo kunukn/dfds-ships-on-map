@@ -94,7 +94,6 @@ const Map = props => {
     }
 
     //!isDevelopment &&
-
     let tileLayer = L.tileLayer(selectedTileLayer, {
       maxZoom: 18,
       id: 'mapbox.streets',
