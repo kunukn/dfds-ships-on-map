@@ -29,6 +29,7 @@ export default class MyDocument extends Document {
             name="apple-mobile-web-app-status-bar-style"
             content="default"
           />
+          <link rel="canonical" href="https://ships-on-map.tech" />
 
           <script
             async
