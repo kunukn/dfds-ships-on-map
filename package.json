@@ -48,6 +48,7 @@
     "express": "^4.17.1",
     "laco": "^1.2.1",
     "laco-react": "^1.1.0",
+    "micro-cors": "^0.1.1",
     "minimist": "^1.2.0",
     "next-compose-plugins": "^2.2.0",
     "next-transpile-modules": "^2.3.1",
