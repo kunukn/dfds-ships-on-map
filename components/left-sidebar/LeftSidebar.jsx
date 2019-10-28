@@ -1,13 +1,13 @@
-import { useStore, Subscribe } from 'laco-react';
-import Collapse from '@kunukn/react-collapse';
-import cx from 'clsx';
+import { useStore, Subscribe } from "laco-react";
+import Collapse from "@kunukn/react-collapse";
+import cx from "clsx";
 
-import store from '~/store.js';
-import NextIcon from '~/public/static/icons/Next.svg';
-import TrackingPinShip from '~/public/static/icons/TrackingPinShip.svg';
-import MapNavigation from '~/public/static/icons/MapNavigation.svg';
-import UpIcon from '~/public/static/icons/Up.svg';
-import { zoomToShip, zoomToTerminal } from '~/utils/mapUtil';
+import store from "~/store.js";
+import NextIcon from "~/public/static/icons/Next.svg";
+import TrackingPinShip from "~/public/static/icons/TrackingPinShip.svg";
+import MapNavigation from "~/public/static/icons/MapNavigation.svg";
+import UpIcon from "~/public/static/icons/Up.svg";
+import { zoomToShip, zoomToTerminal } from "~/utils/mapUtil";
 
 let onLeftSidebarToggle = value => {
   if (value === true || value === false) {
@@ -42,12 +42,12 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
   }, [isFullscreen]);
 
   let shipsSorted = React.useMemo(
-    () => ships.sort((a, b) => ('' + a.name).localeCompare(b.name)),
+    () => ships.sort((a, b) => ("" + a.name).localeCompare(b.name)),
     [ships]
   );
 
   let terminalsSorted = React.useMemo(
-    () => terminals.sort((a, b) => ('' + a.name).localeCompare(b.name)),
+    () => terminals.sort((a, b) => ("" + a.name).localeCompare(b.name)),
     [terminals]
   );
 
@@ -56,7 +56,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
       <aside
         className="sidebar"
         style={{
-          transform: isLeftSidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
+          transform: isLeftSidebarOpen ? "translateX(0)" : "translateX(-100%)"
         }}
       >
         <div className="sidebar-headline">Find</div>
@@ -69,7 +69,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
               onClick={() => setShipSearchArea(s => !s)}
               aria-label="toggle ships"
               className={
-                shipSearchArea ? 'toggle toggle-show' : 'toggle toggle-hide'
+                shipSearchArea ? "toggle toggle-show" : "toggle toggle-hide"
               }
             >
               <UpIcon />
@@ -78,10 +78,11 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
 
           <Collapse isOpen={shipSearchArea}>
             <div
-              className={cx('sidebar-search-area', {
-                'sidebar-search-area--is-open': shipSearchArea,
+              className={cx("sidebar-search-area", {
+                "sidebar-search-area--is-open": shipSearchArea
               })}
             >
+              <div className="ship-count">Ships: {shipsSorted.length}</div>
               {shipsSorted.map(item => (
                 <div key={item.name} className="sidebar-search-item">
                   <button
@@ -104,7 +105,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
               onClick={() => setTerminalSearchArea(s => !s)}
               aria-label="toggle ships"
               className={
-                terminalSearchArea ? 'toggle toggle-show' : 'toggle toggle-hide'
+                terminalSearchArea ? "toggle toggle-show" : "toggle toggle-hide"
               }
             >
               <UpIcon />
@@ -112,10 +113,13 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           </div>
           <Collapse isOpen={terminalSearchArea}>
             <div
-              className={cx('sidebar-search-area', {
-                'sidebar-search-area--is-open': terminalSearchArea,
+              className={cx("sidebar-search-area", {
+                "sidebar-search-area--is-open": terminalSearchArea
               })}
             >
+              <div className="terminal-count">
+                Terminals: {terminalsSorted.length}
+              </div>
               {terminalsSorted.map(item => (
                 <div key={item.name} className="sidebar-search-item">
                   <button
@@ -140,7 +144,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           <div className="button-sidebar-content">
             <NextIcon
               style={{
-                transform: isLeftSidebarOpen ? 'rotate(.5turn)' : 'rotate(0)',
+                transform: isLeftSidebarOpen ? "rotate(.5turn)" : "rotate(0)"
               }}
             />
           </div>
@@ -230,6 +234,12 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           line-height: 1;
           font-size: 24px;
         }
+
+        .ship-count,
+        .terminal-count {
+          margin-bottom: 10px;
+        }
+
         :global(.fullscreen-exit-icon) {
           display: block;
         }
@@ -307,7 +317,7 @@ export default LeftSidebar;
 
 const prettyTerminalName = name => {
   if (name) {
-    return name.replace('terminal', '');
+    return name.replace("terminal", "");
   }
   return name;
 };
