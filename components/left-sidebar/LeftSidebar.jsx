@@ -3,10 +3,10 @@ import Collapse from "@kunukn/react-collapse";
 import cx from "clsx";
 
 import store from "~/store.js";
-import NextIcon from "~/public/static/icons/Next.svg";
-import TrackingPinShip from "~/public/static/icons/TrackingPinShip.svg";
-import MapNavigation from "~/public/static/icons/MapNavigation.svg";
-import UpIcon from "~/public/static/icons/Up.svg";
+import NextIcon from "~/public/icons/Next.svg";
+import TrackingPinShip from "~/public/icons/TrackingPinShip.svg";
+import MapNavigation from "~/public/icons/MapNavigation.svg";
+import UpIcon from "~/public/icons/Up.svg";
 import { zoomToShip, zoomToTerminal } from "~/utils/mapUtil";
 
 let onLeftSidebarToggle = value => {

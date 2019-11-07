@@ -1,8 +1,8 @@
 import { useStore, Subscribe } from 'laco-react';
 
-import FullscreenEnterIcon from '~/public/static/icons/FullscreenEnter.svg';
-import FullscreenExitIcon from '~/public/static/icons/FullscreenExit.svg';
-import SettingsIcon from '~/public/static/icons/Settings.svg';
+import FullscreenEnterIcon from '~/public/icons/FullscreenEnter.svg';
+import FullscreenExitIcon from '~/public/icons/FullscreenExit.svg';
+import SettingsIcon from '~/public/icons/Settings.svg';
 import store from '~/store.js';
 import { onSettingsToggle } from './SettingsOverlay';
 

@@ -1,4 +1,4 @@
-import DFDSLogo from '~/public/static/icons/DFDSLogo.svg';
+import DFDSLogo from '~/public/icons/DFDSLogo.svg';
 
 const MainFooter = ({ lastUpdated }) => {
   return (

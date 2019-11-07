@@ -9,10 +9,10 @@ import cx from 'clsx';
 import dynamic from 'next/dynamic';
 
 import getQueryParams from '~/utils/getQueryParams';
-import TrackingPinRailway from '~/public/static/icons/TrackingPinRailway.svg';
-import TrackingPinShip from '~/public/static/icons/TrackingPinShip.svg';
-import TrackingPinTruck from '~/public/static/icons/TrackingPinTruck.svg';
-import MapNavigation from '~/public/static/icons/MapNavigation.svg';
+import TrackingPinRailway from '~/public/icons/TrackingPinRailway.svg';
+import TrackingPinShip from '~/public/icons/TrackingPinShip.svg';
+import TrackingPinTruck from '~/public/icons/TrackingPinTruck.svg';
+import MapNavigation from '~/public/icons/MapNavigation.svg';
 import mapRef from '~/mapRef.js';
 import tileLayerRef from '~/tileLayerRef.js';
 import store from '~/store.js';

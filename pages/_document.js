@@ -2,14 +2,14 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
-  // static async getInitialProps(ctx) {
-  //   const initialProps = await Document.getInitialProps(ctx);
-  //   return { ...initialProps };
-  // }
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
+  }
 
   render() {
     return (
-      <Html>
+      <html lang="en">
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -19,10 +19,10 @@ export default class MyDocument extends Document {
           <link
             rel="shortcut icon"
             type="image/x-icon"
-            href="/static/favicon.ico"
+            href="/favicon.ico"
           />
-          <link rel="apple-touch-icon" href="/static/pwa/logo192.png" />
-          <link rel="manifest" href="/static/pwa/site.webmanifest" />
+          <link rel="apple-touch-icon" href="/pwa/logo192.png" />
+          <link rel="manifest" href="/pwa/site.webmanifest" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
@@ -74,7 +74,7 @@ export default class MyDocument extends Document {
           />
           <NextScript />
         </body>
-      </Html>
+      </html>
     );
   }
 }

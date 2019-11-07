@@ -2,7 +2,7 @@ import { useStore, Subscribe } from 'laco-react';
 import cx from 'clsx';
 
 import store from '~/store.js';
-import CloseIcon from '~/public/static/icons/Close.svg';
+import CloseIcon from '~/public/icons/Close.svg';
 import mapRef from '~/mapRef.js';
 import tileLayerRef from '~/tileLayerRef.js';
 import { tileLayerMapbox, tileLayerOpenStreetMaps } from '~/utils/mapUtil';
