@@ -4,7 +4,7 @@ import { apiBaseUrl } from '~/constants/urls';
 const options = {
   headers: {
     Accept: 'application/json',
-    'Access-Control-Allow-Origin': '*',
+    //'Access-Control-Allow-Origin': '*',
   },
 };
 
