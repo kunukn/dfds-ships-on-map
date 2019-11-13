@@ -84,8 +84,8 @@ const ships = [
     mmsi: 219945000,
     imo: 8701674,
     position: {
-      lng: 11.92532,
-      lat: 57.16167,
+      lng: 8.968116,
+      lat: 56.140934,
       timeRecorded: '2019-09-26T20:37:33Z',
     },
     navigation: {
@@ -424,8 +424,8 @@ const ships = [
     mmsi: 219592000,
     imo: 8917613,
     position: {
-      lng: 10.74877,
-      lat: 58.21339,
+      lng: 9.935932,
+      lat: 57.046707,
       timeRecorded: '2019-09-26T20:37:38Z',
     },
     navigation: {

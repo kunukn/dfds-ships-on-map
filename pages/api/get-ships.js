@@ -12,8 +12,6 @@ export default async function getShips(req, res) {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
         },
       });
 
@@ -25,5 +23,6 @@ export default async function getShips(req, res) {
   }
 
   let ships = await getShipsFromApi();
+
   return res.json(ships);
 }
