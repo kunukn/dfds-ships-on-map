@@ -67,12 +67,14 @@ const MainHeaderButtonsGroup = () => {
               align-items: center;
               flex-wrap: wrap;
               height: 60px;
-              _width: 200px;
               position: absolute;
               top: 0;
               right: 0;
               color: #002b45;
               pointer-events: all;
+              @media (--tablet-up) {
+                
+              }
             }
             .button {
               display: flex;
@@ -91,7 +93,7 @@ const MainHeaderButtonsGroup = () => {
                 backdrop-filter: saturate(180%) blur(4px);
               }
               > :global(svg) {
-                _outline: 1px solid red;
+
               }
             }
             .toggle-full-screen {
@@ -105,6 +107,7 @@ const MainHeaderButtonsGroup = () => {
             :global(.fullscreen-enter-icon) {
               display: block;
             }
+
           `}</style>
         </>
       )}

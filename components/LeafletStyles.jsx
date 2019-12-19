@@ -8,7 +8,6 @@ let Styles = () => (
     }
 
     .leaflet-control.leaflet-control-zoom {
-      _border: none;
     }
 
     .leaflet-control-zoom-in {
@@ -25,6 +24,10 @@ let Styles = () => (
         background-color: rgba(255, 255, 255, 0.7) !important;
         backdrop-filter: saturate(180%) blur(4px);
       }
+    }
+
+    .leaflet-control-zoom {
+      bottom: 20px;
     }
 
     .ship-div-marker-icon {
