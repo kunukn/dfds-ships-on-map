@@ -1,0 +1,42 @@
+:root {
+    --columns: 12;
+    --gutter-width: 30px;
+  
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+  }
+  
+  /*
+  // This dosen't work because env() is depending on the DOM tree
+  @custom-media --mobile (width <= env(--breakpoint-sm));
+  @custom-media --phablet (width > env(--breakpoint-sm)) and (width <= env(--breakpoint-md));
+  @custom-media --phablet-up (width > env(--breakpoint-sm));
+  @custom-media --phablet-down (width <= env(--breakpoint-md));
+  @custom-media --tablet (width > env(--breakpoint-md)) and (width <= env(--breakpoint-lg));
+  @custom-media --tablet-up (width > env(--breakpoint-md));
+  @custom-media --tablet-down (width <= env(--breakpoint-lg));
+  @custom-media --desktop (width > env(--breakpoint-lg)) and (width <= env(--breakpoint-xl));
+  @custom-media --desktop-up (width > env(--breakpoint-lg));
+  @custom-media --desktop-down (width <= env(--breakpoint-xl));
+  @custom-media --tv-up (width > env(--breakpoint-xl)); */
+  
+  @custom-media --mobile (width <= 576px);
+  @custom-media --phablet (width > 576px) and (width <= 768px);
+  @custom-media --phablet-up (width > 576px);
+  @custom-media --phablet-down (width <= 768px);
+  @custom-media --tablet (width > 768px) and (width <= 992px);
+  @custom-media --tablet-up (width > 768px);
+  @custom-media --tablet-down (width <= 992px);
+  @custom-media --desktop (width > 992px) and (width <= 1200px);
+  @custom-media --desktop-up (width > 992px);
+  @custom-media --desktop-down (width <= 1200px);
+  @custom-media --tv-up (width > 1200px);
+  
+  /*
+      Usage:
+      @media (--tablet-up) {}
+      @media (--tablet), (--desktop) {}
+  */

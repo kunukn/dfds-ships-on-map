@@ -1,6 +1,16 @@
 # dfds-ships-on-map
 
 
+## quick start
+
+```bash
+npm install
+# or yarn
+
+npm run dev
+# or yarn dev
+```
+
 Prototype
 
 Exploring tech in following areas.

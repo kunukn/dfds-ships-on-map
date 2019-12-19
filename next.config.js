@@ -1,6 +1,8 @@
 // https://nextjs.org/docs/#custom-configuration
 
 //const withSass = require('@zeit/next-sass')
+const withCSS = require('@zeit/next-css')
+
 const path = require('path');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
@@ -105,7 +107,7 @@ module.exports = withPlugins(
       },
     ],
     //[withSass],
-
+    [withCSS],
     [nextConfig],
     process.env.BUNDLE_ANALYZE && [
       // https://github.com/zeit/next-plugins/tree/master/packages/next-bundle-analyzer
@@ -129,17 +131,3 @@ module.exports = withPlugins(
     ],
   ].filter(Boolean)
 );
-
-// module.exports = (phase, { defaultConfig }) => {
-//   return {
-//     target: 'serverless',
-//     env: {
-//       // Public token, not a secret
-//       mapBoxToken:
-//         'pk.eyJ1Ijoia3VudWtuIiwiYSI6ImNrMHh2ZWFqazA0NWIzbXA0MnZxZXUxNmgifQ.M1ilooWxj_UOk41ZoAXTtg',
-//     },
-//     webpack: (config, options) => {
-//       return config;
-//     },
-//   };
-// };

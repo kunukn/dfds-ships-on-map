@@ -7,7 +7,8 @@ module.exports = {
         'transform-runtime': {},
         'styled-jsx': {
           plugins: [
-            [
+            //['styled-jsx-plugin-postcss'], // TODO use this
+            [  // TODO remove this
               'styled-jsx-plugin-sass',
               {
                 sassOptions: {
