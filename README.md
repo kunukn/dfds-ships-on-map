@@ -27,11 +27,11 @@ Exploring tech in following areas.
 
 
 
-Local https license setup.
+Local https license setup if https should be needed on localhost.
 
 ```bash
-brew install mkcert              # Installs mkcert
-brew install nss                 # If you using Firefox
+brew install mkcert              # Installs mkcert, Mac OS
+brew install nss                 # If you using Firefox, Mac OS
 mkdir /certificates              # Makes a folder called certificates
 cd /certificates                 # Browsing to the folder
 mkcert -install                  # Installing the certificates
