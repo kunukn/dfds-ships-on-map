@@ -84,7 +84,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, level = 0 }) => {
           border: none;
           box-shadow: none;
           line-height: 1;
-          color: $color-groupBlue;
+          color: var(--color-group-blue);
 
           > :global(svg) {
             display: block;

@@ -26,7 +26,7 @@ let Styles = () => (
       font-family: DFDS, Verdana, sans-serif;
       padding: 0;
       margin: 0;
-      color: $color-textGrey;
+      color: var(--color-text-grey);
       background-color: white;
     }
     @media (min-width: 700px) {

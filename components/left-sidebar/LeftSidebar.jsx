@@ -159,7 +159,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           width: 40px;
           height: 40px;
           margin: 10px;
-          color: $color-groupBlue;
+          color: var(--color-group-blue);
           cursor: pointer;
           font-size: 20px;
           border-radius: 50%;
@@ -171,7 +171,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
         }
 
         .sidebar {
-          color: $color-groupBlue;
+          color: var(--color-group-blue);
           transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
           pointer-events: all;
           height: calc(100vh - 160px);
@@ -194,7 +194,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           top: 0;
           padding: 0;
           padding-right: 10px;
-          color: $color-groupBlue;
+          color: var(--color-group-blue);
           display: flex;
           justify: center;
           align-items: center;

@@ -81,7 +81,7 @@ const MainHeaderButtonsGroup = () => {
               width: 40px;
               height: 40px;
               margin: 10px;
-              color: $color-groupBlue;
+              color: var(--color-group-blue);
               cursor: pointer;
               font-size: 20px;
               border-radius: 50%;
@@ -97,7 +97,7 @@ const MainHeaderButtonsGroup = () => {
             .toggle-full-screen {
               font-size: 30px;
               border: none;
-              fill: $color-groupBlue;
+              fill: var(--color-group-blue);
             }
             :global(.fullscreen-exit-icon) {
               display: block;

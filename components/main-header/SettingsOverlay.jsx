@@ -89,7 +89,7 @@ const SettingsOverlay = () => {
 
       <style jsx>{`
         .settings-overlay {
-          color: $color-groupBlue;
+          color: var(--color-group-blue);
           position: absolute;
           top: 0;
           right: 0;
@@ -124,13 +124,11 @@ const SettingsOverlay = () => {
           display: flex;
           justify-content: center;
           align-items: center;
-          _background-color: rgba(white, 0.2);
           font-size: 20px;
           width: 40px;
           height: 40px;
           border-radius: 50px;
-          _margin-left: auto;
-          color: $color-groupBlue;
+          color: var(--color-group-blue);
           > :global(svg) {
           }
         }

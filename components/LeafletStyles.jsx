@@ -39,7 +39,7 @@ let Styles = () => (
       transform: translateY(10px);
       line-height: 1;
       font-size: 10px;
-      color: $color-groupBlue;
+      color: var(--color-group-blue);
       font-weight: 300;
       font-family: Verdana;
       position: absolute;
@@ -58,10 +58,8 @@ let Styles = () => (
       height: 1em;
       line-height: 1;
       left: 0;
-      color: $color-groupBlue;
-      _background: rgba(white, 0.2);
+      color: var(--color-group-blue);
       border-radius: 50%;
-      _display: flex;
       justify-content: center;
       align-items: center;
     }
