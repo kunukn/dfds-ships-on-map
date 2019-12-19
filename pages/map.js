@@ -52,7 +52,6 @@ const Map = props => {
   let [logTab, setLogTab] = useState(false);
   let [shipsState, setShipsState] = useState(ships);
   let [lastUpdated, setLastUpdated] = useState(new Date(props.currentDate));
-  let [storageValue, setStorageValue] = useLocalStorage('dfds-ships', {});
   let map = useRef({}).current;
   let isFirstRender = useRef(true);
 
@@ -68,8 +67,6 @@ const Map = props => {
       return { ...state };
     });
 
-    //setStorageValue({ ships: shipsState, date: Date.now() });
-    window.ships = shipsState;
     const params = getQueryParams();
 
     if (params.logs) {
@@ -129,7 +126,7 @@ const Map = props => {
     addRoutes({ map });
   }, []);
 
-  // real-time update
+  // real-time update, polling
   useEffect(() => {
     intervalKey = setInterval(async () => {
       let ships = await getShipsFromApi();
