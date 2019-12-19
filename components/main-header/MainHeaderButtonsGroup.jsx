@@ -67,12 +67,14 @@ const MainHeaderButtonsGroup = () => {
               align-items: center;
               flex-wrap: wrap;
               height: 60px;
-              _width: 200px;
               position: absolute;
               top: 0;
               right: 0;
               color: #002b45;
               pointer-events: all;
+              @media (--tablet-up) {
+                
+              }
             }
             .button {
               display: flex;
@@ -81,23 +83,23 @@ const MainHeaderButtonsGroup = () => {
               width: 40px;
               height: 40px;
               margin: 10px;
-              color: $color-groupBlue;
+              color: var(--color-group-blue);
               cursor: pointer;
               font-size: 20px;
               border-radius: 50%;
-              background: rgba(white, 0.5);
+              background-color: rgba(255, 255, 255, 0.5);
               @supports (backdrop-filter: blur(10px)) {
                 background-color: rgba(255, 255, 255, 0.5);
                 backdrop-filter: saturate(180%) blur(4px);
               }
               > :global(svg) {
-                _outline: 1px solid red;
+
               }
             }
             .toggle-full-screen {
               font-size: 30px;
               border: none;
-              fill: $color-groupBlue;
+              fill: var(--color-group-blue);
             }
             :global(.fullscreen-exit-icon) {
               display: block;
@@ -105,6 +107,7 @@ const MainHeaderButtonsGroup = () => {
             :global(.fullscreen-enter-icon) {
               display: block;
             }
+
           `}</style>
         </>
       )}

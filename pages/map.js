@@ -196,14 +196,11 @@ const Map = props => {
 
       <style jsx>{`
         .log-item {
+          /* TODO: refactor to own component */
           background: white;
           margin-bottom: 8px;
           line-height: 1;
           padding: 4px;
-        }
-
-        :global(.leaflet-control-zoom) {
-          bottom: 20px;
         }
       `}</style>
     </>

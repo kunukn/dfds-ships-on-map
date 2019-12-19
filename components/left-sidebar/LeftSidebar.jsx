@@ -159,11 +159,11 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           width: 40px;
           height: 40px;
           margin: 10px;
-          color: $color-groupBlue;
+          color: var(--color-group-blue);
           cursor: pointer;
           font-size: 20px;
           border-radius: 50%;
-          background: rgba(white, 0.5);
+          background-color: rgba(255, 255, 255, 0.5);
           @supports (backdrop-filter: blur(10px)) {
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: saturate(180%) blur(4px);
@@ -171,7 +171,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
         }
 
         .sidebar {
-          color: $color-groupBlue;
+          color: var(--color-group-blue);
           transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
           pointer-events: all;
           height: calc(100vh - 160px);
@@ -180,7 +180,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           position: absolute;
           top: 10px;
           left: 0;
-          background: rgba(white, 0.8);
+          background-color: rgba(255,255,255, 0.8);
           @supports (backdrop-filter: blur(10px)) {
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: saturate(180%) blur(4px);
@@ -194,7 +194,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           top: 0;
           padding: 0;
           padding-right: 10px;
-          color: $color-groupBlue;
+          color: var(--color-group-blue);
           display: flex;
           justify: center;
           align-items: center;
@@ -204,7 +204,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
         }
 
         .button-sidebar-content {
-          background-color: rgba(white, 0.9);
+          background-color: rgba(255,255,255, 0.9);
           height: inherit;
           display: flex;
           justify-content: center;
@@ -293,7 +293,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           text-align: left;
           margin-left: auto;
           display: inline-block;
-          background: rgba(white, 0.5);
+          background: rgba(255,255,255, 0.5);
           border-radius: 50%;
           transition: transform 260ms cubic-bezier(0, 1, 0, 1);
           display: inline-block;
