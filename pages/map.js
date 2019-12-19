@@ -263,7 +263,7 @@ let updateMarkerPosition = ({ ships, map }) => {
                   rotate = Number(ship.navigation.heading) || 0;
                   rotate %= 360;
                 }
-                //console.log(divShip);
+
                 let shipDivMarkerContentEl = document.getElementById(
                   `shipDivMarkerContent${ship.imo}`
                 );

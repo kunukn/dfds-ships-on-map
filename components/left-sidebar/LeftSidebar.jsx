@@ -168,9 +168,6 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: saturate(180%) blur(4px);
           }
-          > :global(svg) {
-            _outline: 1px solid red;
-          }
         }
 
         .sidebar {
@@ -205,6 +202,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           font-size: 20px;
           background: transparent;
         }
+
         .button-sidebar-content {
           background-color: rgba(white, 0.9);
           height: inherit;
@@ -215,6 +213,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
             transition: transform 260ms cubic-bezier(0, 1, 0, 1);
           }
         }
+
         .sidebar-content {
           position: absolute;
           top: 50px;

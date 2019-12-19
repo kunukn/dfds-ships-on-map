@@ -55,10 +55,6 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
           />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
         </Head>
         <body>
           <Main />
@@ -72,6 +68,10 @@ export default class MyDocument extends Document {
             }}
           />
           <NextScript />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
         </body>
       </html>
     );
