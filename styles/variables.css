@@ -10,6 +10,4 @@
     --z-index-high: 100;
     --z-index-between: 500;
     --z-index-max: 1000;
-  
-    --bounce-in: cubic-bezier(0.55, 0.01, 0, 1.1);
   }
