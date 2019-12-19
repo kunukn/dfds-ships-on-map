@@ -65,7 +65,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, level = 0 }) => {
           width: 100%;
           height: 100%;
           padding: 40px 10px 10px;
-          background: rgba(white, 0.5);
+          background-color: rgba(255, 255, 255, 0.5);
           @supports (backdrop-filter: blur(10px)) {
             background-color: rgba(255, 255, 255, 0.2);
             backdrop-filter: saturate(180%) blur(4px);
@@ -94,7 +94,7 @@ const TabMenu = ({ children, title, isOpen, onToggle, level = 0 }) => {
         .menu-text-toggle-content {
           border-top-left-radius: 1.5em;
           border-bottom-left-radius: 1.5em;
-          background: rgba(white, 0.5);
+          background-color: rgba(255, 255, 255, 0.5);
           position: absolute;
           top: 0;
           right: 0;

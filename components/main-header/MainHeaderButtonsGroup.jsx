@@ -85,7 +85,7 @@ const MainHeaderButtonsGroup = () => {
               cursor: pointer;
               font-size: 20px;
               border-radius: 50%;
-              background: rgba(white, 0.5);
+              background-color: rgba(255, 255, 255, 0.5);
               @supports (backdrop-filter: blur(10px)) {
                 background-color: rgba(255, 255, 255, 0.5);
                 backdrop-filter: saturate(180%) blur(4px);

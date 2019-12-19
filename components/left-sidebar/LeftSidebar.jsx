@@ -163,7 +163,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           cursor: pointer;
           font-size: 20px;
           border-radius: 50%;
-          background: rgba(white, 0.5);
+          background-color: rgba(255, 255, 255, 0.5);
           @supports (backdrop-filter: blur(10px)) {
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: saturate(180%) blur(4px);
@@ -180,7 +180,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           position: absolute;
           top: 10px;
           left: 0;
-          background: rgba(white, 0.8);
+          background-color: rgba(255,255,255, 0.8);
           @supports (backdrop-filter: blur(10px)) {
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: saturate(180%) blur(4px);
@@ -293,7 +293,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           text-align: left;
           margin-left: auto;
           display: inline-block;
-          background: rgba(white, 0.5);
+          background: rgba(255,255,255, 0.5);
           border-radius: 50%;
           transition: transform 260ms cubic-bezier(0, 1, 0, 1);
           display: inline-block;

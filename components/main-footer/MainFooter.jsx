@@ -28,8 +28,8 @@ const MainFooter = ({ lastUpdated }) => {
         }
         .last-updated {
           font-size: 14px;
+          background: rgba(var(--color-group-blue), 0.6); /* this doesn't work? */
           background: rgba(0,43,69, 0.6);
-          background: rgba(var(--color-group-blue), 0.6);
           position: absolute;
           bottom: 0;
           left: 0;
