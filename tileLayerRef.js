@@ -1,9 +1,9 @@
-let tileLayer = null;
+let tileLayer = null
 
 const tileLayerRef = {
   get: () => tileLayer,
   set(newtile) {
-    tileLayer = newtile;
-  },
-};
-export default tileLayerRef;
+    tileLayer = newtile
+  }
+}
+export default tileLayerRef

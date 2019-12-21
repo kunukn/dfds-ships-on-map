@@ -45,3 +45,8 @@ Exploring tech in following areas.
 - ~Search and find terminal by name~
 - Scheduled information from other API
 - Timeline, go back in history
+
+## Copyright and License
+
+Most of the icons are owned by DFDS.
+The code is free to use (BSD license).

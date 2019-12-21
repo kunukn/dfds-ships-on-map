@@ -1,26 +1,12 @@
-// TODO: refactor. there is only one right tab item.
+import { useStore } from "laco-react"
 
-import { useStore } from 'laco-react';
-
-import store from '~/store.js';
-import CloseSvg from '~/public/icons/Close.svg';
+import store from "~/store.js"
+import CloseSvg from "~/public/icons/Close.svg"
 
 const TabMenu = ({ children, title, isOpen, onToggle, level = 0 }) => {
-  const { isFullscreen } = useStore(store);
+  const { isFullscreen } = useStore(store)
 
-  // TODO: delete this
-  let getFallbackTitle = () => (
-    <>
-      {'tab'.split('').map((c, index) => (
-        <b key={index}>{c}</b>
-      ))}
-      <b>{level + 1}</b>
-    </>
-  );
-
-  let titleToRender = title
-    ? title.split('').map((c, index) => <b key={index}>{c}</b>)
-    : getFallbackTitle();
+  let titleToRender = title.split("").map((c, index) => <b key={index}>{c}</b>)
 
   return (
     <>
@@ -134,15 +120,15 @@ const TabMenu = ({ children, title, isOpen, onToggle, level = 0 }) => {
       `}</style>
       <style jsx>{`
         .tab-menu {
-          transform: ${isOpen ? 'translateX(0)' : 'translateX(100%)'};
+          transform: ${isOpen ? "translateX(0)" : "translateX(100%)"};
           z-index: ${isOpen ? 1 : 0};
         }
         .menu-text-toggle {
-          opacity: ${isFullscreen ? 0.6 : ''};
+          opacity: ${isFullscreen ? 0.6 : ""};
         }
       `}</style>
     </>
-  );
-};
+  )
+}
 
-export default TabMenu;
+export default TabMenu
