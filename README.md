@@ -10,7 +10,12 @@ npm run dev
 # or yarn dev
 ```
 
-Prototype
+## Development
+
+Mock ships data are used in development mode.
+
+
+## Prototyping
 
 Exploring tech in following areas.
 
