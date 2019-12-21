@@ -1,10 +1,10 @@
 // https://nextjs.org/docs/#custom-document
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from "next/document"
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
+    const initialProps = await Document.getInitialProps(ctx)
+    return { ...initialProps }
   }
 
   render() {
@@ -16,11 +16,7 @@ export default class MyDocument extends Document {
           <meta name="description" content="dfds ships on map" />
           <meta name="keywords" content="dfds ships map" />
           <meta name="theme-color" content="#002B45" />
-          <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="/favicon.ico"
-          />
+          <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
           <link rel="apple-touch-icon" href="/pwa/logo192.png" />
           <link rel="manifest" href="/pwa/site.webmanifest" />
           <meta name="mobile-web-app-capable" content="yes" />
@@ -44,7 +40,7 @@ export default class MyDocument extends Document {
             gtag('js', new Date());
             gtag('config', 'UA-149675936-1');
           } catch(ex){console.warn(ex+'')}
-          `,
+          `
             }}
           />
           <link
@@ -64,16 +60,12 @@ export default class MyDocument extends Document {
               __html: `
           try {
           } catch(ex){console.warn(ex+'')}
-          `,
+          `
             }}
           />
           <NextScript />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
         </body>
       </html>
-    );
+    )
   }
 }
