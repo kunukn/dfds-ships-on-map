@@ -1,23 +1,23 @@
-import App from 'next/app';
+import App from "next/app"
 
-import getShipsFromApi from '~/api-layer/getShipsFromApi';
-import store from '~/store.js';
-import GlobalStyles from '~/components/GlobalStyles';
-import LeafletStyles from '~/components/LeafletStyles';
-import getQueryParams from '~/utils/getQueryParams';
+import store from "~/store.js"
+import GlobalStyles from "~/components/GlobalStyles"
+import LeafletStyles from "~/components/LeafletStyles"
+import getQueryParams from "~/utils/getQueryParams"
 
 if (process.browser) {
   try {
-    (async () => {
+    ;(async () => {
       // Don't use the store here, doesn't update in the render.
       // use that in useEffect.
-    })();
+    })()
   } catch (ex) {
-    console.error(ex.toString());
+    console.error(ex.toString())
   }
 }
 
 class MyApp extends App {
+  /* if getInitialProps is used here, then they will be no static optimization builds */
   // static async getInitialProps({ Component, ctx }) {
   //   let pageProps = {};
   //   if (Component.getInitialProps) {
@@ -27,7 +27,7 @@ class MyApp extends App {
   // }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps } = this.props
 
     return (
       <>
@@ -36,42 +36,42 @@ class MyApp extends App {
         <GlobalEffect />
         <Component {...pageProps} />
       </>
-    );
+    )
   }
 }
 
 const GlobalEffect = () => {
-  let onFullscreenchange = e => {
+  let onFullscreenchange = event => {
     store.set(state => ({
-      isFullscreen: !!document.fullscreenElement,
-    }));
-  };
+      isFullscreen: !!document.fullscreenElement
+    }))
+  }
 
   React.useEffect(() => {
-    let params = getQueryParams();
+    let params = getQueryParams()
     if (params.settings) {
       store.set(state => ({
-        isSettingsOpen: true,
-      }));
+        isSettingsOpen: true
+      }))
     }
     if (params.leftsidebar) {
       store.set(state => ({
-        isLeftSidebarOpen: true,
-      }));
+        isLeftSidebarOpen: true
+      }))
     }
 
-    let isFullscreenSupported = !!document.fullscreenEnabled;
+    let isFullscreenSupported = !!document.fullscreenEnabled
 
-    if (isFullscreenSupported && 'requestFullscreen' in document.body) {
-      document.addEventListener('fullscreenchange', onFullscreenchange, false);
+    if (isFullscreenSupported && "requestFullscreen" in document.body) {
+      document.addEventListener("fullscreenchange", onFullscreenchange, false)
     }
 
     store.set(state => ({
-      isFullscreenSupported,
-    }));
-  }, []);
+      isFullscreenSupported
+    }))
+  }, [])
 
-  return null;
-};
+  return null
+}
 
-export default MyApp;
+export default MyApp
