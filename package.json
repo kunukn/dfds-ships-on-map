@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": false,
   "scripts": {
-    "serve": "node server.js --port 5557",
     "dev": "next dev -p 5557",
     "build": "next build",
     "start": "next start -p 5557"
