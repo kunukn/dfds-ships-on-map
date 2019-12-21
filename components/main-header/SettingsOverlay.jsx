@@ -95,7 +95,7 @@ const SettingsOverlay = () => {
           right: 0;
           transform: translateY(-100%);
           transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
-          background-color: rgba(white, 0.9);
+          background-color: rgba(255,255,255, 0.9);
           @supports (backdrop-filter: blur(4px)) {
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: saturate(180%) blur(4px);
@@ -115,7 +115,7 @@ const SettingsOverlay = () => {
           justify-content: space-between;
           align-items: center;
           padding: 10px;
-          background-color: rgba(white, 0.8);
+          background-color: rgba(255,255,255, 0.8);
           flex-wrap: wrap;
         }
 
