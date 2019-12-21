@@ -223,6 +223,7 @@ let updateMarkerPosition = ({ ships, map }) => {
     if (typeof window === 'object' && map && Array.isArray(ships)) {
       if (!ships.length) {
         // remove all markers from map because the API now says array is empty?
+        // This has been skipped, we do nothing for now.
       } else {
         const shipsDataObject = arrayToObject(ships, 'imo');
 

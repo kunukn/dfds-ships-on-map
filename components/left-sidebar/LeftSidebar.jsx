@@ -1,55 +1,55 @@
-import { useStore, Subscribe } from "laco-react";
-import Collapse from "@kunukn/react-collapse";
-import cx from "clsx";
+import { useStore, Subscribe } from "laco-react"
+import Collapse from "@kunukn/react-collapse"
+import cx from "clsx"
 
-import store from "~/store.js";
-import NextIcon from "~/public/icons/Next.svg";
-import TrackingPinShip from "~/public/icons/TrackingPinShip.svg";
-import MapNavigation from "~/public/icons/MapNavigation.svg";
-import UpIcon from "~/public/icons/Up.svg";
-import { zoomToShip, zoomToTerminal } from "~/utils/mapUtil";
+import store from "~/store.js"
+import NextIcon from "~/public/icons/Next.svg"
+import TrackingPinShip from "~/public/icons/TrackingPinShip.svg"
+import MapNavigation from "~/public/icons/MapNavigation.svg"
+import UpIcon from "~/public/icons/Up.svg"
+import { zoomToShip, zoomToTerminal } from "~/utils/mapUtil"
 
 let onLeftSidebarToggle = value => {
   if (value === true || value === false) {
-    store.set(state => ({ isLeftSidebarOpen: value }));
+    store.set(state => ({ isLeftSidebarOpen: value }))
   } else {
-    store.set(state => ({ isLeftSidebarOpen: !state.isLeftSidebarOpen }));
+    store.set(state => ({ isLeftSidebarOpen: !state.isLeftSidebarOpen }))
   }
-};
+}
 
 const LeftSidebar = ({ ships = [], terminals = [] }) => {
-  const { isFullscreen, isLeftSidebarOpen } = useStore(store);
+  const { isFullscreen, isLeftSidebarOpen } = useStore(store)
 
-  const [shipSearchArea, setShipSearchArea] = React.useState(true);
-  const [terminalSearchArea, setTerminalSearchArea] = React.useState(true);
+  const [shipSearchArea, setShipSearchArea] = React.useState(true)
+  const [terminalSearchArea, setTerminalSearchArea] = React.useState(true)
 
-  let isFirstRender = React.useRef(true);
+  let isFirstRender = React.useRef(true)
   React.useEffect(() => {
     if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
+      isFirstRender.current = false
+      return
     }
 
     if (isFullscreen && !document.fullscreenElement) {
       document.body.requestFullscreen().catch(err => {
-        console.warn(err);
-      });
+        console.warn(err)
+      })
     } else if (!isFullscreen && document.fullscreenElement) {
       document.exitFullscreen().catch(err => {
-        console.warn(err);
-      });
+        console.warn(err)
+      })
     }
-  }, [isFullscreen]);
+  }, [isFullscreen])
 
   let shipsSorted = React.useMemo(
     () => ships.sort((a, b) => ("" + a.name).localeCompare(b.name)),
     [ships]
-  );
+  )
 
   let terminalsSorted = React.useMemo(
     () => terminals.sort((a, b) => ("" + a.name).localeCompare(b.name)),
     [terminals]
-  );
+  )
 
   return (
     <>
@@ -85,13 +85,18 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
               <div className="ship-count">Ships: {shipsSorted.length}</div>
               {shipsSorted.map(item => (
                 <div key={item.name} className="sidebar-search-item">
-                  <button
-                    onClick={() => {
-                      zoomToShip(item);
-                    }}
-                  >
-                    {item.name}
-                  </button>
+                  {item.position ? (
+                    <button
+                      className="sidebar-search-item-button"
+                      onClick={() => {
+                        zoomToShip(item)
+                      }}
+                    >
+                      {item.name}
+                    </button>
+                  ) : (
+                    <div className="sidebar-search-item-has-no-position">{item.name} ?</div>
+                  )}
                 </div>
               ))}
             </div>
@@ -123,8 +128,9 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
               {terminalsSorted.map(item => (
                 <div key={item.name} className="sidebar-search-item">
                   <button
+                  className="sidebar-search-item-button"
                     onClick={() => {
-                      zoomToTerminal(item);
+                      zoomToTerminal(item)
                     }}
                   >
                     {prettyTerminalName(item.name)}
@@ -180,7 +186,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           position: absolute;
           top: 10px;
           left: 0;
-          background-color: rgba(255,255,255, 0.8);
+          background-color: rgba(255, 255, 255, 0.8);
           @supports (backdrop-filter: blur(10px)) {
             background-color: rgba(255, 255, 255, 0.5);
             backdrop-filter: saturate(180%) blur(4px);
@@ -204,7 +210,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
         }
 
         .button-sidebar-content {
-          background-color: rgba(255,255,255, 0.9);
+          background-color: rgba(255, 255, 255, 0.9);
           height: inherit;
           display: flex;
           justify-content: center;
@@ -274,18 +280,21 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
         }
         .sidebar-search-item {
           margin-bottom: 10px;
-          > button {
-            font-size: inherit;
-            cursor: pointer;
-            padding: 4px;
-            display: block;
-            width: 100%;
-            background: white;
-            text-align: left;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
+        }
+        .sidebar-search-item-button {
+          font-size: inherit;
+          cursor: pointer;
+          padding: 4px;
+          display: block;
+          width: 100%;
+          background: white;
+          text-align: left;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .sidebar-search-item-has-no-position{
+          padding: 4px;
         }
         .toggle {
           cursor: pointer;
@@ -293,7 +302,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           text-align: left;
           margin-left: auto;
           display: inline-block;
-          background: rgba(255,255,255, 0.5);
+          background: rgba(255, 255, 255, 0.5);
           border-radius: 50%;
           transition: transform 260ms cubic-bezier(0, 1, 0, 1);
           display: inline-block;
@@ -309,14 +318,14 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
         }
       `}</style>
     </>
-  );
-};
+  )
+}
 
-export default LeftSidebar;
+export default LeftSidebar
 
 const prettyTerminalName = name => {
   if (name) {
-    return name.replace("terminal", "");
+    return name.replace("terminal", "")
   }
-  return name;
-};
+  return name
+}

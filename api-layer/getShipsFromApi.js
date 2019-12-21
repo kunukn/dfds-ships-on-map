@@ -24,6 +24,7 @@ export default async function getShipsFromApi({ useProxy = true } = {}) {
 
     json.forEach(ship => {
       if (!ship.name) ship.name = getShipNameByIMO(ship.imo);
+      if (!ship.name) ship.name = `imo ${ship.imo}`;
     });
 
     return json;
