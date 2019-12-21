@@ -2,7 +2,6 @@
   "name": "dfds-ships-on-map",
   "version": "0.0.1",
   "private": false,
-  "license": "BSD",
   "scripts": {
     "dev": "next dev -p 5557",
     "build": "next build",
