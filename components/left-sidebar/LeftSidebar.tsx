@@ -1,19 +1,19 @@
-import { useStore, Subscribe } from "laco-react"
-import Collapse from "@kunukn/react-collapse"
-import cx from "clsx"
+import { useStore, Subscribe } from 'laco-react'
+import Collapse from '@kunukn/react-collapse'
+import cx from 'clsx'
 
-import store from "~/store.js"
-import NextIcon from "~/public/icons/Next.svg"
-import TrackingPinShip from "~/public/icons/TrackingPinShip.svg"
-import MapNavigation from "~/public/icons/MapNavigation.svg"
-import UpIcon from "~/public/icons/Up.svg"
-import { zoomToShip, zoomToTerminal } from "~/utils/mapUtil"
+import store from '~/store.js'
+import NextIcon from '~/public/icons/Next.svg'
+import TrackingPinShip from '~/public/icons/TrackingPinShip.svg'
+import MapNavigation from '~/public/icons/MapNavigation.svg'
+import UpIcon from '~/public/icons/Up.svg'
+import { zoomToShip, zoomToTerminal } from '~/utils/mapUtil'
 
-let onLeftSidebarToggle = value => {
+let onLeftSidebarToggle = (value) => {
   if (value === true || value === false) {
-    store.set(state => ({ isLeftSidebarOpen: value }))
+    store.set((state) => ({ isLeftSidebarOpen: value }))
   } else {
-    store.set(state => ({ isLeftSidebarOpen: !state.isLeftSidebarOpen }))
+    store.set((state) => ({ isLeftSidebarOpen: !state.isLeftSidebarOpen }))
   }
 }
 
@@ -31,23 +31,23 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
     }
 
     if (isFullscreen && !document.fullscreenElement) {
-      document.body.requestFullscreen().catch(err => {
+      document.body.requestFullscreen().catch((err) => {
         console.warn(err)
       })
     } else if (!isFullscreen && document.fullscreenElement) {
-      document.exitFullscreen().catch(err => {
+      document.exitFullscreen().catch((err) => {
         console.warn(err)
       })
     }
   }, [isFullscreen])
 
   let shipsSorted = React.useMemo(
-    () => ships.sort((a, b) => ("" + a.name).localeCompare(b.name)),
+    () => ships.sort((a, b) => ('' + a.name).localeCompare(b.name)),
     [ships]
   )
 
   let terminalsSorted = React.useMemo(
-    () => terminals.sort((a, b) => ("" + a.name).localeCompare(b.name)),
+    () => terminals.sort((a, b) => ('' + a.name).localeCompare(b.name)),
     [terminals]
   )
 
@@ -56,7 +56,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
       <aside
         className="sidebar"
         style={{
-          transform: isLeftSidebarOpen ? "translateX(0)" : "translateX(-100%)"
+          transform: isLeftSidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
         }}
       >
         <div className="sidebar-headline">Find</div>
@@ -66,10 +66,10 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
               <span>Zoom to</span> <TrackingPinShip />
             </div>
             <button
-              onClick={() => setShipSearchArea(s => !s)}
+              onClick={() => setShipSearchArea((s) => !s)}
               aria-label="toggle ships"
               className={
-                shipSearchArea ? "toggle toggle-show" : "toggle toggle-hide"
+                shipSearchArea ? 'toggle toggle-show' : 'toggle toggle-hide'
               }
             >
               <UpIcon />
@@ -78,12 +78,12 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
 
           <Collapse isOpen={shipSearchArea}>
             <div
-              className={cx("sidebar-search-area", {
-                "sidebar-search-area--is-open": shipSearchArea
+              className={cx('sidebar-search-area', {
+                'sidebar-search-area--is-open': shipSearchArea,
               })}
             >
               <div className="ship-count">Ships: {shipsSorted.length}</div>
-              {shipsSorted.map(item => (
+              {shipsSorted.map((item) => (
                 <div key={item.name} className="sidebar-search-item">
                   {item.position ? (
                     <button
@@ -95,7 +95,9 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
                       {item.name}
                     </button>
                   ) : (
-                    <div className="sidebar-search-item-has-no-position">{item.name} ?</div>
+                    <div className="sidebar-search-item-has-no-position">
+                      {item.name} ?
+                    </div>
                   )}
                 </div>
               ))}
@@ -107,10 +109,10 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
               Zoom to <MapNavigation />
             </div>
             <button
-              onClick={() => setTerminalSearchArea(s => !s)}
+              onClick={() => setTerminalSearchArea((s) => !s)}
               aria-label="toggle ships"
               className={
-                terminalSearchArea ? "toggle toggle-show" : "toggle toggle-hide"
+                terminalSearchArea ? 'toggle toggle-show' : 'toggle toggle-hide'
               }
             >
               <UpIcon />
@@ -118,17 +120,17 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           </div>
           <Collapse isOpen={terminalSearchArea}>
             <div
-              className={cx("sidebar-search-area", {
-                "sidebar-search-area--is-open": terminalSearchArea
+              className={cx('sidebar-search-area', {
+                'sidebar-search-area--is-open': terminalSearchArea,
               })}
             >
               <div className="terminal-count">
                 Terminals: {terminalsSorted.length}
               </div>
-              {terminalsSorted.map(item => (
+              {terminalsSorted.map((item) => (
                 <div key={item.name} className="sidebar-search-item">
                   <button
-                  className="sidebar-search-item-button"
+                    className="sidebar-search-item-button"
                     onClick={() => {
                       zoomToTerminal(item)
                     }}
@@ -148,11 +150,13 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           title="toggle sidebar"
         >
           <div className="button-sidebar-content">
-            <NextIcon
+            <div
               style={{
-                transform: isLeftSidebarOpen ? "rotate(.5turn)" : "rotate(0)"
+                transform: isLeftSidebarOpen ? 'rotate(.5turn)' : 'rotate(0)',
               }}
-            />
+            >
+              <NextIcon />
+            </div>
           </div>
         </button>
       </aside>
@@ -293,7 +297,7 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
           overflow: hidden;
           text-overflow: ellipsis;
         }
-        .sidebar-search-item-has-no-position{
+        .sidebar-search-item-has-no-position {
           padding: 4px;
         }
         .toggle {
@@ -323,9 +327,9 @@ const LeftSidebar = ({ ships = [], terminals = [] }) => {
 
 export default LeftSidebar
 
-const prettyTerminalName = name => {
+const prettyTerminalName = (name) => {
   if (name) {
-    return name.replace("terminal", "")
+    return name.replace('terminal', '')
   }
   return name
 }
