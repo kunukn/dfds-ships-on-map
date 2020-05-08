@@ -1,9 +1,5 @@
 # dfds-ships-on-map
 
-Code for 
-https://ships-on-map.tech
-
-
 ## quick start
 
 ```bash
@@ -18,22 +14,20 @@ npm run dev
 
 Mock ships data are used in development mode.
 
-
 ## Prototyping
 
 Exploring tech in following areas.
 
-* Navigation by ship position on map - deep link
-* Navigation by terminal position on map - deep link
-* support querystring
-* Laco store with NextJS
-* React with leaflet
-* Tab menu experiment
-* fullscreen API with React
-* map as fullscreen page
-* proxy lampda API
-* change map tiles
-
+- Navigation by ship position on map - deep link
+- Navigation by terminal position on map - deep link
+- support querystring
+- Laco store with NextJS
+- React with leaflet
+- Tab menu experiment
+- fullscreen API with React
+- map as fullscreen page
+- proxy lampda API
+- change map tiles
 
 ## TODO
 
