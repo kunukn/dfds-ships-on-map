@@ -1,4 +1,4 @@
-import mapRef from '~/mapRef.js';
+import mapRef from '~/mapRef';
 import routes from '~/data-layer/routes';
 
 export let createCustomIcon = () =>

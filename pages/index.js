@@ -1,1 +1,1 @@
-export { default } from './map.js';
+export { default } from './map';

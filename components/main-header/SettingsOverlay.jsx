@@ -3,8 +3,8 @@ import cx from 'clsx';
 
 import store from '~/store.js';
 import CloseIcon from '~/public/icons/Close.svg';
-import mapRef from '~/mapRef.js';
-import tileLayerRef from '~/tileLayerRef.js';
+import mapRef from '~/mapRef';
+import tileLayerRef from '~/tileLayerRef';
 import { tileLayerMapbox, tileLayerOpenStreetMaps } from '~/utils/mapUtil';
 
 const onClose = () => store.set(state => ({ isSettingsOpen: false }));
