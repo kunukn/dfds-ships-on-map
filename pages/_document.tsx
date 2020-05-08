@@ -1,5 +1,5 @@
 // https://nextjs.org/docs/#custom-document
-import Document, { Html, Head, Main, NextScript } from "next/document"
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -27,20 +27,8 @@ export default class MyDocument extends Document {
           />
 
           <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-149675936-1"
-          ></script>
-
-          <script
             dangerouslySetInnerHTML={{
-              __html: `
-          try {
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-149675936-1');
-          } catch(ex){console.warn(ex+'')}
-          `
+              __html: ``,
             }}
           />
           <link
@@ -60,7 +48,7 @@ export default class MyDocument extends Document {
               __html: `
           try {
           } catch(ex){console.warn(ex+'')}
-          `
+          `,
             }}
           />
           <NextScript />
