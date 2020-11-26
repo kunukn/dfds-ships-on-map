@@ -2,8 +2,9 @@
 // http://api.dfds.cloud/prod/voyage/swagger/index.html
 
 import fetch from 'isomorphic-unfetch';
+import allowCors from './allowCors'
 
-export default async function getShips(req, res) {
+async function getShips(req, res) {
   async function getShipsFromApi() {
     try {
       let url = `https://api.hellman.oxygen.dfds.cloud/dev/vessel/api/v1/Ships?v=${Date.now()}`;
@@ -26,3 +27,7 @@ export default async function getShips(req, res) {
 
   return res.json(ships);
 }
+
+const getShipsWithCors = allowCors(getShips)
+
+export default getShipsWithCors
