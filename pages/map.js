@@ -44,8 +44,8 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 let portsAndTerminals = ports.concat(terminals)
 let intervalKey = null
 const threeMinutes = 1000 * 60 * 3
-const fiveSeconds = 1000 * 5
-let dataUpdateInterval = isDevelopment ? fiveSeconds : threeMinutes
+const tenSeconds = 1000 * 10
+let dataUpdateInterval = isDevelopment ? threeMinutes : threeMinutes
 
 const Map = (props) => {
   const { isFullscreen, logs, ships = [], isSettingsOpen } = useStore(store)

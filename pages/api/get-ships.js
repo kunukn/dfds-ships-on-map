@@ -2,7 +2,6 @@
 // http://api.dfds.cloud/prod/voyage/swagger/index.html
 
 import fetch from 'isomorphic-unfetch';
-import allowCors from './allowCors'
 
 async function getShips(req, res) {
   async function getShipsFromApi() {
@@ -28,6 +27,4 @@ async function getShips(req, res) {
   return res.json(ships);
 }
 
-const getShipsWithCors = allowCors(getShips)
-
-export default getShipsWithCors
+export default getShips
