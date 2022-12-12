@@ -52,7 +52,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "eslint-plugin-standard": "^4.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "laco": "^1.2.1",
     "laco-react": "^1.1.0",
     "micro": "^9.3.4",
